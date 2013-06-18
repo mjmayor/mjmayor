@@ -40,8 +40,8 @@ public class CheckDNIImpl implements ConstraintValidator<CheckDNI,String> {
 	 */
 	private char calculaLetra(int dni) {
 		String juegoCaracteres="TRWAGMYFPDXBNJZSQVHLCKET";
-	    int modulo= dni % 23;
-	    char letra = juegoCaracteres.charAt(modulo);
-	    return letra; 
+		int modulo= dni % 23;
+		char letra = juegoCaracteres.charAt(modulo);
+		return letra; 
     } 
 }
