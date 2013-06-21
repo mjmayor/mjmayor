@@ -2,18 +2,18 @@ package org.mjmayor.baseproject.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.mjmayor.baseproject.dao.AlumnoDAO;
 import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.form.AlumnoForm;
 import org.mjmayor.baseproject.utils.ListUtils;
 import org.mjmayor.baseproject.view.AlumnoView;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 public class AlumnoDAOImpl implements AlumnoDAO {
 
-	private LocalSessionFactoryBean sessionFactory;
+	private SessionFactory sessionFactory;
 	
-	private AlumnoDAOImpl(LocalSessionFactoryBean sessionFactory){
+	public AlumnoDAOImpl(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
 	
