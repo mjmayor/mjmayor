@@ -11,35 +11,32 @@ import org.mjmayor.baseproject.view.AlumnoView;
 
 public class AlumnoDAOImpl implements AlumnoDAO {
 
-	private SessionFactory sessionFactory;
-	
-	public AlumnoDAOImpl(SessionFactory sessionFactory){
-		this.sessionFactory = sessionFactory;
-	}
-	
-	@Override
-	public void addAlumno(AlumnoForm alumno) {
-		sessionFactory.getCurrentSession().save(alumno);
-	}
+    private SessionFactory sessionFactory;
 
-	@Override
-	public List<AlumnoView> getAlumnos() {
-		return ListUtils.castList(
-				AlumnoDTO.class,
-				sessionFactory.getCurrentSession().createQuery("from Alumno").list()
-		);
-	}
+    public AlumnoDAOImpl(SessionFactory sessionFactory) {
+	this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public AlumnoView getAlumno(AlumnoForm alumnoForm) {
-		return (AlumnoView)sessionFactory.getCurrentSession().get(AlumnoDTO.class,alumnoForm.getDni());
-	}
+    @Override
+    public void addAlumno(AlumnoForm alumno) {
+	sessionFactory.getCurrentSession().save(alumno);
+    }
 
-	@Override
-	public void removeAlumno(AlumnoForm alumnoForm) {
-		AlumnoDTO alumno=(AlumnoDTO)sessionFactory.getCurrentSession().load(AlumnoDTO.class,alumnoForm.getDni());
-		if (alumno!=null){
-			sessionFactory.getCurrentSession().delete(alumno);
-		}
+    @Override
+    public List<AlumnoView> getAlumnos() {
+	return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery("from Alumno").list());
+    }
+
+    @Override
+    public AlumnoView getAlumno(AlumnoForm alumnoForm) {
+	return (AlumnoView) sessionFactory.getCurrentSession().get(AlumnoDTO.class, alumnoForm.getDni());
+    }
+
+    @Override
+    public void removeAlumno(AlumnoForm alumnoForm) {
+	AlumnoDTO alumno = (AlumnoDTO) sessionFactory.getCurrentSession().load(AlumnoDTO.class, alumnoForm.getDni());
+	if (alumno != null) {
+	    sessionFactory.getCurrentSession().delete(alumno);
 	}
+    }
 }

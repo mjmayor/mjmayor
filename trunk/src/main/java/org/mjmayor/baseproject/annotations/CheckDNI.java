@@ -12,10 +12,12 @@ import org.mjmayor.baseproject.annotations.impl.CheckDNIImpl;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@Constraint(validatedBy=CheckDNIImpl.class)
+@Constraint(validatedBy = CheckDNIImpl.class)
 public @interface CheckDNI {
 
-	String message() default "Error en la validacion del DNI";
-	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default {};
+    String message() default "Error en la validacion del DNI";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

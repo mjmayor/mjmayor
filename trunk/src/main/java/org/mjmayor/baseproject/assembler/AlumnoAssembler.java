@@ -6,15 +6,15 @@ import org.mjmayor.baseproject.view.AlumnoView;
 
 public class AlumnoAssembler extends AbstractAssembler<AlumnoDTO, AlumnoView> {
 
-	@Override
-	public AlumnoView assemble(AlumnoDTO alumnoDTO) {
+    @Override
+    public AlumnoView assemble(AlumnoDTO alumnoDTO) {
 
-		AlumnoView alumnoView = new AlumnoView();
+	AlumnoView alumnoView = new AlumnoView();
 
-		alumnoView.setDni(alumnoDTO.getDni());
-		alumnoView.setNombreCompleto(alumnoDTO.getNombre() + " " + alumnoDTO.getApellidos());
-		alumnoView.setEmail(alumnoDTO.getEmail());
+	alumnoView.setDni(alumnoDTO.getDni());
+	alumnoView.setNombreCompleto(alumnoDTO.getNombre() + " " + alumnoDTO.getApellidos());
+	alumnoView.setEmail(alumnoDTO.getEmail());
 
-		return alumnoView;
-	}
+	return alumnoView;
+    }
 }

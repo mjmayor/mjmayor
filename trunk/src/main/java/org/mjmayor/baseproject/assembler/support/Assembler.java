@@ -4,11 +4,11 @@ import java.util.Collection;
 
 public interface Assembler<SOURCE, TARGET> {
 
-	boolean canConvert(Class<?> clazz);
+    boolean canConvert(Class<?> clazz);
 
-	TARGET assemble(SOURCE source);
+    TARGET assemble(SOURCE source);
 
-	Collection<TARGET> assemble(Collection<SOURCE> source);
+    Collection<TARGET> assemble(Collection<SOURCE> source);
 
-	PageResult<TARGET> assemble(PageResult<SOURCE> source);
+    PageResult<TARGET> assemble(PageResult<SOURCE> source);
 }

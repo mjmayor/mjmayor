@@ -12,31 +12,30 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProfesorFacadeImpl implements ProfesorFacade {
 
-	@Autowired
-	private ProfesorDAO profesorDAO;
-	
-	
-	@Override
-	@Transactional
-	public void addProfesor(Profesor profesor) {
-		profesorDAO.addProfesor(profesor);
-	}
+    @Autowired
+    private ProfesorDAO profesorDAO;
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Profesor> getProfesores() {
-		return profesorDAO.getProfesores();
-	}
+    @Override
+    @Transactional
+    public void addProfesor(Profesor profesor) {
+	profesorDAO.addProfesor(profesor);
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public Profesor getProfesor(int id) {
-		return profesorDAO.getProfesor(id);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<Profesor> getProfesores() {
+	return profesorDAO.getProfesores();
+    }
 
-	@Override
-	@Transactional
-	public void removeProfesor(int id) {
-		profesorDAO.removeProfesor(id);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Profesor getProfesor(int id) {
+	return profesorDAO.getProfesor(id);
+    }
+
+    @Override
+    @Transactional
+    public void removeProfesor(int id) {
+	profesorDAO.removeProfesor(id);
+    }
 }

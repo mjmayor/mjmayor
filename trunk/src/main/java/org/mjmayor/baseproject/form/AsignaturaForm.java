@@ -7,54 +7,46 @@ import org.hibernate.validator.constraints.Range;
 
 public class AsignaturaForm {
 
-	@NotEmpty
-	private String nombre;
-	
-	@Range(min=1, max=5)
-	private int curso;
-	
-	@NotNull
-	private Float creditos;
-	
-	
-	public AsignaturaForm(){
-		
-	}
-	
-	
-	public AsignaturaForm(String nombre, int curso, float creditos){
-		this.nombre=nombre;
-		this.curso=curso;
-		this.creditos=creditos;
-	}
+    @NotEmpty
+    private String nombre;
 
+    @Range(min = 1, max = 5)
+    private int curso;
 
-	public String getNombre() {
-		return nombre;
-	}
+    @NotNull
+    private Float creditos;
 
+    public AsignaturaForm() {
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    }
 
+    public AsignaturaForm(String nombre, int curso, float creditos) {
+	this.nombre = nombre;
+	this.curso = curso;
+	this.creditos = creditos;
+    }
 
-	public int getCurso() {
-		return curso;
-	}
+    public String getNombre() {
+	return nombre;
+    }
 
+    public void setNombre(String nombre) {
+	this.nombre = nombre;
+    }
 
-	public void setCurso(int curso) {
-		this.curso = curso;
-	}
+    public int getCurso() {
+	return curso;
+    }
 
+    public void setCurso(int curso) {
+	this.curso = curso;
+    }
 
-	public Float getCreditos() {
-		return creditos;
-	}
+    public Float getCreditos() {
+	return creditos;
+    }
 
-
-	public void setCreditos(Float creditos) {
-		this.creditos = creditos;
-	}
+    public void setCreditos(Float creditos) {
+	this.creditos = creditos;
+    }
 }

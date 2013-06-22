@@ -7,40 +7,44 @@ import java.util.List;
 
 public abstract class AbstractAssembler<SOURCE, TARGET> implements Assembler<SOURCE, TARGET> {
 
-	/* (non-Javadoc)
-	 * @see com.irtve.plataforma.components.core.assembler.Assembler#canConver(java.lang.Class)
-	 */
-	@Override
-	public boolean canConvert(Class<?> clazz) {
-		Class<?> srcClass = (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		return clazz.isAssignableFrom(srcClass);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.irtve.plataforma.components.core.assembler.Assembler#canConver(java
+     * .lang.Class)
+     */
+    @Override
+    public boolean canConvert(Class<?> clazz) {
+	Class<?> srcClass = (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	return clazz.isAssignableFrom(srcClass);
+    }
 
-	@Override
-	public PageResult<TARGET> assemble(PageResult<SOURCE> source) {
-		if (source == null || source.numElements == 0) {
-			return new PageResult<TARGET>(0,0,0,0,0,0,new ArrayList<TARGET>(0));
-		}
-		List<TARGET> result = new ArrayList<TARGET>(source.numElements);
-		for (SOURCE s : source.items) {
-			result.add(assemble(s));
-		}
-		return createPageResult(source,result); 
+    @Override
+    public PageResult<TARGET> assemble(PageResult<SOURCE> source) {
+	if (source == null || source.numElements == 0) {
+	    return new PageResult<TARGET>(0, 0, 0, 0, 0, 0, new ArrayList<TARGET>(0));
 	}
+	List<TARGET> result = new ArrayList<TARGET>(source.numElements);
+	for (SOURCE s : source.items) {
+	    result.add(assemble(s));
+	}
+	return createPageResult(source, result);
+    }
 
-	@Override
-	public Collection<TARGET> assemble(Collection<SOURCE> source) {
-		if (source == null || source.isEmpty()) {
-			return new ArrayList<TARGET>(0);
-		}
-		List<TARGET> items = new ArrayList<TARGET>(source.size());
-		for (SOURCE s : source) {
-			items.add(assemble(s));
-		}
-		return items;
+    @Override
+    public Collection<TARGET> assemble(Collection<SOURCE> source) {
+	if (source == null || source.isEmpty()) {
+	    return new ArrayList<TARGET>(0);
 	}
-	
-	private PageResult<TARGET> createPageResult(PageResult<SOURCE> source, List<TARGET> items){
-		return new PageResult<TARGET>(source.size, source.offset, source.number, source.total, source.totalPages, source.numElements, items);
+	List<TARGET> items = new ArrayList<TARGET>(source.size());
+	for (SOURCE s : source) {
+	    items.add(assemble(s));
 	}
+	return items;
+    }
+
+    private PageResult<TARGET> createPageResult(PageResult<SOURCE> source, List<TARGET> items) {
+	return new PageResult<TARGET>(source.size, source.offset, source.number, source.total, source.totalPages, source.numElements, items);
+    }
 }

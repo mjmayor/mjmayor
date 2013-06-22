@@ -12,34 +12,32 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-
 @Configuration
-@Import({RepositoryConfig.class, BeansConfig.class})
+@Import({ RepositoryConfig.class, BeansConfig.class })
 @ComponentScan("org.mjmayor.baseproject")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
-	
-	@Bean
-	public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer()	{
-		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("config/database.properties"));
-		ppc.setIgnoreUnresolvablePlaceholders(true);
-		return ppc;
-	}
-	
-	@Bean
-	public InternalResourceViewResolver irResolver(){
-		InternalResourceViewResolver ir = new InternalResourceViewResolver();
-		ir.setPrefix("/WEB-INF/views/");
-		ir.setSuffix(".jsp");
-		return ir;
-	}
-	
-	
-	@Bean
-	public MessageSource messageSource(){
-		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasenames(new String[]{"messages/messages", "errors/errors"});
-		return resourceBundleMessageSource;
-	}
+
+    @Bean
+    public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
+	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+	ppc.setLocation(new ClassPathResource("config/database.properties"));
+	ppc.setIgnoreUnresolvablePlaceholders(true);
+	return ppc;
+    }
+
+    @Bean
+    public InternalResourceViewResolver irResolver() {
+	InternalResourceViewResolver ir = new InternalResourceViewResolver();
+	ir.setPrefix("/WEB-INF/views/");
+	ir.setSuffix(".jsp");
+	return ir;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+	ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+	resourceBundleMessageSource.setBasenames(new String[] { "messages/messages", "errors/errors" });
+	return resourceBundleMessageSource;
+    }
 }
