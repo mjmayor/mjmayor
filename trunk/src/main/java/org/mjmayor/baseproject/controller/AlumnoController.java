@@ -2,9 +2,10 @@ package org.mjmayor.baseproject.controller;
 
 import javax.validation.Valid;
 
+import org.mjmayor.baseproject.constants.AlumnoConstants;
+import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
 import org.mjmayor.baseproject.form.AlumnoForm;
-import org.mjmayor.baseproject.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(Constants.Alumno.PATH)
+@RequestMapping(AlumnoConstants.PATH)
 public class AlumnoController {
 
     private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
@@ -24,52 +25,61 @@ public class AlumnoController {
     @Autowired
     private AlumnoFacade alumnoFacade;
 
-    @RequestMapping(value = Constants.FORM, method = RequestMethod.GET)
+    @RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
     public String showAlumnoForm(ModelMap model) {
 
 	logger.info("AlumnoController - showAlumnoForm");
 
-	model.addAttribute(Constants.Alumno.ALUMNO_DATA, new AlumnoForm());
-	return Constants.Alumno.FORM;
+	model.addAttribute(AlumnoConstants.ALUMNO_DATA, new AlumnoForm());
+	return AlumnoConstants.FORM;
     }
 
-    @RequestMapping(value = Constants.INSERT, method = RequestMethod.POST)
+    @RequestMapping(value = ApplicationConstants.INSERT, method = RequestMethod.POST)
     public String insertAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
 
 	logger.info("AlumnoController - insertAlumno");
 
-	if (result.hasErrors())
-	    return Constants.Alumno.FORM;
-	else {
+	if (result.hasErrors()) {
+	    return AlumnoConstants.FORM;
+	} else {
 	    alumnoFacade.addAlumno(alumnoForm);
-	    return Constants.Alumno.INSERTOK;
+	    return AlumnoConstants.INSERTOK;
 	}
     }
 
-    @RequestMapping(value = Constants.DELETE, method = RequestMethod.POST)
-    public String deleteAlumno(AlumnoForm alumnoForm) {
+    @RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
+    public String deleteAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
 
 	logger.info("AlumnoController - deleteAlumno");
 
-	alumnoFacade.removeAlumno(alumnoForm);
-	return Constants.Alumno.DELETEOK;
+	if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
+	    return AlumnoConstants.FORM;
+	} else {
+	    alumnoFacade.removeAlumno(alumnoForm);
+	    return AlumnoConstants.DELETEOK;
+	}
     }
 
-    @RequestMapping(value = Constants.GET, method = RequestMethod.POST)
-    public ModelAndView getAlumno(ModelMap model, AlumnoForm alumnoForm) {
+    @RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
+    public ModelAndView getAlumno(@Valid AlumnoForm alumnoForm, BindingResult result, ModelMap model) {
 
 	logger.info("AlumnoController - getAlumno");
 
-	model.addAttribute(Constants.Alumno.ALUMNO_DATA, alumnoFacade.getAlumno(alumnoForm));
-	return new ModelAndView(Constants.Alumno.DATA, Constants.MODEL, model);
+	if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
+	    model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoForm);
+	    return new ModelAndView(AlumnoConstants.FORM);
+	} else {
+	    model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoFacade.getAlumno(alumnoForm));
+	    return new ModelAndView(AlumnoConstants.DATA, ApplicationConstants.MODEL, model);
+	}
     }
 
-    @RequestMapping(value = Constants.GETALL, method = RequestMethod.POST)
+    @RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
     public ModelAndView getAllAlumnos(ModelMap model) {
 
 	logger.info("AlumnoController - getAllAlumnos");
 
-	model.addAttribute(Constants.Alumno.ALUMNOS_LIST_DATA, alumnoFacade.getAlumnos());
-	return new ModelAndView(Constants.Alumno.LIST, Constants.MODEL, model);
+	model.addAttribute(AlumnoConstants.ALUMNOS_LIST_DATA, alumnoFacade.getAlumnos());
+	return new ModelAndView(AlumnoConstants.LIST, ApplicationConstants.MODEL, model);
     }
 }

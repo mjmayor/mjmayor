@@ -5,13 +5,14 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mjmayor.baseproject.annotations.CheckDNI;
+import org.mjmayor.baseproject.constants.AnnotationConstants;
 
 public class AlumnoForm {
 
     private int id;
 
     @NotEmpty
-    @Pattern(regexp = "[0-9]{8}[A-Za-z]")
+    @Pattern(regexp = AnnotationConstants.DNI_PATTERN)
     @CheckDNI
     private String dni;
 

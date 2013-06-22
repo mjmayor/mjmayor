@@ -6,15 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.mjmayor.baseproject.constants.AlumnoConstants;
 
 @Entity
-@Table(name="alumno",schema="mjmayor3")
+@Table(name = AlumnoConstants.Database.TABLE_NAME)
 public class AlumnoDTO {
 
     @Id
     // @Column(name="id")
-    @GenericGenerator(name = "serial_id_alumno", strategy = "increment")
-    @GeneratedValue(generator = "serial_id_alumno")
+    @GenericGenerator(name = AlumnoConstants.Database.SERIAL_ID_LABEL, strategy = AlumnoConstants.Database.SERIAL_ID_STRAGEGY)
+    @GeneratedValue(generator = AlumnoConstants.Database.SERIAL_ID_LABEL)
     private int id;
 
     // @Column(name="dni")

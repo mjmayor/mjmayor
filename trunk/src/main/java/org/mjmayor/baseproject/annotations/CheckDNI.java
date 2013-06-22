@@ -9,13 +9,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 import org.mjmayor.baseproject.annotations.impl.CheckDNIImpl;
+import org.mjmayor.baseproject.constants.AnnotationConstants;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Constraint(validatedBy = CheckDNIImpl.class)
 public @interface CheckDNI {
 
-    String message() default "Error en la validacion del DNI";
+    String message() default AnnotationConstants.CHECK_DNI_DEFAULT_MESSAGE;
 
     Class<?>[] groups() default {};
 

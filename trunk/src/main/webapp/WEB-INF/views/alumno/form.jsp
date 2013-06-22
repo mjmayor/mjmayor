@@ -64,8 +64,9 @@
 			<table>			
 				
 				<tr>
-					<td><spring:message code="student.id"/></td>
-					<td><form:input path="id" /></td>
+					<td><spring:message code="student.dni"/></td>
+					<td><form:input path="dni" /></td>
+					<td class="error"><form:errors path="dni" /></td>
 				</tr>
 				
 				<tr>
@@ -82,8 +83,9 @@
 			<table>			
 				
 				<tr>
-					<td><spring:message code="student.id"/></td>
-					<td><form:input path="id" /></td>
+					<td><spring:message code="student.dni"/></td>
+					<td><form:input path="dni" /></td>
+					<td class="error"><form:errors path="dni" /></td>
 				</tr>
 				
 				<tr>
