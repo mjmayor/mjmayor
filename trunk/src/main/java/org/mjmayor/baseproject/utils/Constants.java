@@ -30,7 +30,7 @@ public class Constants {
 	public static final String DELETEOK = PATH + Constants.DELETEOK;
 	public static final String DATA = PATH + Constants.DATA;
 	public static final String LIST = PATH + Constants.LIST;
-	public static final String ALUMNO_DATA = "alumno";
+	public static final String ALUMNO_DATA = "alumnoForm";
 	public static final String ALUMNOS_LIST_DATA = "alumnos";
     }
 }

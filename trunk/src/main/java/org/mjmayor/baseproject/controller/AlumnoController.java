@@ -2,7 +2,6 @@ package org.mjmayor.baseproject.controller;
 
 import javax.validation.Valid;
 
-import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
 import org.mjmayor.baseproject.form.AlumnoForm;
 import org.mjmayor.baseproject.utils.Constants;
@@ -30,7 +29,7 @@ public class AlumnoController {
 
 	logger.info("AlumnoController - showAlumnoForm");
 
-	model.addAttribute("alumno", new AlumnoDTO());
+	model.addAttribute(Constants.Alumno.ALUMNO_DATA, new AlumnoForm());
 	return Constants.Alumno.FORM;
     }
 

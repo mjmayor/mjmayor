@@ -3,7 +3,7 @@ package org.mjmayor.baseproject.facade.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mjmayor.baseproject.assembler.AlumnoAssembler;
+import org.mjmayor.baseproject.assembler.alumno.AlumnoViewAssembler;
 import org.mjmayor.baseproject.dao.AlumnoDAO;
 import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
@@ -19,12 +19,12 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
 
     private AlumnoDAO alumnoDAO;
 
-    private AlumnoAssembler alumnoAssembler;
+    private AlumnoViewAssembler alumnoViewAssembler;
 
-    public AlumnoFacadeImpl(AlumnoDAO alumnoDAO, AlumnoAssembler alumnoAssembler) {
+    public AlumnoFacadeImpl(AlumnoDAO alumnoDAO, AlumnoViewAssembler alumnoAssembler) {
 	super();
 	this.alumnoDAO = alumnoDAO;
-	this.alumnoAssembler = alumnoAssembler;
+	this.alumnoViewAssembler = alumnoAssembler;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
     @Transactional(readOnly = true)
     public List<AlumnoView> getAlumnos() {
 	List<AlumnoDTO> listaDTO = alumnoDAO.getAlumnos();
-	List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoAssembler.assemble(listaDTO));
+	List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoViewAssembler.assemble(listaDTO));
 	return listaView;
     }
 
@@ -45,7 +45,7 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
     @Transactional(readOnly = true)
     public AlumnoView getAlumno(AlumnoForm alumnoForm) {
 	AlumnoDTO alumnoDTO = alumnoDAO.getAlumno(alumnoForm);
-	AlumnoView alumnoView = alumnoAssembler.assemble(alumnoDTO);
+	AlumnoView alumnoView = alumnoViewAssembler.assemble(alumnoDTO);
 	return alumnoView;
     }
 

@@ -1,10 +1,10 @@
-package org.mjmayor.baseproject.assembler;
+package org.mjmayor.baseproject.assembler.alumno;
 
 import org.mjmayor.baseproject.assembler.support.AbstractAssembler;
 import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.view.AlumnoView;
 
-public class AlumnoAssembler extends AbstractAssembler<AlumnoDTO, AlumnoView> {
+public class AlumnoViewAssembler extends AbstractAssembler<AlumnoDTO, AlumnoView> {
 
     @Override
     public AlumnoView assemble(AlumnoDTO alumnoDTO) {

@@ -23,7 +23,7 @@
 
 	<body>
 		<h2><spring:message code="student.formTitle"/></h2>
-		<form:form method="POST" commandName="alumno" action="insert">
+		<form:form method="POST" commandName="alumnoForm" action="insert">
 			<form:errors path="*" cssClass="errorblock" element="div" />
 			<table>
 				
@@ -60,7 +60,7 @@
 		</form:form>
 		
 		<h2><spring:message code="student.deleteTitle"/></h2>
-		<form:form method="POST" commandName="alumno" action="delete">
+		<form:form method="POST" commandName="alumnoForm" action="delete">
 			<table>			
 				
 				<tr>
@@ -78,7 +78,7 @@
 		
 		
 		<h2><spring:message code="student.dataTitle"/></h2>
-		<form:form method="POST" commandName="alumno" action="get">
+		<form:form method="POST" commandName="alumnoForm" action="get">
 			<table>			
 				
 				<tr>
@@ -94,7 +94,7 @@
 			</table>
 		</form:form>
 		
-		<form:form method="POST" commandName="alumno" action="getAll">
+		<form:form method="POST" commandName="alumnos" action="getAll">
 			<table>
 				<tr>
 					<spring:message code="student.viewAllButton" var="viewAllButton"/>

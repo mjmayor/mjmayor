@@ -1,7 +1,8 @@
 package org.mjmayor.baseproject.config;
 
 import org.hibernate.SessionFactory;
-import org.mjmayor.baseproject.assembler.AlumnoAssembler;
+import org.mjmayor.baseproject.assembler.alumno.AlumnoFormAssembler;
+import org.mjmayor.baseproject.assembler.alumno.AlumnoViewAssembler;
 import org.mjmayor.baseproject.dao.AlumnoDAO;
 import org.mjmayor.baseproject.dao.impl.AlumnoDAOImpl;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
@@ -14,21 +15,25 @@ import org.springframework.context.annotation.Configuration;
 public class BeansConfig {
 
     @Autowired
-    // private LocalSessionFactoryBean sessionFactory;
     private SessionFactory sessionFactory;
 
     @Bean
     public AlumnoFacade alumnoFacade() {
-	return new AlumnoFacadeImpl(alumnoDAO(), alumnoAssembler());
+	return new AlumnoFacadeImpl(alumnoDAO(), alumnoViewAssembler());
     }
 
     @Bean
     public AlumnoDAO alumnoDAO() {
-	return new AlumnoDAOImpl(sessionFactory);
+	return new AlumnoDAOImpl(sessionFactory, alumnoFormAssembler());
     }
 
     @Bean
-    public AlumnoAssembler alumnoAssembler() {
-	return new AlumnoAssembler();
+    public AlumnoViewAssembler alumnoViewAssembler() {
+	return new AlumnoViewAssembler();
+    }
+
+    @Bean
+    public AlumnoFormAssembler alumnoFormAssembler() {
+	return new AlumnoFormAssembler();
     }
 }
