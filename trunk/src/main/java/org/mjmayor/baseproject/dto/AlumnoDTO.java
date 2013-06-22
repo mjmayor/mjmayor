@@ -3,15 +3,12 @@ package org.mjmayor.baseproject.dto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Pattern;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.mjmayor.baseproject.annotations.CheckDNI;
 
 @Entity
-// @Table(name="alumno",schema="mjmayor3")
+@Table(name="alumno",schema="mjmayor3")
 public class AlumnoDTO {
 
     @Id

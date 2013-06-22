@@ -1,9 +1,11 @@
 package org.mjmayor.baseproject.facade.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mjmayor.baseproject.assembler.AlumnoAssembler;
 import org.mjmayor.baseproject.dao.AlumnoDAO;
+import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
 import org.mjmayor.baseproject.form.AlumnoForm;
 import org.mjmayor.baseproject.view.AlumnoView;
@@ -34,20 +36,22 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
     @Override
     @Transactional(readOnly = true)
     public List<AlumnoView> getAlumnos() {
-	// Recuperar lista de AlumnoDTO y transformar a lista de AlumnoView
-	return alumnoDAO.getAlumnos();
+	List<AlumnoDTO> listaDTO = alumnoDAO.getAlumnos();
+	List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoAssembler.assemble(listaDTO));
+	return listaView;
     }
 
     @Override
     @Transactional(readOnly = true)
     public AlumnoView getAlumno(AlumnoForm alumnoForm) {
-	// Recuperar AlumnoDTO y transformar a AlumnoView
-	return alumnoDAO.getAlumno(id);
+	AlumnoDTO alumnoDTO = alumnoDAO.getAlumno(alumnoForm);
+	AlumnoView alumnoView = alumnoAssembler.assemble(alumnoDTO);
+	return alumnoView;
     }
 
     @Override
     @Transactional
     public void removeAlumno(AlumnoForm alumnoForm) {
-	alumnoDAO.removeAlumno(id);
+	alumnoDAO.removeAlumno(alumnoForm);
     }
 }

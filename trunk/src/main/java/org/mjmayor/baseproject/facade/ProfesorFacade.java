@@ -2,14 +2,14 @@ package org.mjmayor.baseproject.facade;
 
 import java.util.List;
 
-import org.prueba.universidad.model.Profesor;
+import org.mjmayor.baseproject.form.ProfesorForm;
 
 public interface ProfesorFacade {
-    public void addProfesor(Profesor profesor);
+    /*public void addProfesor(ProfesorForm profesorForm);
 
-    public List<Profesor> getProfesores();
+    public List<ProfesorView> getProfesores();
 
-    public Profesor getProfesor(int id);
+    public ProfesorView getProfesor(ProfesorForm profesorForm);
 
-    public void removeProfesor(int id);
+    public void removeProfesor(ProfesorForm profesorForm);*/
 }

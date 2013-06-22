@@ -7,7 +7,6 @@ import org.mjmayor.baseproject.dao.AlumnoDAO;
 import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.form.AlumnoForm;
 import org.mjmayor.baseproject.utils.ListUtils;
-import org.mjmayor.baseproject.view.AlumnoView;
 
 public class AlumnoDAOImpl implements AlumnoDAO {
 
@@ -23,13 +22,13 @@ public class AlumnoDAOImpl implements AlumnoDAO {
     }
 
     @Override
-    public List<AlumnoView> getAlumnos() {
-	return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery("from Alumno").list());
+    public List<AlumnoDTO> getAlumnos() {
+	return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery("from AlumnoDTO").list());
     }
 
     @Override
-    public AlumnoView getAlumno(AlumnoForm alumnoForm) {
-	return (AlumnoView) sessionFactory.getCurrentSession().get(AlumnoDTO.class, alumnoForm.getDni());
+    public AlumnoDTO getAlumno(AlumnoForm alumnoForm) {
+	return (AlumnoDTO) sessionFactory.getCurrentSession().get(AlumnoDTO.class, alumnoForm.getDni());
     }
 
     @Override

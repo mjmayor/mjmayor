@@ -2,12 +2,14 @@ package org.mjmayor.baseproject.dao;
 
 import java.util.List;
 
+import org.mjmayor.baseproject.form.ProfesorForm;
+
 public interface ProfesorDAO {
-    public void addProfesor(Profesor profesor);
+    /*public void addProfesor(ProfesorForm profesorForm);
 
-    public List<Profesor> getProfesores();
+    public List<ProfesorDTO> getProfesores();
 
-    public Profesor getProfesor(int id);
+    public ProfesorDTO getProfesor(ProfesorForm profesorForm);
 
-    public void removeProfesor(int id);
+    public void removeProfesor(ProfesorForm profesorForm);*/
 }

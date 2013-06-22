@@ -2,12 +2,14 @@ package org.mjmayor.baseproject.dao;
 
 import java.util.List;
 
+import org.mjmayor.baseproject.form.AsignaturaForm;
+
 public interface AsignaturaDAO {
-    public void addAsignatura(Asignatura asignatura);
+    /*public void addAsignatura(AsignaturaForm asignaturaForm);
 
-    public List<Asignatura> getAsignaturas();
+    public List<AsignaturaDTO> getAsignaturas();
 
-    public Asignatura getAsignatura(int id);
+    public AsignaturaDTO getAsignatura(AsignaturaForm asignaturaForm);
 
-    public void removeAsignatura(int id);
+    public void removeAsignatura(AsignaturaForm asignaturaForm);*/
 }
