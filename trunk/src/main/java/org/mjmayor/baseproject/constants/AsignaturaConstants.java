@@ -18,8 +18,8 @@ public class AsignaturaConstants {
 
 	public class Queries {
 	    public static final String FIND_ALL = "from AsignaturaDTO";
-	    public static final String FIND_BY_COD = "from AsignaturaDTO where codigo = :codigo";
-	    public static final String FIND_BY_NAME = "from AsignaturaDTO where nombre like %:codigo%";
+	    public static final String FIND_BY_FIELD = "from AsignaturaDTO where :field = :value";
+	    public static final String FIND_LIKE_FIELD = "from AsignaturaDTO where :field like %:value%";
 	}
 
     }

@@ -15,64 +15,64 @@ import org.slf4j.LoggerFactory;
 
 public class AlumnoDAOImpl implements AlumnoDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(AlumnoDAOImpl.class);
-    
-    private SessionFactory sessionFactory;
+	private static final Logger logger = LoggerFactory.getLogger(AlumnoDAOImpl.class);
 
-    private AlumnoFormAssembler alumnoFormAssembler;
+	private SessionFactory sessionFactory;
 
-    public AlumnoDAOImpl(SessionFactory sessionFactory, AlumnoFormAssembler alumnoFormAssembler) {
-	this.sessionFactory = sessionFactory;
-	this.alumnoFormAssembler = alumnoFormAssembler;
-    }
+	private AlumnoFormAssembler alumnoFormAssembler;
 
-    @Override
-    public void addAlumno(AlumnoForm alumnoForm) {
-	
-	logger.info("AlumnoDAOImpl - addAlumno");
-	
-	AlumnoDTO alumnoDTO = alumnoFormAssembler.assemble(alumnoForm);
-	sessionFactory.getCurrentSession().save(alumnoDTO);
-    }
-
-    @Override
-    public List<AlumnoDTO> getAlumnos() {
-	
-	logger.info("AlumnoDAOImpl - getAlumnos");
-	
-	return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_ALL).list());
-    }
-
-    @Override
-    public AlumnoDTO getAlumno(AlumnoForm alumnoForm) {
-	
-	logger.info("AlumnoDAOImpl - getAlumno");
-	
-	Query query = sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_BY_DNI);
-	query.setParameter(AlumnoConstants.Fields.DNI, alumnoForm.getDni());
-	List<AlumnoDTO> alumnos = ListUtils.castList(AlumnoDTO.class, query.list());
-
-	if (alumnos != null) {
-	    if (alumnos.size() > 0) {
-		return alumnos.get(0);
-	    }
-
-	    else {
-		return new AlumnoDTO();
-	    }
-	} else {
-	    return new AlumnoDTO();
+	public AlumnoDAOImpl(SessionFactory sessionFactory, AlumnoFormAssembler alumnoFormAssembler) {
+		this.sessionFactory = sessionFactory;
+		this.alumnoFormAssembler = alumnoFormAssembler;
 	}
-    }
 
-    @Override
-    public void removeAlumno(AlumnoForm alumnoForm) {
-	
-	logger.info("AlumnoDAOImpl - removeAlumno");
-	
-	AlumnoDTO alumnoDTO = getAlumno(alumnoForm);
-	if (alumnoDTO != null) {
-	    sessionFactory.getCurrentSession().delete(alumnoDTO);
+	@Override
+	public void addAlumno(AlumnoForm alumnoForm) {
+
+		logger.info("AlumnoDAOImpl - addAlumno");
+
+		AlumnoDTO alumnoDTO = alumnoFormAssembler.assemble(alumnoForm);
+		sessionFactory.getCurrentSession().save(alumnoDTO);
 	}
-    }
+
+	@Override
+	public List<AlumnoDTO> getAlumnos() {
+
+		logger.info("AlumnoDAOImpl - getAlumnos");
+
+		return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_ALL).list());
+	}
+
+	@Override
+	public AlumnoDTO getAlumno(AlumnoForm alumnoForm) {
+
+		logger.info("AlumnoDAOImpl - getAlumno");
+
+		Query query = sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_BY_DNI);
+		query.setParameter(AlumnoConstants.Fields.DNI, alumnoForm.getDni());
+		List<AlumnoDTO> alumnos = ListUtils.castList(AlumnoDTO.class, query.list());
+
+		if (alumnos != null) {
+			if (alumnos.size() > 0) {
+				return alumnos.get(0);
+			}
+
+			else {
+				return new AlumnoDTO();
+			}
+		} else {
+			return new AlumnoDTO();
+		}
+	}
+
+	@Override
+	public void removeAlumno(AlumnoForm alumnoForm) {
+
+		logger.info("AlumnoDAOImpl - removeAlumno");
+
+		AlumnoDTO alumnoDTO = getAlumno(alumnoForm);
+		if (alumnoDTO != null) {
+			sessionFactory.getCurrentSession().delete(alumnoDTO);
+		}
+	}
 }
