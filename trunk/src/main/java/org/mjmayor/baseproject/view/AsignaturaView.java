@@ -1,27 +1,11 @@
-package org.mjmayor.baseproject.form;
+package org.mjmayor.baseproject.view;
 
-import javax.validation.constraints.NotNull;
+public class AsignaturaView {
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
-
-public class AsignaturaForm {
-
-	@NotEmpty
 	private String codigo;
-
-	@NotEmpty
 	private String nombre;
-
-	@Range(min = 1, max = 5)
 	private int curso;
-
-	@NotNull
 	private Float creditos;
-
-	public AsignaturaForm() {
-
-	}
 
 	/**
 	 * @return the codigo
@@ -82,4 +66,5 @@ public class AsignaturaForm {
 	public void setCreditos(Float creditos) {
 		this.creditos = creditos;
 	}
+
 }

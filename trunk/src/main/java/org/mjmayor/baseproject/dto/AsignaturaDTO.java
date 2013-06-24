@@ -1,26 +1,48 @@
-package org.mjmayor.baseproject.form;
+package org.mjmayor.baseproject.dto;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
+import org.hibernate.annotations.GenericGenerator;
+import org.mjmayor.baseproject.constants.AlumnoConstants;
 
-public class AsignaturaForm {
+@Entity
+@Table(name = AlumnoConstants.Database.TABLE_NAME)
+public class AsignaturaDTO {
 
-	@NotEmpty
+	@Id
+	// @Column(name="id")
+	@GenericGenerator(name = AlumnoConstants.Database.SERIAL_ID_LABEL, strategy = AlumnoConstants.Database.SERIAL_ID_STRAGEGY)
+	@GeneratedValue(generator = AlumnoConstants.Database.SERIAL_ID_LABEL)
+	private int id;
+
+	// @Column(name="codigo")
 	private String codigo;
 
-	@NotEmpty
+	// @Column(name="nombre")
 	private String nombre;
 
-	@Range(min = 1, max = 5)
+	// @Column(name="curso")
 	private int curso;
 
-	@NotNull
+	// @Column(name="creditos")
 	private Float creditos;
 
-	public AsignaturaForm() {
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
