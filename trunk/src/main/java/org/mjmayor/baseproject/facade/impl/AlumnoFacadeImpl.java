@@ -30,18 +30,14 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
 	@Override
 	@Transactional
 	public void addAlumno(AlumnoForm alumno) {
-
 		logger.debug("AlumnoFacadeImpl - addAlumno");
-
 		alumnoDAO.addAlumno(alumno);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<AlumnoView> getAlumnos() {
-
 		logger.debug("AlumnoFacadeImpl - getAlumnos");
-
 		List<AlumnoDTO> listaDTO = alumnoDAO.getAlumnos();
 		List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoViewAssembler.assemble(listaDTO));
 		return listaView;
@@ -50,9 +46,7 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
 	@Override
 	@Transactional(readOnly = true)
 	public AlumnoView getAlumno(AlumnoForm alumnoForm) {
-
 		logger.debug("AlumnoFacadeImpl - getAlumno");
-
 		AlumnoDTO alumnoDTO = alumnoDAO.getAlumno(alumnoForm);
 		AlumnoView alumnoView = alumnoViewAssembler.assemble(alumnoDTO);
 		return alumnoView;
@@ -61,9 +55,7 @@ public class AlumnoFacadeImpl implements AlumnoFacade {
 	@Override
 	@Transactional
 	public void removeAlumno(AlumnoForm alumnoForm) {
-
 		logger.debug("AlumnoFacadeImpl - removeAlumno");
-
 		alumnoDAO.removeAlumno(alumnoForm);
 	}
 }

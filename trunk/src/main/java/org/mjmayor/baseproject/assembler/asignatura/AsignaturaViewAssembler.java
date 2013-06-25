@@ -9,7 +9,6 @@ public class AsignaturaViewAssembler extends AbstractAssembler<AsignaturaDTO, As
 
 	@Override
 	public AsignaturaView assemble(AsignaturaDTO asignaturaDTO) {
-
 		AsignaturaView asignaturaView = new AsignaturaView();
 		BeanUtils.copyProperties(asignaturaDTO, asignaturaView);
 		return asignaturaView;

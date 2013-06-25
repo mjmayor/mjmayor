@@ -27,16 +27,13 @@ public class AlumnoController {
 
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showAlumnoForm(ModelMap model) {
-
 		logger.debug("AlumnoController - showAlumnoForm");
-
 		model.addAttribute(AlumnoConstants.ALUMNO_DATA, new AlumnoForm());
 		return AlumnoConstants.FORM;
 	}
 
 	@RequestMapping(value = ApplicationConstants.INSERT, method = RequestMethod.POST)
 	public String insertAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
-
 		logger.debug("AlumnoController - insertAlumno");
 
 		if (result.hasErrors()) {
@@ -49,7 +46,6 @@ public class AlumnoController {
 
 	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
 	public String deleteAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
-
 		logger.debug("AlumnoController - deleteAlumno");
 
 		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
@@ -62,7 +58,6 @@ public class AlumnoController {
 
 	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
 	public ModelAndView getAlumno(@Valid AlumnoForm alumnoForm, BindingResult result, ModelMap model) {
-
 		logger.debug("AlumnoController - getAlumno");
 
 		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
@@ -76,9 +71,7 @@ public class AlumnoController {
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllAlumnos(ModelMap model) {
-
 		logger.debug("AlumnoController - getAllAlumnos");
-
 		model.addAttribute(AlumnoConstants.ALUMNOS_LIST_DATA, alumnoFacade.getAlumnos());
 		return new ModelAndView(AlumnoConstants.LIST, ApplicationConstants.MODEL, model);
 	}

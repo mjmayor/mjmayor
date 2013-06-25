@@ -26,6 +26,7 @@ public class AsignaturaConstants {
 
 	public class Fields {
 		public static final String CODIGO = "codigo";
+		public static final String NOMBRE = "nombre";
 	}
 
 	public static final String PATH = "/asignatura";
@@ -38,6 +39,6 @@ public class AsignaturaConstants {
 	public static final String DELETEOK = PATH + ApplicationConstants.DELETEOK;
 	public static final String DATA = PATH + ApplicationConstants.DATA;
 	public static final String LIST = PATH + ApplicationConstants.LIST;
-	public static final String ALUMNO_DATA = "asignaturaForm";
-	public static final String ALUMNOS_LIST_DATA = "asignaturas";
+	public static final String ASIGNATURA_DATA = "asignaturaForm";
+	public static final String ASIGNATURAS_LIST_DATA = "asignaturas";
 }
