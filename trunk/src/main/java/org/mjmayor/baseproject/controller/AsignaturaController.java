@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/asignatura")
 public class AsignaturaController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
 
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
-    public String showAsignaturaForm(ModelMap model) {
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public String showAsignaturaForm(ModelMap model) {
 
-	logger.info("AsignaturaController - showAsignaturaForm");
+		logger.debug("AsignaturaController - showAsignaturaForm");
 
-	model.addAttribute("asignaturaForm", new AsignaturaForm());
-	return "asignatura/insert";
-    }
+		model.addAttribute("asignaturaForm", new AsignaturaForm());
+		return "asignatura/insert";
+	}
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insertAsignatura(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insertAsignatura(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 
-	logger.info("AsignaturaController - insertAsignatura");
+		logger.debug("AsignaturaController - insertAsignatura");
 
-	if (result.hasErrors())
-	    return "asignatura/insert";
-	else
-	    return "ok";
-    }
+		if (result.hasErrors())
+			return "asignatura/insert";
+		else
+			return "ok";
+	}
 }

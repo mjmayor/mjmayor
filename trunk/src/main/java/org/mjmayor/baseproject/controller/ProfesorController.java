@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/profesor")
 public class ProfesorController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProfesorController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProfesorController.class);
 
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
-    public String displayProfesorForm(ModelMap model) {
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public String displayProfesorForm(ModelMap model) {
 
-	logger.info("ProfesorController - displayProfesorForm");
+		logger.debug("ProfesorController - displayProfesorForm");
 
-	model.addAttribute("profesorForm", new ProfesorForm());
-	return "profesor/insert";
-    }
+		model.addAttribute("profesorForm", new ProfesorForm());
+		return "profesor/insert";
+	}
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
 
-	logger.info("ProfesorController - insertProfesor");
+		logger.debug("ProfesorController - insertProfesor");
 
-	if (result.hasErrors())
-	    return "profesor/insert";
-	else
-	    return "ok";
-    }
+		if (result.hasErrors())
+			return "profesor/insert";
+		else
+			return "ok";
+	}
 }

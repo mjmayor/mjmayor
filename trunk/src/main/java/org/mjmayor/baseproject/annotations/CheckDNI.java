@@ -16,9 +16,9 @@ import org.mjmayor.baseproject.constants.AnnotationConstants;
 @Constraint(validatedBy = CheckDNIImpl.class)
 public @interface CheckDNI {
 
-    String message() default AnnotationConstants.CHECK_DNI_DEFAULT_MESSAGE;
+	String message() default AnnotationConstants.CHECK_DNI_DEFAULT_MESSAGE;
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 }

@@ -6,11 +6,12 @@ import org.mjmayor.baseproject.form.AlumnoForm;
 import org.mjmayor.baseproject.view.AlumnoView;
 
 public interface AlumnoFacade {
-    public void addAlumno(AlumnoForm alumno);
 
-    public List<AlumnoView> getAlumnos();
+	public void addAlumno(AlumnoForm alumno);
 
-    public AlumnoView getAlumno(AlumnoForm alumnoForm);
+	public List<AlumnoView> getAlumnos();
 
-    public void removeAlumno(AlumnoForm alumnoForm);
+	public AlumnoView getAlumno(AlumnoForm alumnoForm);
+
+	public void removeAlumno(AlumnoForm alumnoForm);
 }

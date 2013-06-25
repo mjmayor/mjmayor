@@ -29,7 +29,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 	@Override
 	public void addAlumno(AlumnoForm alumnoForm) {
 
-		logger.info("AlumnoDAOImpl - addAlumno");
+		logger.debug("AlumnoDAOImpl - addAlumno");
 
 		AlumnoDTO alumnoDTO = alumnoFormAssembler.assemble(alumnoForm);
 		sessionFactory.getCurrentSession().save(alumnoDTO);
@@ -38,7 +38,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 	@Override
 	public List<AlumnoDTO> getAlumnos() {
 
-		logger.info("AlumnoDAOImpl - getAlumnos");
+		logger.debug("AlumnoDAOImpl - getAlumnos");
 
 		return ListUtils.castList(AlumnoDTO.class, sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_ALL).list());
 	}
@@ -46,7 +46,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 	@Override
 	public AlumnoDTO getAlumno(AlumnoForm alumnoForm) {
 
-		logger.info("AlumnoDAOImpl - getAlumno");
+		logger.debug("AlumnoDAOImpl - getAlumno");
 
 		Query query = sessionFactory.getCurrentSession().createQuery(AlumnoConstants.Database.Queries.FIND_BY_DNI);
 		query.setParameter(AlumnoConstants.Fields.DNI, alumnoForm.getDni());
@@ -68,7 +68,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 	@Override
 	public void removeAlumno(AlumnoForm alumnoForm) {
 
-		logger.info("AlumnoDAOImpl - removeAlumno");
+		logger.debug("AlumnoDAOImpl - removeAlumno");
 
 		AlumnoDTO alumnoDTO = getAlumno(alumnoForm);
 		if (alumnoDTO != null) {

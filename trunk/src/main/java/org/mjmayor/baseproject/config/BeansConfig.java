@@ -14,26 +14,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeansConfig {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Bean
-    public AlumnoFacade alumnoFacade() {
-	return new AlumnoFacadeImpl(alumnoDAO(), alumnoViewAssembler());
-    }
+	@Bean
+	public AlumnoFacade alumnoFacade() {
+		return new AlumnoFacadeImpl(alumnoDAO(), alumnoViewAssembler());
+	}
 
-    @Bean
-    public AlumnoDAO alumnoDAO() {
-	return new AlumnoDAOImpl(sessionFactory, alumnoFormAssembler());
-    }
+	@Bean
+	public AlumnoDAO alumnoDAO() {
+		return new AlumnoDAOImpl(sessionFactory, alumnoFormAssembler());
+	}
 
-    @Bean
-    public AlumnoViewAssembler alumnoViewAssembler() {
-	return new AlumnoViewAssembler();
-    }
+	@Bean
+	public AlumnoViewAssembler alumnoViewAssembler() {
+		return new AlumnoViewAssembler();
+	}
 
-    @Bean
-    public AlumnoFormAssembler alumnoFormAssembler() {
-	return new AlumnoFormAssembler();
-    }
+	@Bean
+	public AlumnoFormAssembler alumnoFormAssembler() {
+		return new AlumnoFormAssembler();
+	}
 }

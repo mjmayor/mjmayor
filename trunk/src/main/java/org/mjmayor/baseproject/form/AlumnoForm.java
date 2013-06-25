@@ -9,98 +9,98 @@ import org.mjmayor.baseproject.constants.AnnotationConstants;
 
 public class AlumnoForm {
 
-    private int id;
+	private int id;
 
-    @NotEmpty
-    @Pattern(regexp = AnnotationConstants.DNI_PATTERN)
-    @CheckDNI
-    private String dni;
+	@NotEmpty
+	@Pattern(regexp = AnnotationConstants.DNI_PATTERN)
+	@CheckDNI
+	private String dni;
 
-    @NotEmpty
-    private String nombre;
+	@NotEmpty
+	private String nombre;
 
-    @NotEmpty
-    private String apellidos;
+	@NotEmpty
+	private String apellidos;
 
-    @Email
-    private String email;
+	@Email
+	private String email;
 
-    public AlumnoForm() {
-	dni = nombre = apellidos = email = "";
-    }
+	public AlumnoForm() {
+		dni = nombre = apellidos = email = "";
+	}
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-	return id;
-    }
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(int id) {
-	this.id = id;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    /**
-     * @return the dni
-     */
-    public String getDni() {
-	return dni;
-    }
+	/**
+	 * @return the dni
+	 */
+	public String getDni() {
+		return dni;
+	}
 
-    /**
-     * @param dni
-     *            the dni to set
-     */
-    public void setDni(String dni) {
-	this.dni = dni;
-    }
+	/**
+	 * @param dni
+	 *            the dni to set
+	 */
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-	return nombre;
-    }
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    /**
-     * @param nombre
-     *            the nombre to set
-     */
-    public void setNombre(String nombre) {
-	this.nombre = nombre;
-    }
+	/**
+	 * @param nombre
+	 *            the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    /**
-     * @return the apellidos
-     */
-    public String getApellidos() {
-	return apellidos;
-    }
+	/**
+	 * @return the apellidos
+	 */
+	public String getApellidos() {
+		return apellidos;
+	}
 
-    /**
-     * @param apellidos
-     *            the apellidos to set
-     */
-    public void setApellidos(String apellidos) {
-	this.apellidos = apellidos;
-    }
+	/**
+	 * @param apellidos
+	 *            the apellidos to set
+	 */
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
 
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-	return email;
-    }
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * @param email
-     *            the email to set
-     */
-    public void setEmail(String email) {
-	this.email = email;
-    }
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

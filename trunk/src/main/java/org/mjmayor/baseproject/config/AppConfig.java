@@ -18,26 +18,26 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
-	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-	ppc.setLocation(new ClassPathResource("config/database.properties"));
-	ppc.setIgnoreUnresolvablePlaceholders(true);
-	return ppc;
-    }
+	@Bean
+	public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
+		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+		ppc.setLocation(new ClassPathResource("config/database.properties"));
+		ppc.setIgnoreUnresolvablePlaceholders(true);
+		return ppc;
+	}
 
-    @Bean
-    public InternalResourceViewResolver irResolver() {
-	InternalResourceViewResolver ir = new InternalResourceViewResolver();
-	ir.setPrefix("/WEB-INF/views/");
-	ir.setSuffix(".jsp");
-	return ir;
-    }
+	@Bean
+	public InternalResourceViewResolver irResolver() {
+		InternalResourceViewResolver ir = new InternalResourceViewResolver();
+		ir.setPrefix("/WEB-INF/views/");
+		ir.setSuffix(".jsp");
+		return ir;
+	}
 
-    @Bean
-    public MessageSource messageSource() {
-	ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-	resourceBundleMessageSource.setBasenames(new String[] { "messages/messages", "errors/errors" });
-	return resourceBundleMessageSource;
-    }
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+		resourceBundleMessageSource.setBasenames(new String[] { "messages/messages", "errors/errors" });
+		return resourceBundleMessageSource;
+	}
 }

@@ -8,15 +8,15 @@ package org.mjmayor.baseproject.constants.application;
  */
 public class ApplicationConstants {
 
-    public static final String SCHEMA_NAME = "mjmayor3";
-    public static final String FORM = "/form";
-    public static final String INSERT = "/insert";
-    public static final String DELETE = "/delete";
-    public static final String GET = "/get";
-    public static final String GETALL = "/getAll";
-    public static final String INSERTOK = "/insertOk";
-    public static final String DELETEOK = "/deleteOk";
-    public static final String DATA = "/data";
-    public static final String LIST = "/list";
-    public static final String MODEL = "model";
+	public static final String SCHEMA_NAME = "mjmayor3";
+	public static final String FORM = "/form";
+	public static final String INSERT = "/insert";
+	public static final String DELETE = "/delete";
+	public static final String GET = "/get";
+	public static final String GETALL = "/getAll";
+	public static final String INSERTOK = "/insertOk";
+	public static final String DELETEOK = "/deleteOk";
+	public static final String DATA = "/data";
+	public static final String LIST = "/list";
+	public static final String MODEL = "model";
 }

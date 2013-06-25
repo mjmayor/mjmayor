@@ -15,55 +15,55 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class AlumnoFacadeImpl implements AlumnoFacade {
 
-    private static final Logger logger = LoggerFactory.getLogger(AlumnoFacadeImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(AlumnoFacadeImpl.class);
 
-    private AlumnoDAO alumnoDAO;
+	private AlumnoDAO alumnoDAO;
 
-    private AlumnoViewAssembler alumnoViewAssembler;
+	private AlumnoViewAssembler alumnoViewAssembler;
 
-    public AlumnoFacadeImpl(AlumnoDAO alumnoDAO, AlumnoViewAssembler alumnoAssembler) {
-	super();
-	this.alumnoDAO = alumnoDAO;
-	this.alumnoViewAssembler = alumnoAssembler;
-    }
+	public AlumnoFacadeImpl(AlumnoDAO alumnoDAO, AlumnoViewAssembler alumnoAssembler) {
+		super();
+		this.alumnoDAO = alumnoDAO;
+		this.alumnoViewAssembler = alumnoAssembler;
+	}
 
-    @Override
-    @Transactional
-    public void addAlumno(AlumnoForm alumno) {
-	
-	logger.info("AlumnoFacadeImpl - addAlumno");
-	
-	alumnoDAO.addAlumno(alumno);
-    }
+	@Override
+	@Transactional
+	public void addAlumno(AlumnoForm alumno) {
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<AlumnoView> getAlumnos() {
-	
-	logger.info("AlumnoFacadeImpl - getAlumnos");
-	
-	List<AlumnoDTO> listaDTO = alumnoDAO.getAlumnos();
-	List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoViewAssembler.assemble(listaDTO));
-	return listaView;
-    }
+		logger.debug("AlumnoFacadeImpl - addAlumno");
 
-    @Override
-    @Transactional(readOnly = true)
-    public AlumnoView getAlumno(AlumnoForm alumnoForm) {
-	
-	logger.info("AlumnoFacadeImpl - getAlumno");
-	
-	AlumnoDTO alumnoDTO = alumnoDAO.getAlumno(alumnoForm);
-	AlumnoView alumnoView = alumnoViewAssembler.assemble(alumnoDTO);
-	return alumnoView;
-    }
+		alumnoDAO.addAlumno(alumno);
+	}
 
-    @Override
-    @Transactional
-    public void removeAlumno(AlumnoForm alumnoForm) {
-	
-	logger.info("AlumnoFacadeImpl - removeAlumno");
-	
-	alumnoDAO.removeAlumno(alumnoForm);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<AlumnoView> getAlumnos() {
+
+		logger.debug("AlumnoFacadeImpl - getAlumnos");
+
+		List<AlumnoDTO> listaDTO = alumnoDAO.getAlumnos();
+		List<AlumnoView> listaView = new ArrayList<AlumnoView>(alumnoViewAssembler.assemble(listaDTO));
+		return listaView;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public AlumnoView getAlumno(AlumnoForm alumnoForm) {
+
+		logger.debug("AlumnoFacadeImpl - getAlumno");
+
+		AlumnoDTO alumnoDTO = alumnoDAO.getAlumno(alumnoForm);
+		AlumnoView alumnoView = alumnoViewAssembler.assemble(alumnoDTO);
+		return alumnoView;
+	}
+
+	@Override
+	@Transactional
+	public void removeAlumno(AlumnoForm alumnoForm) {
+
+		logger.debug("AlumnoFacadeImpl - removeAlumno");
+
+		alumnoDAO.removeAlumno(alumnoForm);
+	}
 }
