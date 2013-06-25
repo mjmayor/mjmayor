@@ -57,11 +57,15 @@ public class AsignaturaFacadeImpl implements AsignaturaFacade {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<AsignaturaView> getAsignaturasByCod(AsignaturaForm asignaturaForm) {
+	public AsignaturaView getAsignaturaByCod(AsignaturaForm asignaturaForm) {
 		logger.debug("AsignaturaFacadeImpl - getAsignaturaByCod");
 		List<AsignaturaDTO> listaDTO = asignaturaDAO.getAsignaturasByField(AsignaturaConstants.Fields.CODIGO, asignaturaForm.getCodigo());
-		List<AsignaturaView> listaView = new ArrayList<AsignaturaView>(asignaturaViewAssembler.assemble(listaDTO));
-		return listaView;
+		AsignaturaView asignaturaView = new AsignaturaView();
+
+		if (listaDTO.size() > 0) {
+			asignaturaView = asignaturaViewAssembler.assemble(listaDTO.get(0));
+		}
+		return asignaturaView;
 	}
 
 	/**

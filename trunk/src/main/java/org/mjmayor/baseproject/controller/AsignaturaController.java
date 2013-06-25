@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(AsignaturaConstants.PATH)
@@ -40,6 +41,25 @@ public class AsignaturaController {
 		} else {
 			asignaturaFacade.addAsignatura(asignaturaForm);
 			return AsignaturaConstants.INSERTOK;
+		}
+	}
+
+	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
+	public String deleteAsignatura(AsignaturaForm asignaturaForm, BindingResult result) {
+		logger.debug("AsignaturaController - deleteAsignatura");
+		asignaturaFacade.removeAsignatura(asignaturaForm);
+		return AsignaturaConstants.DELETEOK;
+	}
+
+	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
+	public ModelAndView getAsignaturaByCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
+		logger.debug("AlumnoController - getAsignaturaByCod");
+		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
+			return new ModelAndView(AsignaturaConstants.FORM);
+		} else {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturaByCod(asignaturaForm));
+			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
 		}
 	}
 }

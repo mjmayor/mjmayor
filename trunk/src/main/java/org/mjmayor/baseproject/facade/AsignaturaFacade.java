@@ -27,15 +27,15 @@ public interface AsignaturaFacade {
 	 * 
 	 * @param asignaturaForm
 	 *            Formulario con los datos de la asignatura a buscar
-	 * @return Listado de asignaturas que coinciden con los valores dados en el formulario
+	 * @return Asignatura que coincide con el codigo dado en el formulario
 	 */
-	public List<AsignaturaView> getAsignaturasByCod(AsignaturaForm asignaturaForm);
+	public AsignaturaView getAsignaturaByCod(AsignaturaForm asignaturaForm);
 
 	/**
 	 * Busca asignaturas por codigo de forma aproximada
 	 * 
 	 * @param asignaturaForm
-	 *            Formulario con los datos de la asignatura a buscar
+	 *            Formulario con los datos de las asignaturas a buscar
 	 * @return Listado de asignaturas que coinciden con los valores dados en el formulario
 	 */
 	public List<AsignaturaView> getAsignaturasLikeCod(AsignaturaForm asignaturaForm);
@@ -44,7 +44,7 @@ public interface AsignaturaFacade {
 	 * Busca asignaturas por nombre de forma aproximada
 	 * 
 	 * @param asignaturaForm
-	 *            Formulario con los datos de la asignatura a buscar
+	 *            Formulario con los datos de las asignaturas a buscar
 	 * @return Listado de asignaturas que coinciden con los valores dados en el formulario
 	 */
 	public List<AsignaturaView> getAsignaturasLikeName(AsignaturaForm asignaturaForm);
