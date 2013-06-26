@@ -50,6 +50,15 @@ public interface AsignaturaFacade {
 	public List<AsignaturaView> getAsignaturasLikeName(AsignaturaForm asignaturaForm);
 
 	/**
+	 * Busca asignatura por todos los campos
+	 * 
+	 * @param asignaturaForm
+	 *            Formulario con los datos de las asignaturas a buscar
+	 * @return Listado de asignaturas que coinciden con los valores dados en el formulario
+	 */
+	public List<AsignaturaView> getAsignaturas(AsignaturaForm asignaturaForm);
+
+	/**
 	 * Elimina una asignatura
 	 * 
 	 * @param asignaturaForm

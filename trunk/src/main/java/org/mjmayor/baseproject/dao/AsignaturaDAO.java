@@ -10,7 +10,8 @@ public interface AsignaturaDAO {
 	/**
 	 * Añade una asignatura
 	 * 
-	 * @param asignaturaForm Formulario con los datos de la asignatura
+	 * @param asignaturaForm
+	 *            Formulario con los datos de la asignatura
 	 */
 	public void addAsignatura(AsignaturaForm asignaturaForm);
 
@@ -47,7 +48,7 @@ public interface AsignaturaDAO {
 	 * Obtiene el listado de asignaturas que cumplen de forma aproximada con los campos de un formulario
 	 * 
 	 * @param asignaturaForm
-	 *            Formulario cno los datos de la asignatura
+	 *            Formulario con los datos de la asignatura
 	 * @return Listado de asignaturas que cumplen la condicion
 	 */
 	public List<AsignaturaDTO> getAsignaturas(AsignaturaForm asignaturaForm);
@@ -55,8 +56,8 @@ public interface AsignaturaDAO {
 	/**
 	 * Elimina una asignatura por codigo
 	 * 
-	 * @param cod
-	 *            Codigo de la asignatura a eliminar
+	 * @param asignaturaForm
+	 *            Formulario con los datos de la asignatura
 	 */
-	public void removeAsignatura(String cod);
+	public void removeAsignatura(AsignaturaForm asignaturaForm);
 }

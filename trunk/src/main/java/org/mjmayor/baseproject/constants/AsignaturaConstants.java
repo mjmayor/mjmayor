@@ -20,6 +20,7 @@ public class AsignaturaConstants {
 			public static final String FIND_ALL = "from AsignaturaDTO";
 			public static final String FIND_BY_FIELD = "from AsignaturaDTO where :field = :value";
 			public static final String FIND_LIKE_FIELD = "from AsignaturaDTO where :field like %:value%";
+			public static final String FIND_LIKE = "from AsignaturaDTO where ";
 		}
 
 	}
@@ -27,6 +28,8 @@ public class AsignaturaConstants {
 	public class Fields {
 		public static final String CODIGO = "codigo";
 		public static final String NOMBRE = "nombre";
+		public static final String CURSO = "curos";
+		public static final String CREDITOS = "creditos";
 	}
 
 	public static final String PATH = "/asignatura";

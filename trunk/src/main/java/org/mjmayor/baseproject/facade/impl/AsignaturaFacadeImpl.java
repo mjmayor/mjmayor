@@ -92,10 +92,22 @@ public class AsignaturaFacadeImpl implements AsignaturaFacade {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional(readOnly = true)
+	public List<AsignaturaView> getAsignaturas(AsignaturaForm asignaturaForm) {
+		logger.debug("AsignaturaFacadeImpl - getAsignaturas");
+		List<AsignaturaDTO> listaDTO = asignaturaDAO.getAsignaturas(asignaturaForm);
+		List<AsignaturaView> listaView = new ArrayList<AsignaturaView>(asignaturaViewAssembler.assemble(listaDTO));
+		return listaView;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	@Transactional
 	public void removeAsignatura(AsignaturaForm asignaturaForm) {
-		// TODO mjmayor Auto-generated method stub
-
+		logger.debug("AsignaturaFacadeImpl - removeAsignatura");
+		asignaturaDAO.removeAsignatura(asignaturaForm);
 	}
 
 	/**
