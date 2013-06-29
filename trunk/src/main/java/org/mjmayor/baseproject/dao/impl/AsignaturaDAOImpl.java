@@ -55,14 +55,16 @@ public class AsignaturaDAOImpl implements AsignaturaDAO {
 	@Override
 	public List<AsignaturaDTO> getAsignaturasByField(String field, Object value) {
 		logger.debug("AsignaturaDAOImpl - getAsignaturasByField");
-		Query query = sessionFactory.getCurrentSession().createQuery(AsignaturaConstants.Database.Queries.FIND_BY_FIELD);
-		query.setParameter(field, value);
+		String queryString = String.format(AsignaturaConstants.Database.Queries.FIND_BY_FIELD, field);
+		Query query = sessionFactory.getCurrentSession().createQuery(queryString);
+		query.setParameter(AsignaturaConstants.Database.Queries.VALUE, value);
 		return ListUtils.castList(AsignaturaDTO.class, query.list());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	// TODO mjmayor Hacer un AbstractDAO que implemente una interfaz DAO, y que defina los metodos: insert, delete, update, getAll, getByField, getLikeField (para el paso 4)
 	@Override
 	public List<AsignaturaDTO> getAsignaturasLikeField(String field, Object value) {
 		logger.debug("AsignaturaDAOImpl - getAsignaturasLikeField");
@@ -117,8 +119,8 @@ public class AsignaturaDAOImpl implements AsignaturaDAO {
 	public void removeAsignatura(AsignaturaForm asignaturaForm) {
 		logger.debug("AsignaturaDAOImpl - removeAsignatura");
 		List<AsignaturaDTO> asignaturas = getAsignaturasByField(AsignaturaConstants.Fields.CODIGO, asignaturaForm.getCodigo());
-		if (asignaturas.size() > 0) {
-			sessionFactory.getCurrentSession().delete(asignaturas);
+		for (AsignaturaDTO asignatura : asignaturas) {
+			sessionFactory.getCurrentSession().delete(asignatura);
 		}
 	}
 }

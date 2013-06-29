@@ -7,9 +7,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.mjmayor.baseproject.constants.AlumnoConstants;
+import org.mjmayor.baseproject.constants.AsignaturaConstants;
 
 @Entity
-@Table(name = AlumnoConstants.Database.TABLE_NAME)
+@Table(name = AsignaturaConstants.Database.TABLE_NAME)
 public class AsignaturaDTO {
 
 	@Id

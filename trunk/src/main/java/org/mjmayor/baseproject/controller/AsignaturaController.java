@@ -2,6 +2,7 @@ package org.mjmayor.baseproject.controller;
 
 import javax.validation.Valid;
 
+import org.mjmayor.baseproject.constants.AlumnoConstants;
 import org.mjmayor.baseproject.constants.AsignaturaConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.AsignaturaFacade;
@@ -51,9 +52,9 @@ public class AsignaturaController {
 		return AsignaturaConstants.DELETEOK;
 	}
 
-	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
+	@RequestMapping(value = AsignaturaConstants.GET_BY_COD, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaByCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
-		logger.debug("AlumnoController - getAsignaturaByCod");
+		logger.debug("AsignaturaController - getAsignaturaByCod");
 		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
 			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
 			return new ModelAndView(AsignaturaConstants.FORM);
@@ -61,5 +62,43 @@ public class AsignaturaController {
 			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturaByCod(asignaturaForm));
 			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
 		}
+	}
+
+	@RequestMapping(value = AsignaturaConstants.GET_LIKE_COD, method = RequestMethod.POST)
+	public ModelAndView getAsignaturaLikeCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
+		logger.debug("AsignaturaController - getAsignaturaLikeCod");
+		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
+			return new ModelAndView(AsignaturaConstants.FORM);
+		} else {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturasLikeCod(asignaturaForm));
+			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+		}
+	}
+
+	@RequestMapping(value = AsignaturaConstants.GET_LIKE_NAME, method = RequestMethod.POST)
+	public ModelAndView getAsignaturaLikeName(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
+		logger.debug("AsignaturaController - getAsignaturaLikeName");
+		if (result.hasFieldErrors(AsignaturaConstants.Fields.NOMBRE)) {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
+			return new ModelAndView(AsignaturaConstants.FORM);
+		} else {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturasLikeName(asignaturaForm));
+			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+		}
+	}
+
+	@RequestMapping(value = AsignaturaConstants.GET_LIKE_FIELDS, method = RequestMethod.POST)
+	public ModelAndView getAsignaturaLikeFields(AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
+		logger.debug("AsignaturaController - getAsignaturaLikeFields");
+		model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturas(asignaturaForm));
+		return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+	}
+	
+	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
+	public ModelAndView getAllAsignaturas(ModelMap model) {
+		logger.debug("AlumnoController - getAllAlumnos");
+		model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturas());
+		return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 }
