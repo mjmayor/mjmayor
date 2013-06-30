@@ -38,10 +38,6 @@ public class AsignaturaConstants {
 	public static final String FORM = PATH + ApplicationConstants.FORM;
 	public static final String INSERT = PATH + ApplicationConstants.INSERT;
 	public static final String DELETE = PATH + ApplicationConstants.DELETE;
-	public static final String GET_BY_COD = PATH + "/getByCod";
-	public static final String GET_LIKE_COD = PATH + "/getLikeCod";
-	public static final String GET_LIKE_NAME = PATH + "/getLikeName";
-	public static final String GET_LIKE_FIELDS = PATH + "/getLikeFields";
 	public static final String GETALL = PATH + ApplicationConstants.GETALL;
 	public static final String INSERTOK = PATH + ApplicationConstants.INSERTOK;
 	public static final String DELETEOK = PATH + ApplicationConstants.DELETEOK;

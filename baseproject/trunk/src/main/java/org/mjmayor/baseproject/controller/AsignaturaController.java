@@ -2,7 +2,6 @@ package org.mjmayor.baseproject.controller;
 
 import javax.validation.Valid;
 
-import org.mjmayor.baseproject.constants.AlumnoConstants;
 import org.mjmayor.baseproject.constants.AsignaturaConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.AsignaturaFacade;
@@ -52,7 +51,7 @@ public class AsignaturaController {
 		return AsignaturaConstants.DELETEOK;
 	}
 
-	@RequestMapping(value = AsignaturaConstants.GET_BY_COD, method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationConstants.GET_BY_COD, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaByCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaByCod");
 		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
@@ -64,7 +63,7 @@ public class AsignaturaController {
 		}
 	}
 
-	@RequestMapping(value = AsignaturaConstants.GET_LIKE_COD, method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationConstants.GET_LIKE_COD, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaLikeCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaLikeCod");
 		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
@@ -76,7 +75,7 @@ public class AsignaturaController {
 		}
 	}
 
-	@RequestMapping(value = AsignaturaConstants.GET_LIKE_NAME, method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationConstants.GET_LIKE_NAME, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaLikeName(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaLikeName");
 		if (result.hasFieldErrors(AsignaturaConstants.Fields.NOMBRE)) {
@@ -88,7 +87,7 @@ public class AsignaturaController {
 		}
 	}
 
-	@RequestMapping(value = AsignaturaConstants.GET_LIKE_FIELDS, method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationConstants.GET_LIKE_FIELDS, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaLikeFields(AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaLikeFields");
 		model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturas(asignaturaForm));

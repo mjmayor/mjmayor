@@ -3,22 +3,27 @@
 
 <html>
 	<body>
-		<h2><spring:message code="z.dataTitle"/></h2>
+		<h2><spring:message code="subject.dataTitle"/></h2>
 		<table>
 
 			<tr>
-				<td><spring:message code="student.dni"/></td>
-				<td><c:out value="${model.alumnoForm.dni}"/></td>
+				<td><spring:message code="subject.cod"/></td>
+				<td><c:out value="${model.asignaturaForm.codigo}"/></td>
 			</tr>
 
 			<tr>
-				<td><spring:message code="student.name"/></td>
-				<td><c:out value="${model.alumnoForm.nombreCompleto}"/></td>
+				<td><spring:message code="subject.name"/></td>
+				<td><c:out value="${model.asignaturaForm.nombre}"/></td>
 			</tr>
 			
 			<tr>
-				<td><spring:message code="student.email"/></td>
-				<td><c:out value="${model.alumnoForm.email}"/></td>
+				<td><spring:message code="subject.year"/></td>
+				<td><c:out value="${model.asignaturaForm.curso}"/></td>
+			</tr>
+			
+			<tr>
+				<td><spring:message code="subject.credits"/></td>
+				<td><c:out value="${model.asignaturaForm.creditos}"/></td>
 			</tr>
 			
 		</table>
