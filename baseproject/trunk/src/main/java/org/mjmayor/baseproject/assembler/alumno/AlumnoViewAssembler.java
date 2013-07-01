@@ -8,13 +8,10 @@ public class AlumnoViewAssembler extends AbstractAssembler<AlumnoDTO, AlumnoView
 
 	@Override
 	public AlumnoView assemble(AlumnoDTO alumnoDTO) {
-
 		AlumnoView alumnoView = new AlumnoView();
-
 		alumnoView.setDni(alumnoDTO.getDni());
 		alumnoView.setNombreCompleto(alumnoDTO.getNombre() + " " + alumnoDTO.getApellidos());
 		alumnoView.setEmail(alumnoDTO.getEmail());
-
 		return alumnoView;
 	}
 }

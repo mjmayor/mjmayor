@@ -8,7 +8,7 @@ package org.mjmayor.baseproject.constants.application;
  */
 public class ApplicationConstants {
 
-	public static final String SCHEMA_NAME = "mjmayor3";
+	public static final String SCHEMA_NAME = "mjmayor";
 	public static final String FORM = "/form";
 	public static final String INSERT = "/insert";
 	public static final String DELETE = "/delete";

@@ -22,8 +22,6 @@ public class AsignaturaDAOImpl implements AsignaturaDAO {
 
 	private static final Logger logger = LoggerFactory.getLogger(AsignaturaDAOImpl.class);
 
-	private static final String LIKE_WILDCARD = "%";
-
 	private SessionFactory sessionFactory;
 
 	private AsignaturaFormAssembler asignaturaFormAssembler;

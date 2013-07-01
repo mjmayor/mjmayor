@@ -1,10 +1,9 @@
 package org.mjmayor.baseproject.view;
 
-public class AlumnoView {
+public class ProfesorView {
 
 	private String dni;
 	private String nombreCompleto;
-	private String email;
 
 	/**
 	 * @return the dni
@@ -34,20 +33,5 @@ public class AlumnoView {
 	 */
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
 	}
 }

@@ -7,10 +7,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.mjmayor.baseproject.constants.AlumnoConstants;
+import org.mjmayor.baseproject.constants.ProfesorConstants;
 
 @Entity
-@Table(name = AlumnoConstants.Database.TABLE_NAME)
-public class AlumnoDTO {
+@Table(name = ProfesorConstants.Database.TABLE_NAME)
+public class ProfesorDTO {
 
 	@Id
 	// @Column(name="id")
@@ -26,9 +27,6 @@ public class AlumnoDTO {
 
 	// @Column(name="apellidos")
 	private String apellidos;
-
-	// @Column(name="email")
-	private String email;
 
 	public int getId() {
 		return id;
@@ -60,13 +58,5 @@ public class AlumnoDTO {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 }
