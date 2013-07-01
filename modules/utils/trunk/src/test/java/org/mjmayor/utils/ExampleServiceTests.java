@@ -9,5 +9,5 @@ public class ExampleServiceTests extends TestCase {
 //	public void testReadOnce() throws Exception {
 //		assertEquals("Hello world!", service.getMessage());
 //	}
-
 }
+

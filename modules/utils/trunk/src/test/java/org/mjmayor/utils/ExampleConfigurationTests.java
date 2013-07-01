@@ -15,5 +15,5 @@ public class ExampleConfigurationTests {
 //	public void testSimpleProperties() throws Exception {
 //		assertNotNull(service);
 //	}
-	
 }
+
