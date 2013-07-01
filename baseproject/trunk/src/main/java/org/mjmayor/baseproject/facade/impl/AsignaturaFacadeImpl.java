@@ -117,7 +117,7 @@ public class AsignaturaFacadeImpl implements AsignaturaFacade {
 	 *            Valor a buscar
 	 * @return Listado de asignaturas que corresponden al criterio de busqueda
 	 */
-	private List<AsignaturaView> getAsignaturasLikeField(String field, Object value) {
+	private List<AsignaturaView> getAsignaturasLikeField(String field, String value) {
 		List<AsignaturaDTO> listaDTO = asignaturaDAO.getAsignaturasLikeField(field, value);
 		List<AsignaturaView> listaView = new ArrayList<AsignaturaView>(asignaturaViewAssembler.assemble(listaDTO));
 		return listaView;

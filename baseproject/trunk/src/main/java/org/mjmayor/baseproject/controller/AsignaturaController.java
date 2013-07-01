@@ -70,8 +70,8 @@ public class AsignaturaController {
 			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
 			return new ModelAndView(AsignaturaConstants.FORM);
 		} else {
-			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturasLikeCod(asignaturaForm));
-			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+			model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturasLikeCod(asignaturaForm));
+			return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
 		}
 	}
 
@@ -82,16 +82,16 @@ public class AsignaturaController {
 			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
 			return new ModelAndView(AsignaturaConstants.FORM);
 		} else {
-			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturasLikeName(asignaturaForm));
-			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+			model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturasLikeName(asignaturaForm));
+			return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
 		}
 	}
 
 	@RequestMapping(value = ApplicationConstants.GET_LIKE_FIELDS, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaLikeFields(AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaLikeFields");
-		model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturas(asignaturaForm));
-		return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
+		model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturas(asignaturaForm));
+		return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 	
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)

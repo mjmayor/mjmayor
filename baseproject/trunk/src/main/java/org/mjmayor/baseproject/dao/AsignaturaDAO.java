@@ -42,7 +42,7 @@ public interface AsignaturaDAO {
 	 *            Valor buscado
 	 * @return Listado de asignaturas que cumplen la condicion
 	 */
-	public List<AsignaturaDTO> getAsignaturasLikeField(String field, Object value);
+	public List<AsignaturaDTO> getAsignaturasLikeField(String field, String value);
 
 	/**
 	 * Obtiene el listado de asignaturas que cumplen de forma aproximada con los campos de un formulario
