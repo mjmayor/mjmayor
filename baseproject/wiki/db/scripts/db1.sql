@@ -1,5 +1,5 @@
-create database mjmayor3;
-use mjmayor3;
+create database mjmayor;
+use mjmayor;
 
 create table alumno(
 	id int primary key,
