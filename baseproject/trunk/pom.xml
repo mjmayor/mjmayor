@@ -169,4 +169,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<description>Proyecto base</description>
+	<scm>
+		<url>https://mjmayor.googlecode.com/svn/baseproject/trunk</url>
+		<connection>https://mjmayor.googlecode.com/svn/baseproject/trunk</connection>
+		<developerConnection>https://mjmayor.googlecode.com/svn/baseproject/trunk</developerConnection>
+	</scm>
 </project>
