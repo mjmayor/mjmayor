@@ -13,6 +13,12 @@
 			<id>JBoss repository</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
+		
+		<repository>
+			<id>mjmayor</id>
+			<url>http://mjmayor.googlecode.com/svn/</url>
+		</repository>
+		
 	</repositories>
 	
 	<properties>
@@ -113,6 +119,13 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
+		</dependency>
+		
+		<!-- Dependencias de modulos -->
+		<dependency>
+			<groupId>org.mjmayor.modules</groupId>
+			<artifactId>utils</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		
 	</dependencies>
