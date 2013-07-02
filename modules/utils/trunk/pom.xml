@@ -51,4 +51,9 @@
 		</plugins>
 	</build> 
 	<description>Proyecto con diversas utilidades generales.</description>
+	<scm>
+		<url>https://mjmayor.googlecode.com/svn/modules/utils/trunk</url>
+		<connection>https://mjmayor.googlecode.com/svn/modules/utils/trunk</connection>
+		<developerConnection>https://mjmayor.googlecode.com/svn/modules/utils/trunk</developerConnection>
+	</scm>
 </project>
