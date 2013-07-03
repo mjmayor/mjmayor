@@ -14,7 +14,7 @@ import org.mjmayor.baseproject.constants.AsignaturaConstants;
 import org.mjmayor.baseproject.dao.AsignaturaDAO;
 import org.mjmayor.baseproject.dto.AsignaturaDTO;
 import org.mjmayor.baseproject.form.AsignaturaForm;
-import org.mjmayor.baseproject.utils.ListUtils;
+import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

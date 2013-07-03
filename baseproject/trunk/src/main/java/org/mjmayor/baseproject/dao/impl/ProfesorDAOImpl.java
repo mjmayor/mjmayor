@@ -9,7 +9,7 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.dao.ProfesorDAO;
 import org.mjmayor.baseproject.dto.ProfesorDTO;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.baseproject.utils.ListUtils;
+import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
