@@ -4,5 +4,5 @@
   <artifactId>utils</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>Utils</name>
-  <description>Proyecto con utilidades</description>
+  <description>Proyecto con utilidades genéricas</description>
 </project>
