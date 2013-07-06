@@ -7,13 +7,11 @@ import org.mjmayor.validations.dni.CheckDNI;
 
 public class CheckDNIImpl implements ConstraintValidator<CheckDNI, String> {
 
-	@Override
 	public void initialize(CheckDNI arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public boolean isValid(String obj, ConstraintValidatorContext context) {
 
 		if (obj != null && !"".equals(obj)) {
