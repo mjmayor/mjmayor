@@ -10,7 +10,7 @@ public interface DAO<FORM, DTO> {
 
 	public void removeByField(String field, Object value);
 	
-	public void removeLikeField(String field, Object value);
+	public void removeLikeField(String field, String value);
 
 	public List<DTO> getAll();
 
@@ -18,7 +18,7 @@ public interface DAO<FORM, DTO> {
 
 	public List<DTO> getByField(String field, Object value);
 
-	public List<DTO> getLikeField(String field, Object value);
+	public List<DTO> getLikeField(String field, String value);
 
 	public List<DTO> getLikeAllFields(FORM form);
 }

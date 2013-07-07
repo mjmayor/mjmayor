@@ -1,32 +1,57 @@
 package org.mjmayor.jpa.dao.impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.mjmayor.jpa.assembler.support.Assembler;
 import org.mjmayor.jpa.dao.DAO;
+import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mysql.jdbc.StringUtils;
 
 public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 
+	private Class<DTO> persistentClass;
+
 	private SessionFactory sessionFactory;
 
 	private Assembler<FORM, DTO> assembler;
 
+	@SuppressWarnings("unchecked")
 	public DAOImpl(SessionFactory sessionFactory, Assembler<FORM, DTO> assembler) {
 		this.sessionFactory = sessionFactory;
 		this.assembler = assembler;
+
+		if (getClass().getSuperclass().equals((DAOImpl.class))) {
+			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		} else {
+			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
+		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void add(FORM form) {
 		logger.debug("DAOImpl - add");
 		DTO dto = assembler.assemble(form);
 		sessionFactory.getCurrentSession().save(dto);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeById(int id) {
 		DTO dto = getById(id);
 		if (dto != null) {
@@ -35,45 +60,104 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeByField(String field, Object value) {
-		List<DTO> listDto = getByField(field,value);
-		if (listDto != null && listDto.size()>0) {
-			for (DTO dto:listDto){
-			sessionFactory.getCurrentSession().delete(dto);
+		List<DTO> listDto = getByField(field, value);
+		if (listDto != null && listDto.size() > 0) {
+			for (DTO dto : listDto) {
+				sessionFactory.getCurrentSession().delete(dto);
 			}
 		}
 	}
 
-	public void removeLikeField(String field, Object value) {
-		List<DTO> listDto = getLikeField(field,value);
-		if (listDto != null && listDto.size()>0) {
-			for (DTO dto:listDto){
-			sessionFactory.getCurrentSession().delete(dto);
+	/**
+	 * {@inheritDoc}
+	 */
+	public void removeLikeField(String field, String value) {
+		List<DTO> listDto = getLikeField(field, value);
+		if (listDto != null && listDto.size() > 0) {
+			for (DTO dto : listDto) {
+				sessionFactory.getCurrentSession().delete(dto);
 			}
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<DTO> getAll() {
-		//return ListUtils.castList(DTO.class, sessionFactory.getCurrentSession().createQuery(Constants.Database.Queries.FIND_ALL).list());
-		return null;
+		return ListUtils.castList(persistentClass, sessionFactory.getCurrentSession().createQuery("from " + persistentClass.getSimpleName()).list());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
 	public DTO getById(int id) {
-		return (DTO) sessionFactory.getCurrentSession().get(DTO.class, id);
+		return (DTO) sessionFactory.getCurrentSession().get(persistentClass, id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<DTO> getByField(String field, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
+		String queryString = String.format(a, field);
+		Query query = sessionFactory.getCurrentSession().createQuery(queryString);
+		query.setParameter("value", value);
+		return ListUtils.castList(persistentClass, query.list());
 	}
 
-	public List<DTO> getLikeField(String field, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<DTO> getLikeField(String field, String value) {
+		Session session = null;
+		session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(persistentClass);
+		criteria.add(Restrictions.like(field, value, MatchMode.ANYWHERE));
+		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
+		session.close();
+		return listDTO;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<DTO> getLikeAllFields(FORM form) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = null;
+		session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(persistentClass);
+		addRestrictions(criteria, form);
+		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
+		session.close();
+		return listDTO;
+	}
+
+	private void addRestrictions(Criteria criteria, FORM form) {
+
+		Field[] fields = form.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			Class<?> type = field.getType();
+			try {
+				if (type.equals("java.lang.String")) {
+					String name = field.getName();
+					String value = (String) field.get(form);
+					if (!StringUtils.isNullOrEmpty(value)) {
+						criteria.add(Restrictions.like(name, value, MatchMode.ANYWHERE));
+					}
+				}
+
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
