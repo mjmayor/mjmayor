@@ -3,7 +3,7 @@ package org.mjmayor.jpa.facade.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mjmayor.jpa.assembler.support.Assembler;
+import org.mjmayor.jpa.assembler.Assembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
 import org.mjmayor.jpa.facade.Facade;

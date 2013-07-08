@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.mjmayor.jpa.assembler.support.Assembler;
+import org.mjmayor.jpa.assembler.Assembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;

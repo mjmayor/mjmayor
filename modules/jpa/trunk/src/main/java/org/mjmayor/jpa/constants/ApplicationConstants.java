@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.constants.application;
+package org.mjmayor.jpa.constants;
 
 /**
  * Constantes generales de la aplicacion

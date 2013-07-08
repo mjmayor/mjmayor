@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.assembler.support;
+package org.mjmayor.jpa.assembler;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
