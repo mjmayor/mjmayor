@@ -28,9 +28,12 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private Assembler<FORM, DTO> assembler;
 
+	private Session session;
+
 	@SuppressWarnings("unchecked")
 	public DAOImpl(SessionFactory sessionFactory, Assembler<FORM, DTO> assembler) {
 		this.sessionFactory = sessionFactory;
+		this.session = sessionFactory.openSession();
 		this.assembler = assembler;
 
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
@@ -46,7 +49,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	public void add(FORM form) {
 		logger.debug("DAOImpl - add");
 		DTO dto = assembler.assemble(form);
-		sessionFactory.getCurrentSession().save(dto);
+		session.save(dto);
 	}
 
 	/**
@@ -55,7 +58,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	public void removeById(int id) {
 		DTO dto = getById(id);
 		if (dto != null) {
-			sessionFactory.getCurrentSession().delete(dto);
+			session.delete(dto);
 		}
 
 	}
@@ -67,7 +70,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		List<DTO> listDto = getByField(field, value);
 		if (listDto != null && listDto.size() > 0) {
 			for (DTO dto : listDto) {
-				sessionFactory.getCurrentSession().delete(dto);
+				session.delete(dto);
 			}
 		}
 	}
@@ -79,7 +82,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		List<DTO> listDto = getLikeField(field, value);
 		if (listDto != null && listDto.size() > 0) {
 			for (DTO dto : listDto) {
-				sessionFactory.getCurrentSession().delete(dto);
+				session.delete(dto);
 			}
 		}
 	}
@@ -88,7 +91,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getAll() {
-		return ListUtils.castList(persistentClass, sessionFactory.getCurrentSession().createQuery("from " + persistentClass.getSimpleName()).list());
+		return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
 	}
 
 	/**
@@ -96,7 +99,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@SuppressWarnings("unchecked")
 	public DTO getById(int id) {
-		return (DTO) sessionFactory.getCurrentSession().get(persistentClass, id);
+		return (DTO) session.get(persistentClass, id);
 	}
 
 	/**
@@ -105,7 +108,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	public List<DTO> getByField(String field, Object value) {
 		String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
 		String queryString = String.format(a, field);
-		Query query = sessionFactory.getCurrentSession().createQuery(queryString);
+		Query query = session.createQuery(queryString);
 		query.setParameter("value", value);
 		return ListUtils.castList(persistentClass, query.list());
 	}
@@ -114,8 +117,6 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getLikeField(String field, String value) {
-		Session session = null;
-		session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(persistentClass);
 		criteria.add(Restrictions.like(field, value, MatchMode.ANYWHERE));
 		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
@@ -127,9 +128,6 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getLikeAllFields(FORM form) {
-		// TODO Auto-generated method stub
-		Session session = null;
-		session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(persistentClass);
 		addRestrictions(criteria, form);
 		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
