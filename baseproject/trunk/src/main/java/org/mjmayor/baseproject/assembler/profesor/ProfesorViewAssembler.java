@@ -1,8 +1,8 @@
 package org.mjmayor.baseproject.assembler.profesor;
 
-import org.mjmayor.baseproject.assembler.support.AbstractAssembler;
 import org.mjmayor.baseproject.dto.ProfesorDTO;
 import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.assembler.AbstractAssembler;
 
 public class ProfesorViewAssembler extends AbstractAssembler<ProfesorDTO, ProfesorView> {
 

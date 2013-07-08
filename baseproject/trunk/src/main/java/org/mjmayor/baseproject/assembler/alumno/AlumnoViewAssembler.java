@@ -1,8 +1,8 @@
 package org.mjmayor.baseproject.assembler.alumno;
 
-import org.mjmayor.baseproject.assembler.support.AbstractAssembler;
 import org.mjmayor.baseproject.dto.AlumnoDTO;
 import org.mjmayor.baseproject.view.AlumnoView;
+import org.mjmayor.jpa.assembler.AbstractAssembler;
 
 public class AlumnoViewAssembler extends AbstractAssembler<AlumnoDTO, AlumnoView> {
 

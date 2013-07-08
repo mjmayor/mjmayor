@@ -39,7 +39,7 @@ public class ProfesorController {
 		if (result.hasErrors()) {
 			return ProfesorConstants.FORM;
 		} else {
-			profesorFacade.addProfesor(profesorForm);
+			profesorFacade.add(profesorForm);
 			return ProfesorConstants.INSERTOK;
 		}
 	}
@@ -51,7 +51,7 @@ public class ProfesorController {
 		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
 			return ProfesorConstants.FORM;
 		} else {
-			profesorFacade.removeProfesor(profesorForm);
+			profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
 			return ProfesorConstants.DELETEOK;
 		}
 	}
@@ -64,7 +64,7 @@ public class ProfesorController {
 			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
 			return new ModelAndView(ProfesorConstants.FORM);
 		} else {
-			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getProfesor(profesorForm));
+			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
 			return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
 		}
 	}
@@ -72,7 +72,7 @@ public class ProfesorController {
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllProfesores(ModelMap model) {
 		logger.debug("ProfesorController - getAllProfesores");
-		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.getProfesores());
+		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.getAll());
 		return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 }
