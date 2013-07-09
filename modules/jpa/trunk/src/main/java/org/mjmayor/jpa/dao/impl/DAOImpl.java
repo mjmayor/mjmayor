@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,6 +22,8 @@ import com.mysql.jdbc.StringUtils;
 
 public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
+	private EntityManager entityManager;
+
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 
 	private Class<DTO> persistentClass;
@@ -29,6 +33,14 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	private Assembler<FORM, DTO> assembler;
 
 	private Session session;
+
+	/**
+	 * @param entityManager
+	 *            the entityManager to set
+	 */
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 
 	@SuppressWarnings("unchecked")
 	public DAOImpl(SessionFactory sessionFactory, Assembler<FORM, DTO> assembler) {
