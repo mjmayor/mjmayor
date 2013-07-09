@@ -1,6 +1,7 @@
 package org.mjmayor.baseproject.dao.impl;
 
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+
 import org.mjmayor.baseproject.assembler.profesor.ProfesorFormAssembler;
 import org.mjmayor.baseproject.dao.ProfesorDAO;
 import org.mjmayor.baseproject.dto.ProfesorDTO;
@@ -13,7 +14,7 @@ public class ProfesorDAOImpl extends DAOImpl<ProfesorForm, ProfesorDTO> implemen
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfesorDAOImpl.class);
 
-	public ProfesorDAOImpl(SessionFactory sessionFactory, ProfesorFormAssembler profesorFormAssembler) {
-		super(sessionFactory, profesorFormAssembler);
+	public ProfesorDAOImpl(EntityManager entityManager, ProfesorFormAssembler profesorFormAssembler) {
+		super(entityManager, profesorFormAssembler);
 	}
 }

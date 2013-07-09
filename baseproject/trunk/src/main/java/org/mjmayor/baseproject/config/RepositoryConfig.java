@@ -2,7 +2,6 @@ package org.mjmayor.baseproject.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -46,12 +45,13 @@ public class RepositoryConfig {
 		return properties;
 	}
 
-	public LocalContainerEntityManagerFactoryBean entityManagerFactorySU() {
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManager() {
 		LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
 		entityManager.setDataSource(dataSource());
 		entityManager.setJpaDialect(new HibernateJpaDialect());
 		entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		entityManager.setPersistenceUnitName("mjmayor");
+//		entityManager.setPersistenceUnitName("mjmayor");
 		entityManager.setJpaProperties(getHibernateProperties());
 //		entityManager.setPackagesToScan(new String[] { "org.mjmayor.baseproject" });
 		return entityManager;
@@ -60,8 +60,7 @@ public class RepositoryConfig {
 	@Bean
 	public JpaTransactionManager transactionManager() {
 		JpaTransactionManager jpatm = new JpaTransactionManager();
-		jpatm.setDataSource(dataSource());
-		jpatm.setEntityManagerFactory((EntityManagerFactory)entityManagerFactorySU());
+//		jpatm.setEntityManagerFactory(entityManager());
 		return jpatm;
 	}
 

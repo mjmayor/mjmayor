@@ -1,6 +1,7 @@
 package org.mjmayor.baseproject.config;
 
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+
 import org.mjmayor.baseproject.assembler.profesor.ProfesorFormAssembler;
 import org.mjmayor.baseproject.assembler.profesor.ProfesorViewAssembler;
 import org.mjmayor.baseproject.dao.ProfesorDAO;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class ProfesorBeansConfig {
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	private EntityManager entityManager;
 
 	@Bean
 	public ProfesorFacade profesorFacade() {
@@ -24,7 +25,7 @@ public class ProfesorBeansConfig {
 
 	@Bean
 	public ProfesorDAO profesorDAO() {
-		return new ProfesorDAOImpl(sessionFactory, profesorFormAssembler());
+		return new ProfesorDAOImpl(entityManager, profesorFormAssembler());
 	}
 
 	@Bean

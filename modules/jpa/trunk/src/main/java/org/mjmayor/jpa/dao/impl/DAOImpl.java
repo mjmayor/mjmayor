@@ -34,17 +34,10 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private Session session;
 
-	/**
-	 * @param entityManager
-	 *            the entityManager to set
-	 */
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@SuppressWarnings("unchecked")
-	public DAOImpl(SessionFactory sessionFactory, Assembler<FORM, DTO> assembler) {
-		this.sessionFactory = sessionFactory;
+	public DAOImpl(EntityManager entityManager, Assembler<FORM, DTO> assembler) {
+		this.entityManager = entityManager;
 		this.session = sessionFactory.openSession();
 		this.assembler = assembler;
 
