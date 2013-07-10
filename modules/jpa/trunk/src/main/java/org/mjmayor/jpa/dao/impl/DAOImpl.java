@@ -2,12 +2,13 @@ package org.mjmayor.jpa.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -34,11 +35,10 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private Session session;
 
-
 	@SuppressWarnings("unchecked")
 	public DAOImpl(EntityManager entityManager, Assembler<FORM, DTO> assembler) {
 		this.entityManager = entityManager;
-		this.session = sessionFactory.openSession();
+		// this.session = sessionFactory.openSession();
 		this.assembler = assembler;
 
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
@@ -54,7 +54,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	public void add(FORM form) {
 		logger.debug("DAOImpl - add");
 		DTO dto = assembler.assemble(form);
-		session.save(dto);
+		entityManager.merge(dto);
 	}
 
 	/**
@@ -96,26 +96,29 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getAll() {
-		return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
+//		return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
+		List<DTO> a=new ArrayList<DTO>();
+		a.add(entityManager.find(persistentClass, 1));
+		return a;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
 	public DTO getById(int id) {
-		return (DTO) session.get(persistentClass, id);
+		 return entityManager.find(persistentClass, id);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getByField(String field, Object value) {
-		String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
-		String queryString = String.format(a, field);
-		Query query = session.createQuery(queryString);
-		query.setParameter("value", value);
-		return ListUtils.castList(persistentClass, query.list());
+//		String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
+//		String queryString = String.format(a, field);
+//		Query query = session.createQuery(queryString);
+//		query.setParameter("value", value);
+//		return ListUtils.castList(persistentClass, query.list());
+		return null;
 	}
 
 	/**

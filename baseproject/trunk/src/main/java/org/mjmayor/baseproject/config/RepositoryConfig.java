@@ -2,16 +2,21 @@ package org.mjmayor.baseproject.config;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -27,6 +32,8 @@ public class RepositoryConfig {
 	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
 	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
 
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
 	
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
@@ -46,30 +53,32 @@ public class RepositoryConfig {
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManager() {
-		LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-		entityManager.setDataSource(dataSource());
-		entityManager.setJpaDialect(new HibernateJpaDialect());
-		entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-//		entityManager.setPersistenceUnitName("mjmayor");
-		entityManager.setJpaProperties(getHibernateProperties());
-//		entityManager.setPackagesToScan(new String[] { "org.mjmayor.baseproject" });
-		return entityManager;
+	public FactoryBean<EntityManagerFactory> entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		localContainerEntityManagerFactoryBean.setDataSource(dataSource());
+		localContainerEntityManagerFactoryBean.setPackagesToScan("org.mjmayor.baseproject");
+		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+		return localContainerEntityManagerFactoryBean;
+	}
+
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		jpaVendorAdapter.setGenerateDdl(true);
+		jpaVendorAdapter.setShowSql(true);
+		return jpaVendorAdapter;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		transactionManager.setDataSource(dataSource());
+		return transactionManager;
 	}
 	
 	@Bean
-	public JpaTransactionManager transactionManager() {
-		JpaTransactionManager jpatm = new JpaTransactionManager();
-//		jpatm.setEntityManagerFactory(entityManager());
-		return jpatm;
+	public EntityManager entityManager(){
+		return entityManagerFactory.createEntityManager();
 	}
-
-	// @Bean
-	// public LocalSessionFactoryBean sessionFactory() {
-	// LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
-	// bean.setDataSource(getDataSource());
-	// bean.setHibernateProperties(getHibernateProperties());
-	// bean.setPackagesToScan(new String[] { "org.mjmayor.baseproject" });
-	// return bean;
-	// }
 }
