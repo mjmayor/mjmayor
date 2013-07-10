@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,6 +23,7 @@ import com.mysql.jdbc.StringUtils;
 
 public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
@@ -42,9 +43,9 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		this.assembler = assembler;
 
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
-			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 		} else {
-			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
+			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[1];
 		}
 	}
 
@@ -54,7 +55,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	public void add(FORM form) {
 		logger.debug("DAOImpl - add");
 		DTO dto = assembler.assemble(form);
-		entityManager.merge(dto);
+		entityManager.persist(dto);
 	}
 
 	/**
@@ -96,8 +97,8 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getAll() {
-//		return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
-		List<DTO> a=new ArrayList<DTO>();
+		// return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
+		List<DTO> a = new ArrayList<DTO>();
 		a.add(entityManager.find(persistentClass, 1));
 		return a;
 	}
@@ -106,18 +107,18 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	public DTO getById(int id) {
-		 return entityManager.find(persistentClass, id);
+		return entityManager.find(persistentClass, id);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public List<DTO> getByField(String field, Object value) {
-//		String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
-//		String queryString = String.format(a, field);
-//		Query query = session.createQuery(queryString);
-//		query.setParameter("value", value);
-//		return ListUtils.castList(persistentClass, query.list());
+		// String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
+		// String queryString = String.format(a, field);
+		// Query query = session.createQuery(queryString);
+		// query.setParameter("value", value);
+		// return ListUtils.castList(persistentClass, query.list());
 		return null;
 	}
 

@@ -39,7 +39,12 @@ public class ProfesorController {
 		if (result.hasErrors()) {
 			return ProfesorConstants.FORM;
 		} else {
-			profesorFacade.add(profesorForm);
+			try {
+				profesorFacade.add(profesorForm);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return ProfesorConstants.INSERTOK;
 		}
 	}

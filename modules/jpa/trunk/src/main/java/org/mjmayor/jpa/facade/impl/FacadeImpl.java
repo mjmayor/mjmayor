@@ -3,12 +3,15 @@ package org.mjmayor.jpa.facade.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.mjmayor.jpa.assembler.Assembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
 import org.mjmayor.jpa.facade.Facade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 
@@ -26,8 +29,13 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void add(FORM form) {
-		dao.add(form);
+	@Transactional
+	public void add(FORM form) throws Exception {
+		try {
+			dao.add(form);
+		} catch (PersistenceException e) {
+			throw new Exception();
+		}
 	}
 
 	/**

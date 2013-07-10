@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Facade<FORM, DTO, VIEW> {
 
-	public void add(FORM form);
+	public void add(FORM form) throws Exception;
 
 	public void removeById(int id);
 
