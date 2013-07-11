@@ -2,9 +2,11 @@ package org.mjmayor.jpa.facade;
 
 import java.util.List;
 
+import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+
 public interface Facade<FORM, DTO, VIEW> {
 
-	public void add(FORM form) throws Exception;
+	public void add(FORM form) throws JPAPersistenceException;
 
 	public void removeById(int id);
 
