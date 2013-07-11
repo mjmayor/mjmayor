@@ -3,7 +3,7 @@ use mjmayor;
 
 create table alumno(
 	id int primary key,
-	dni varchar(9),
+	dni varchar(9) unique,
 	nombre varchar(20),
 	apellidos varchar(30),
 	email varchar(30)
@@ -11,7 +11,7 @@ create table alumno(
 
 create table profesor(
 	id int primary key,
-	dni varchar(9),
+	dni varchar(9) unique,
 	nombre varchar(20),
 	apellidos varchar(30)
 );
@@ -19,7 +19,7 @@ create table profesor(
 
 create table asignatura(
 	id int primary key,
-	codigo varchar(10),
+	codigo varchar(10) unique,
 	nombre varchar(30),
 	curso int,
 	creditos double(2,1)

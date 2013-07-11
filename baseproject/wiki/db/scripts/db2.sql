@@ -3,7 +3,7 @@ use mjmayor2;
 
 create table alumno(
 	id int primary key,
-	dni varchar(9),
+	dni varchar(9) unique,
 	nombre varchar(20),
 	apellidos varchar(30),
 	email varchar(30)
