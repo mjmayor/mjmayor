@@ -34,6 +34,7 @@ public class ProfesorConstants {
 	public static final String GET = PATH + ApplicationConstants.GET;
 	public static final String GETALL = PATH + ApplicationConstants.GETALL;
 	public static final String INSERTOK = PATH + ApplicationConstants.INSERTOK;
+	public static final String INSERT_ERROR = PATH + ApplicationConstants.INSERT_ERROR;
 	public static final String DELETEOK = PATH + ApplicationConstants.DELETEOK;
 	public static final String DATA = PATH + ApplicationConstants.DATA;
 	public static final String LIST = PATH + ApplicationConstants.LIST;

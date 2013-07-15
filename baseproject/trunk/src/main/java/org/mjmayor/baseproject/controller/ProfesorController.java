@@ -6,10 +6,10 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,12 +40,13 @@ public class ProfesorController {
 		if (result.hasErrors()) {
 			return ProfesorConstants.FORM;
 		} else {
-				try {
-					profesorFacade.add(profesorForm);
-				} catch (JPAPersistenceException e) {
-					// TODO mjmayor Auto-generated catch block
-					e.printStackTrace();
-				}
+
+			try {
+				profesorFacade.add(profesorForm);
+			} catch (DataAccessException e) {
+				// TODO mjmayor Auto-generated catch block
+				return ProfesorConstants.INSERT_ERROR;
+			}
 			return ProfesorConstants.INSERTOK;
 		}
 	}

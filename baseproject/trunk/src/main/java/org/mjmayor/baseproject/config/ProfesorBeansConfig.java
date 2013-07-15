@@ -20,12 +20,12 @@ public class ProfesorBeansConfig {
 
 	@Bean
 	public ProfesorFacade profesorFacade() {
-		return new ProfesorFacadeImpl(profesorDAO(), profesorViewAssembler());
+		return new ProfesorFacadeImpl(profesorDAO(), profesorFormAssembler(), profesorViewAssembler());
 	}
 
 	@Bean
 	public ProfesorDAO profesorDAO() {
-		return new ProfesorDAOImpl(entityManager, profesorFormAssembler());
+		return new ProfesorDAOImpl(entityManager);
 	}
 
 	@Bean

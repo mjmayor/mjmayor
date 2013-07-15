@@ -13,7 +13,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.mjmayor.jpa.assembler.Assembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
@@ -32,15 +31,12 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private SessionFactory sessionFactory;
 
-	private Assembler<FORM, DTO> assembler;
-
 	private Session session;
 
 	@SuppressWarnings("unchecked")
-	public DAOImpl(EntityManager entityManager, Assembler<FORM, DTO> assembler) {
+	public DAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		// this.session = sessionFactory.openSession();
-		this.assembler = assembler;
 
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
 			persistentClass = (Class<DTO>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
@@ -52,9 +48,8 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void add(FORM form) {
+	public void add(DTO dto) {
 		logger.debug("DAOImpl - add");
-		DTO dto = assembler.assemble(form);
 		entityManager.persist(dto);
 	}
 

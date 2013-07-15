@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.springframework.dao.DataAccessException;
 
 @Aspect
 public class JPAInterceptor {
@@ -13,14 +14,14 @@ public class JPAInterceptor {
 	@Pointcut("execution(@org.springframework.transaction.annotation.Transactional * *(..))")
 	public void transactionalMethod() {
 	}
-	
+
 	@AfterReturning("transactionalMethod()")
-    public void afterTransactionalMethod(JoinPoint joinPoint) {
-        System.out.println("hola");
-    }
+	public void afterTransactionalMethod(JoinPoint joinPoint) {
+		System.out.println("hola");
+	}
 
 	@AfterThrowing(pointcut = "transactionalMethod()", throwing = "e")
-	public void afterThrowingFromTransactionalMethod(JoinPoint joinPoint, RuntimeException e) throws JPAPersistenceException {
-		throw new JPAPersistenceException(e);
+	public void afterThrowingFromTransactionalMethod(JoinPoint joinPoint, DataAccessException e) throws JPAPersistenceException {
+		throw new JPAPersistenceException(e.getMessage());
 	}
 }

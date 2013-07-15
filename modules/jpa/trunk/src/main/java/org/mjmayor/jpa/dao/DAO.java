@@ -4,12 +4,12 @@ import java.util.List;
 
 public interface DAO<FORM, DTO> {
 
-	public void add(FORM form);
+	public void add(DTO dto);
 
 	public void removeById(int id);
 
 	public void removeByField(String field, Object value);
-	
+
 	public void removeLikeField(String field, String value);
 
 	public List<DTO> getAll();

@@ -1,5 +1,6 @@
 package org.mjmayor.jpa.exceptions;
 
+import org.springframework.dao.DataAccessException;
 
 /**
  * Excepcion para lanzarse en caso de que haya algun error en alguna escritura en base de datos
@@ -7,7 +8,7 @@ package org.mjmayor.jpa.exceptions;
  * @author Manuel Jose Mayor Perez
  * @date 11/07/2013
  */
-public class JPAPersistenceException extends Exception {
+public class JPAPersistenceException extends DataAccessException {
 
 	private static final long serialVersionUID = 7927485522913367165L;
 
@@ -20,10 +21,6 @@ public class JPAPersistenceException extends Exception {
 	}
 
 	public JPAPersistenceException(String arg0) {
-		super(arg0);
-	}
-	
-	public JPAPersistenceException(Throwable arg0) {
 		super(arg0);
 	}
 }

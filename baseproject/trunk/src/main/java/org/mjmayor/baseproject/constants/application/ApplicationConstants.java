@@ -19,6 +19,7 @@ public class ApplicationConstants {
 	public static final String GET_LIKE_FIELDS = "/getLikeFields";
 	public static final String GETALL = "/getAll";
 	public static final String INSERTOK = "/insertOk";
+	public static final String INSERT_ERROR = "/insertError";
 	public static final String DELETEOK = "/deleteOk";
 	public static final String DATA = "/data";
 	public static final String LIST = "/list";

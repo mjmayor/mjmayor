@@ -2,11 +2,11 @@ package org.mjmayor.jpa.facade;
 
 import java.util.List;
 
-import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.springframework.dao.DataAccessException;
 
 public interface Facade<FORM, DTO, VIEW> {
 
-	public void add(FORM form) throws JPAPersistenceException;
+	public void add(FORM form) throws DataAccessException;
 
 	public void removeById(int id);
 
