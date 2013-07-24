@@ -14,6 +14,7 @@ public class PageResult<T> implements Serializable {
 	public final List<T> items;
 
 	public PageResult(int size, int offset, int number, long total, int totalPages, int numElements, List<T> items) {
+		super();
 		this.size = size;
 		this.offset = offset;
 		this.number = number;
@@ -23,8 +24,8 @@ public class PageResult<T> implements Serializable {
 		this.items = items;
 	}
 
+	@Override
 	public String toString() {
-		return String.format("PageResult [size=%s, offset=%s, number=%s, total=%s, totalPages=%s, numElements=%s, items=%s]", new Object[] { Integer.valueOf(this.size), Integer.valueOf(this.offset),
-				Integer.valueOf(this.number), Long.valueOf(this.total), Integer.valueOf(this.totalPages), Integer.valueOf(this.numElements), this.items });
+		return String.format("PageResult [size=%s, offset=%s, number=%s, total=%s, totalPages=%s, numElements=%s, items=%s]", size, offset, number, total, totalPages, numElements, items);
 	}
 }
