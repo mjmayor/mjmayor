@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -139,13 +142,25 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		return listDTO;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public long getTotal() {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+		countCriteria.from(persistentClass);
+		Root<?> entityRoot = countCriteria.getRoots().iterator().next();
+		countCriteria.select(builder.count(entityRoot));
+		return entityManager.createQuery(countCriteria).getSingleResult();
+	}
+
 	private void addRestrictions(Criteria criteria, FORM form) {
 
 		Field[] fields = form.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			Class<?> type = field.getType();
 			try {
-				if (type.equals("java.lang.String")) {
+				if ("java.lang.String".equals(type)) {
 					String name = field.getName();
 					String value = (String) field.get(form);
 					if (!StringUtils.isNullOrEmpty(value)) {

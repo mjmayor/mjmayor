@@ -23,4 +23,6 @@ public interface Facade<FORM, DTO, VIEW> {
 	public List<VIEW> getLikeField(String field, String value);
 
 	public List<VIEW> getLikeAllFields(FORM form);
+
+	public long getTotal();
 }

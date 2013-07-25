@@ -21,4 +21,6 @@ public interface DAO<FORM, DTO> {
 	public List<DTO> getLikeField(String field, String value);
 
 	public List<DTO> getLikeAllFields(FORM form);
+	
+	public long getTotal();
 }

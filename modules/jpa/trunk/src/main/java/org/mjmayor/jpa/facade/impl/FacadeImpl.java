@@ -104,4 +104,8 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
 	}
+
+	public long getTotal() {
+		return dao.getTotal();
+	}
 }
