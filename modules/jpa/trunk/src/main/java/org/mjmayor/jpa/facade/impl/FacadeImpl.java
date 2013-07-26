@@ -6,10 +6,11 @@ import java.util.List;
 import org.mjmayor.jpa.assembler.Assembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
+import org.mjmayor.jpa.exceptions.FieldNotFoundException;
+import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.facade.Facade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
@@ -33,7 +34,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 */
 
 	@Transactional()
-	public void add(FORM form) throws DataAccessException {
+	public void add(FORM form) throws JPAPersistenceException {
 		DTO dto = formAssembler.assemble(form);
 		dao.add(dto);
 	}
@@ -41,21 +42,21 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeById(int id) {
+	public void removeById(int id) throws JPAPersistenceException {
 		dao.removeById(id);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeByField(String field, Object value) {
+	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException {
 		dao.removeByField(field, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeLikeField(String field, String value) {
+	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException {
 		dao.removeByField(field, value);
 	}
 
@@ -81,7 +82,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<VIEW> getByField(String field, Object value) {
+	public List<VIEW> getByField(String field, Object value) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getByField(field, value);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
@@ -90,7 +91,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<VIEW> getLikeField(String field, String value) {
+	public List<VIEW> getLikeField(String field, String value) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getLikeField(field, value);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
@@ -99,7 +100,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<VIEW> getLikeAllFields(FORM form) {
+	public List<VIEW> getLikeAllFields(FORM form) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getLikeAllFields(form);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;

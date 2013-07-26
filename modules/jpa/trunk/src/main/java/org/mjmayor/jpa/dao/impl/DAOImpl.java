@@ -17,6 +17,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.mjmayor.jpa.dao.DAO;
+import org.mjmayor.jpa.exceptions.FieldNotFoundException;
+import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +53,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void add(DTO dto) {
+	public void add(DTO dto) throws JPAPersistenceException {
 		logger.debug("DAOImpl - add");
 		entityManager.persist(dto);
 	}
@@ -59,7 +61,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeById(int id) {
+	public void removeById(int id) throws JPAPersistenceException {
 		DTO dto = getById(id);
 		if (dto != null) {
 			session.delete(dto);
@@ -70,7 +72,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeByField(String field, Object value) {
+	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException {
 		List<DTO> listDto = getByField(field, value);
 		if (listDto != null && listDto.size() > 0) {
 			for (DTO dto : listDto) {
@@ -82,7 +84,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void removeLikeField(String field, String value) {
+	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException {
 		List<DTO> listDto = getLikeField(field, value);
 		if (listDto != null && listDto.size() > 0) {
 			for (DTO dto : listDto) {
@@ -111,7 +113,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<DTO> getByField(String field, Object value) {
+	public List<DTO> getByField(String field, Object value) throws FieldNotFoundException {
 		// String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
 		// String queryString = String.format(a, field);
 		// Query query = session.createQuery(queryString);
@@ -123,7 +125,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<DTO> getLikeField(String field, String value) {
+	public List<DTO> getLikeField(String field, String value) throws FieldNotFoundException {
 		Criteria criteria = session.createCriteria(persistentClass);
 		criteria.add(Restrictions.like(field, value, MatchMode.ANYWHERE));
 		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
@@ -134,7 +136,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<DTO> getLikeAllFields(FORM form) {
+	public List<DTO> getLikeAllFields(FORM form) throws FieldNotFoundException {
 		Criteria criteria = session.createCriteria(persistentClass);
 		addRestrictions(criteria, form);
 		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
