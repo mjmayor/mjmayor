@@ -8,7 +8,6 @@ package org.mjmayor.baseproject.constants.application;
  */
 public class ApplicationConstants {
 
-	public static final String SCHEMA_NAME = "mjmayor";
 	public static final String FORM = "/form";
 	public static final String INSERT = "/insert";
 	public static final String DELETE = "/delete";
@@ -18,10 +17,12 @@ public class ApplicationConstants {
 	public static final String GET_LIKE_NAME = "/getLikeName";
 	public static final String GET_LIKE_FIELDS = "/getLikeFields";
 	public static final String GETALL = "/getAll";
-	public static final String INSERTOK = "/insertOk";
+	public static final String INSERT_OK = "/insertOk";
 	public static final String INSERT_ERROR = "/insertError";
-	public static final String DELETEOK = "/deleteOk";
+	public static final String DELETE_OK = "/deleteOk";
+	public static final String DELETE_ERROR = "/deleteError";
 	public static final String DATA = "/data";
+	public static final String DATA_ERROR = "/dataError";
 	public static final String LIST = "/list";
 	public static final String MODEL = "model";
 }

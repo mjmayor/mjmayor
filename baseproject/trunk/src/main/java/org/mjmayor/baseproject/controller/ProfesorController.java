@@ -6,10 +6,11 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
+import org.mjmayor.jpa.exceptions.FieldNotFoundException;
+import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,14 +41,12 @@ public class ProfesorController {
 		if (result.hasErrors()) {
 			return ProfesorConstants.FORM;
 		} else {
-
 			try {
 				profesorFacade.add(profesorForm);
-			} catch (DataAccessException e) {
-				// TODO mjmayor Auto-generated catch block
+			} catch (JPAPersistenceException e) {
 				return ProfesorConstants.INSERT_ERROR;
 			}
-			return ProfesorConstants.INSERTOK;
+			return ProfesorConstants.INSERT_OK;
 		}
 	}
 
@@ -58,8 +57,12 @@ public class ProfesorController {
 		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
 			return ProfesorConstants.FORM;
 		} else {
-			profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
-			return ProfesorConstants.DELETEOK;
+			try {
+				profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
+			} catch (FieldNotFoundException e) {
+				return ProfesorConstants.DELETE_ERROR;
+			}
+			return ProfesorConstants.DELETE_OK;
 		}
 	}
 
@@ -71,7 +74,11 @@ public class ProfesorController {
 			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
 			return new ModelAndView(ProfesorConstants.FORM);
 		} else {
-			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
+			try {
+				model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
+			} catch (FieldNotFoundException e) {
+				return new ModelAndView(ProfesorConstants.DATA_ERROR);
+			}
 			return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
 		}
 	}

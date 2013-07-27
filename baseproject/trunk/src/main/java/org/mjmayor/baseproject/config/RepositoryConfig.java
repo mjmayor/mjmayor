@@ -4,10 +4,10 @@ import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +32,14 @@ public class RepositoryConfig {
 	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
 	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
 
-	@Autowired
+	@PersistenceContext
 	private EntityManagerFactory entityManagerFactory;
+	
+	
+//	@Bean
+//	public EntityManagerFactory entityManagerFactory(){
+//		return Persistence.createEntityManagerFactory("EntityManagerFactory");
+//	}
 	
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();

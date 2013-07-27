@@ -33,8 +33,8 @@ public class AlumnoConstants {
 	public static final String DELETE = PATH + ApplicationConstants.DELETE;
 	public static final String GET = PATH + ApplicationConstants.GET;
 	public static final String GETALL = PATH + ApplicationConstants.GETALL;
-	public static final String INSERTOK = PATH + ApplicationConstants.INSERTOK;
-	public static final String DELETEOK = PATH + ApplicationConstants.DELETEOK;
+	public static final String INSERTOK = PATH + ApplicationConstants.INSERT_OK;
+	public static final String DELETEOK = PATH + ApplicationConstants.DELETE_OK;
 	public static final String DATA = PATH + ApplicationConstants.DATA;
 	public static final String LIST = PATH + ApplicationConstants.LIST;
 	public static final String ALUMNO_DATA = "alumnoForm";
