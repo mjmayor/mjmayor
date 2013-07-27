@@ -11,6 +11,8 @@ public interface Facade<FORM, DTO, VIEW> {
 
 	public void removeById(int id) throws JPAPersistenceException;
 
+	public void update(FORM form) throws JPAPersistenceException;
+
 	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException;
 
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;

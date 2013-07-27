@@ -21,4 +21,8 @@ public class JPAPersistenceException extends RuntimeException {
 	public JPAPersistenceException(String arg0) {
 		super(arg0);
 	}
+
+	public JPAPersistenceException(Throwable t) {
+		super(t);
+	}
 }

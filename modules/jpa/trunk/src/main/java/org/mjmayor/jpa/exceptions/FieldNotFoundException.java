@@ -21,4 +21,8 @@ public class FieldNotFoundException extends RuntimeException {
 	public FieldNotFoundException(String arg0) {
 		super(arg0);
 	}
+
+	public FieldNotFoundException(Throwable t) {
+		super(t);
+	}
 }
