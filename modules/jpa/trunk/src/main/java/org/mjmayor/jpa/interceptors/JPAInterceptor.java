@@ -17,11 +17,11 @@ public class JPAInterceptor {
 
 	@AfterReturning("transactionalMethod()")
 	public void afterTransactionalMethod(JoinPoint joinPoint) {
-		System.out.println("hola");
+		// TODO mjmayor Codigo a ejecutar despues de una transaccion
 	}
 
 	@AfterThrowing(pointcut = "transactionalMethod()", throwing = "e")
 	public void afterThrowingFromTransactionalMethod(JoinPoint joinPoint, DataAccessException e) throws JPAPersistenceException {
-		throw new JPAPersistenceException(e.getMessage());
+		// TODO mjmayor Excepcion a lanzar cuando proceda despues de una transaccion
 	}
 }

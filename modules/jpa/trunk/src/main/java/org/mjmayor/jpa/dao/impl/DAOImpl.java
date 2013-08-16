@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.validation.ConstraintViolationException;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
@@ -48,7 +49,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void add(DTO dto) throws JPAPersistenceException {
+	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException {
 		logger.debug("DAOImpl - add");
 		try {
 			entityManager.persist(dto);
@@ -173,11 +174,11 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	@Override
 	public List<DTO> getLikeAllFields(FORM form) throws FieldNotFoundException {
 		logger.debug("DAOImpl - getLikeAllFields");
-//		Criteria criteria = session.createCriteria(persistentClass);
-//		addRestrictions(criteria, form);
-//		List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
-//		session.close();
-//		return listDTO;
+		// Criteria criteria = session.createCriteria(persistentClass);
+		// addRestrictions(criteria, form);
+		// List<DTO> listDTO = ListUtils.castList(persistentClass, criteria.list());
+		// session.close();
+		// return listDTO;
 		return null;
 	}
 

@@ -2,12 +2,14 @@ package org.mjmayor.jpa.dao;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 
 public interface DAO<FORM, DTO> {
 
-	public void add(DTO dto) throws JPAPersistenceException;
+	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException;
 
 	public void removeById(int id) throws JPAPersistenceException;
 

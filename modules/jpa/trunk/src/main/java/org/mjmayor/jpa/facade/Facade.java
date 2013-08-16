@@ -2,12 +2,14 @@ package org.mjmayor.jpa.facade;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 
 public interface Facade<FORM, DTO, VIEW> {
 
-	public void add(FORM form) throws JPAPersistenceException;
+	public void add(FORM form) throws ConstraintViolationException, JPAPersistenceException;
 
 	public void removeById(int id) throws JPAPersistenceException;
 
