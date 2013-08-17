@@ -2,11 +2,11 @@ package org.mjmayor.jpa.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,8 +16,10 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.mjmayor.jpa.dao.DAO;
+import org.mjmayor.jpa.dao.support.Queries;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,10 +127,9 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	@Override
 	public List<DTO> getAll() {
 		logger.debug("DAOImpl - getAll");
-		// return ListUtils.castList(persistentClass, session.createQuery("from " + persistentClass.getSimpleName()).list());
-		List<DTO> a = new ArrayList<DTO>();
-		a.add(entityManager.find(persistentClass, 1));
-		return a;
+		Query query = entityManager.createQuery(Queries.getAll(persistentClass));
+		List<DTO> resultList = ListUtils.castList(persistentClass, query.getResultList());
+		return resultList;
 	}
 
 	/**
