@@ -1,8 +1,8 @@
 package org.mjmayor.baseproject.controller;
 
-import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
@@ -11,6 +11,7 @@ import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,9 @@ public class ProfesorController {
 		} else {
 			try {
 				profesorFacade.add(profesorForm);
-			} catch (PersistenceException e) {
+			} catch (ConstraintViolationException e) {
+				return ProfesorConstants.INSERT_ERROR;
+			} catch (JpaSystemException e){
 				return ProfesorConstants.INSERT_ERROR;
 			}
 			return ProfesorConstants.INSERT_OK;
