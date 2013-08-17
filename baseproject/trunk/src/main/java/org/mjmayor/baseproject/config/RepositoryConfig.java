@@ -44,7 +44,7 @@ public class RepositoryConfig {
 	// return Persistence.createEntityManagerFactory("EntityManagerFactory");
 	// }
 
-	public DataSource dataSource() {
+	private DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName(driverClassName);
 		ds.setUrl(databaseUrl);
@@ -87,7 +87,7 @@ public class RepositoryConfig {
 	 *            Dialecto a utilizar
 	 * @return Base de datos que corresponde al dialecto a utilizar
 	 */
-	public Database getDatabase(String dialect) {
+	private Database getDatabase(String dialect) {
 		switch (dialect) {
 			case DIALECT_MYSQL:
 				return Database.MYSQL;
