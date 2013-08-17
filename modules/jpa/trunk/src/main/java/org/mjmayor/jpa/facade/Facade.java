@@ -20,6 +20,8 @@ public interface Facade<FORM, DTO, VIEW> {
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
 	public List<VIEW> getAll();
+	
+	public long countAll();
 
 	public VIEW getById(int id);
 

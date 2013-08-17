@@ -22,9 +22,11 @@ import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.jdbc.StringUtils;
 
+@Transactional(readOnly = true)
 public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
@@ -130,6 +132,16 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		Query query = entityManager.createQuery(Queries.getAll(persistentClass));
 		List<DTO> resultList = ListUtils.castList(persistentClass, query.getResultList());
 		return resultList;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public long countAll() {
+		logger.debug("DAOImpl - getAll");
+		Query query = entityManager.createQuery(Queries.countAll(persistentClass));
+		return (Long) query.getSingleResult();
 	}
 
 	/**

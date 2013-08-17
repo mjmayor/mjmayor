@@ -20,6 +20,8 @@ public interface DAO<FORM, DTO> {
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
 	public List<DTO> getAll();
+	
+	public long countAll();
 
 	public DTO getById(int id);
 

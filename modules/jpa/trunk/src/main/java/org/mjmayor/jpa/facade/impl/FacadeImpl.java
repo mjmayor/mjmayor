@@ -78,11 +78,20 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional(readOnly=true)
 	public List<VIEW> getAll() {
-		// TODO Auto-generated method stub
 		List<DTO> listDTO = dao.getAll();
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public long countAll(){
+		return dao.countAll();
 	}
 
 	/**
