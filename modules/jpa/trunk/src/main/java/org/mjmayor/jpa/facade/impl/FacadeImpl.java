@@ -82,19 +82,19 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(readOnly=true)
 	public List<VIEW> getAll() {
 		List<DTO> listDTO = dao.getAll();
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
-	public long countAll() {
+	@Transactional(readOnly=true)
+	public long countAll(){
 		return dao.countAll();
 	}
 
@@ -102,7 +102,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(readOnly=true)
 	public VIEW getById(int id) {
 		DTO dto = dao.getById(id);
 		VIEW view = viewAssembler.assemble(dto);
@@ -113,7 +113,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(readOnly=true)
 	public List<VIEW> getByField(String field, Object value) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getByField(field, value);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
@@ -124,7 +124,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(readOnly=true)
 	public List<VIEW> getLikeField(String field, String value) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getLikeField(field, value);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
@@ -135,19 +135,10 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(readOnly=true)
 	public List<VIEW> getLikeAllFields(FORM form) throws FieldNotFoundException {
 		List<DTO> listDTO = dao.getLikeAllFields(form);
 		List<VIEW> listView = new ArrayList<VIEW>(viewAssembler.assemble(listDTO));
 		return listView;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@Transactional(readOnly = true)
-	public long getTotal() {
-		return dao.getTotal();
 	}
 }

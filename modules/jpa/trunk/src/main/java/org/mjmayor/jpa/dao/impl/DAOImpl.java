@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,10 +15,8 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.mjmayor.jpa.dao.DAO;
-import org.mjmayor.jpa.dao.support.Queries;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
-import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +64,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public void removeById(int id) throws JPAPersistenceException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - removeById");
 		DTO dto = getById(id);
 		if (dto != null) {
@@ -83,6 +81,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public void update(DTO dto) throws JPAPersistenceException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - update");
 		try {
 			entityManager.merge(dto);
@@ -96,6 +95,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - removeByField");
 		List<DTO> listDto = getByField(field, value);
 		if (listDto != null && listDto.size() > 0) {
@@ -114,6 +114,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - removeLikeField");
 		List<DTO> listDto = getLikeField(field, value);
 		if (listDto != null && listDto.size() > 0) {
@@ -129,9 +130,10 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	@Override
 	public List<DTO> getAll() {
 		logger.debug("DAOImpl - getAll");
-		Query query = entityManager.createQuery(Queries.getAll(persistentClass));
-		List<DTO> resultList = ListUtils.castList(persistentClass, query.getResultList());
-		return resultList;
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<DTO> countCriteria = builder.createQuery(persistentClass);
+		countCriteria.from(persistentClass);
+		return entityManager.createQuery(countCriteria).getResultList();
 	}
 
 	/**
@@ -139,9 +141,13 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public long countAll() {
-		logger.debug("DAOImpl - getAll");
-		Query query = entityManager.createQuery(Queries.countAll(persistentClass));
-		return (Long) query.getSingleResult();
+		logger.debug("DAOImpl - countAll");
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+		countCriteria.from(persistentClass);
+		Root<?> entityRoot = countCriteria.getRoots().iterator().next();
+		countCriteria.select(builder.count(entityRoot));
+		return entityManager.createQuery(countCriteria).getSingleResult();
 	}
 
 	/**
@@ -149,6 +155,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public DTO getById(int id) {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - getById");
 		return entityManager.find(persistentClass, id);
 	}
@@ -158,6 +165,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public List<DTO> getByField(String field, Object value) throws FieldNotFoundException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - getByField");
 		// String a = "from " + persistentClass.getSimpleName() + " where %s = :value";
 		// String queryString = String.format(a, field);
@@ -172,6 +180,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public List<DTO> getLikeField(String field, String value) throws FieldNotFoundException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - getLikeField");
 		// Criteria criteria = session.createCriteria(persistentClass);
 		// criteria.add(Restrictions.like(field, value, MatchMode.ANYWHERE));
@@ -186,6 +195,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public List<DTO> getLikeAllFields(FORM form) throws FieldNotFoundException {
+		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - getLikeAllFields");
 		// Criteria criteria = session.createCriteria(persistentClass);
 		// addRestrictions(criteria, form);
@@ -193,20 +203,6 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 		// session.close();
 		// return listDTO;
 		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public long getTotal() {
-		logger.debug("DAOImpl - getTotal");
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		countCriteria.from(persistentClass);
-		Root<?> entityRoot = countCriteria.getRoots().iterator().next();
-		countCriteria.select(builder.count(entityRoot));
-		return entityManager.createQuery(countCriteria).getSingleResult();
 	}
 
 	/**

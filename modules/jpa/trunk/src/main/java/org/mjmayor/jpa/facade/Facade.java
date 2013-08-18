@@ -30,6 +30,4 @@ public interface Facade<FORM, DTO, VIEW> {
 	public List<VIEW> getLikeField(String field, String value) throws FieldNotFoundException;
 
 	public List<VIEW> getLikeAllFields(FORM form) throws FieldNotFoundException;
-
-	public long getTotal();
 }
