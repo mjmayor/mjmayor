@@ -1,7 +1,5 @@
 package org.mjmayor.baseproject.config;
 
-import java.util.Properties;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -39,11 +37,6 @@ public class RepositoryConfig {
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
-	// @Bean
-	// public EntityManagerFactory entityManagerFactory(){
-	// return Persistence.createEntityManagerFactory("EntityManagerFactory");
-	// }
-
 	private DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName(driverClassName);
@@ -52,14 +45,6 @@ public class RepositoryConfig {
 		ds.setPassword(password);
 		return ds;
 	}
-
-//	public Properties getHibernateProperties() {
-//		Properties properties = new Properties();
-//		properties.put("hibernate.dialect", hibernateDialect);
-//		properties.put("hibernate.show_sql", hibernateShowSql);
-//		properties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
-//		return properties;
-//	}
 
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
