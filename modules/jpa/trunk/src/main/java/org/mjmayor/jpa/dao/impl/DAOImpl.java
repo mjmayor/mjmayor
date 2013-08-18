@@ -19,11 +19,10 @@ import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.jdbc.StringUtils;
 
-@Transactional(readOnly = true)
+//TODO mjmayor Comprobar el manejo de excepciones
 public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
@@ -155,7 +154,6 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 */
 	@Override
 	public DTO getById(int id) {
-		// TODO mjmayor Por hacer
 		logger.debug("DAOImpl - getById");
 		return entityManager.find(persistentClass, id);
 	}
