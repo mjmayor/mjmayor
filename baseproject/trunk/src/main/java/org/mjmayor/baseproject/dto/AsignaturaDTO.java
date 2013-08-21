@@ -1,50 +1,24 @@
 package org.mjmayor.baseproject.dto;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.mjmayor.baseproject.constants.AlumnoConstants;
 import org.mjmayor.baseproject.constants.AsignaturaConstants;
+import org.mjmayor.jpa.dto.PersistentObject;
 
 @Entity
 @Table(name = AsignaturaConstants.Database.TABLE_NAME)
-public class AsignaturaDTO {
+public class AsignaturaDTO extends PersistentObject {
 
-	@Id
-	// @Column(name="id")
-	@GenericGenerator(name = AlumnoConstants.Database.SERIAL_ID_LABEL, strategy = AlumnoConstants.Database.SERIAL_ID_STRAGEGY)
-	@GeneratedValue(generator = AlumnoConstants.Database.SERIAL_ID_LABEL)
-	private int id;
+	private static final long serialVersionUID = 5193440247827673686L;
 
-	// @Column(name="codigo")
 	private String codigo;
 
-	// @Column(name="nombre")
 	private String nombre;
 
-	// @Column(name="curso")
 	private int curso;
 
-	// @Column(name="creditos")
 	private Float creditos;
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the codigo

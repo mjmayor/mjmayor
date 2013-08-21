@@ -13,8 +13,6 @@ public class AsignaturaConstants {
 	public class Database {
 
 		public static final String TABLE_NAME = "asignatura";
-		public static final String SERIAL_ID_LABEL = "serial_id_asignatura";
-		public static final String SERIAL_ID_STRAGEGY = "increment";
 
 		public class Queries {
 			public static final String FIELD = "field";

@@ -1,7 +1,5 @@
 package org.mjmayor.baseproject.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -9,7 +7,6 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +30,6 @@ public class ProfesorController {
 
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showProfesorForm(ModelMap model) {
-
-		List<ProfesorView> profesores = profesorFacade.getAll();
-		System.out.println(profesores);
-
-		long a = profesorFacade.countAll();
-
-		System.out.println(a);
-
-		ProfesorView profesor = profesorFacade.getById(1);
-		System.out.println(profesor);
-
 		logger.debug("ProfesorController - showProfesorForm");
 		model.addAttribute(ProfesorConstants.PROFESOR_DATA, new ProfesorForm());
 		return ProfesorConstants.FORM;
