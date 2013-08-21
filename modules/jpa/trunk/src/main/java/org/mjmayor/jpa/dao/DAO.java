@@ -11,7 +11,7 @@ public interface DAO<FORM, DTO> {
 
 	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException;
 
-	public void removeById(int id) throws JPAPersistenceException;
+	public void removeById(long id) throws JPAPersistenceException;
 
 	public void update(DTO dto) throws JPAPersistenceException;
 
@@ -23,7 +23,7 @@ public interface DAO<FORM, DTO> {
 
 	public long countAll();
 
-	public DTO getById(int id);
+	public DTO getById(long id);
 
 	public List<DTO> getByField(String field, Object value) throws FieldNotFoundException;
 

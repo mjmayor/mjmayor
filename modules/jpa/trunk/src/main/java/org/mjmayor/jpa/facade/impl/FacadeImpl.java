@@ -46,7 +46,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 */
 	@Override
 	@Transactional
-	public void removeById(int id) throws JPAPersistenceException {
+	public void removeById(long id) throws JPAPersistenceException {
 		dao.removeById(id);
 	}
 
@@ -103,7 +103,7 @@ public class FacadeImpl<FORM, DTO, VIEW> implements Facade<FORM, DTO, VIEW> {
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public VIEW getById(int id) {
+	public VIEW getById(long id) {
 		DTO dto = dao.getById(id);
 		VIEW view = viewAssembler.assemble(dto);
 		return view;

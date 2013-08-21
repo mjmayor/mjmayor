@@ -62,8 +62,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void removeById(int id) throws JPAPersistenceException {
-		// TODO mjmayor Por hacer
+	public void removeById(long id) throws JPAPersistenceException {
 		logger.debug("DAOImpl - removeById");
 		DTO dto = getById(id);
 		if (dto != null) {
@@ -153,7 +152,7 @@ public class DAOImpl<FORM, DTO> implements DAO<FORM, DTO> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public DTO getById(int id) {
+	public DTO getById(long id) {
 		logger.debug("DAOImpl - getById");
 		return entityManager.find(persistentClass, id);
 	}

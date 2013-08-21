@@ -11,7 +11,7 @@ public interface Facade<FORM, DTO, VIEW> {
 
 	public void add(FORM form) throws ConstraintViolationException, JPAPersistenceException;
 
-	public void removeById(int id) throws JPAPersistenceException;
+	public void removeById(long id) throws JPAPersistenceException;
 
 	public void update(FORM form) throws JPAPersistenceException;
 
@@ -20,10 +20,10 @@ public interface Facade<FORM, DTO, VIEW> {
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
 	public List<VIEW> getAll();
-	
+
 	public long countAll();
 
-	public VIEW getById(int id);
+	public VIEW getById(long id);
 
 	public List<VIEW> getByField(String field, Object value) throws FieldNotFoundException;
 
