@@ -4,30 +4,27 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import org.hibernate.Criteria;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 
-public interface DAO<FORM, DTO> {
+public interface DAO<ENTITY> {
 
-	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException;
+	public void add(ENTITY entity) throws ConstraintViolationException, JPAPersistenceException;
 
-	public void removeById(long id) throws JPAPersistenceException;
-
-	public void update(DTO dto) throws JPAPersistenceException;
+	public void update(ENTITY entity) throws JPAPersistenceException;
 
 	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException;
 
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
-	public List<DTO> getAll();
+	public List<ENTITY> getAll();
 
 	public long countAll();
 
-	public DTO getById(long id);
+	public List<ENTITY> getByField(String field, Object value) throws FieldNotFoundException;
 
-	public List<DTO> getByField(String field, Object value) throws FieldNotFoundException;
+	public List<ENTITY> getLikeField(String field, String value) throws FieldNotFoundException;
 
-	public List<DTO> getLikeField(String field, String value) throws FieldNotFoundException;
-
-	public List<DTO> getLikeAllFields(FORM form) throws FieldNotFoundException;
+	public List<ENTITY> getByCriteria(Criteria criteria) throws JPAPersistenceException;
 }
