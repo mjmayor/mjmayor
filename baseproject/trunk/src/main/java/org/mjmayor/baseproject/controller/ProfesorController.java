@@ -2,16 +2,13 @@ package org.mjmayor.baseproject.controller;
 
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -39,57 +36,65 @@ public class ProfesorController {
 	public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
 		logger.debug("ProfesorController - insertProfesor");
 
-		if (result.hasErrors()) {
-			return ProfesorConstants.FORM;
-		} else {
-			try {
-				profesorFacade.add(profesorForm);
-			} catch (ConstraintViolationException e) {
-				return ProfesorConstants.INSERT_ERROR;
-			} catch (JpaSystemException e) {
-				return ProfesorConstants.INSERT_ERROR;
-			}
-			return ProfesorConstants.INSERT_OK;
-		}
+		// if (result.hasErrors()) {
+		// return ProfesorConstants.FORM;
+		// } else {
+		// try {
+		// profesorFacade.add(profesorForm);
+		// } catch (ConstraintViolationException e) {
+		// return ProfesorConstants.INSERT_ERROR;
+		// } catch (JpaSystemException e) {
+		// return ProfesorConstants.INSERT_ERROR;
+		// }
+		// return ProfesorConstants.INSERT_OK;
+		// }
+
+		return "";
 	}
 
 	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
 	public String deleteProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
 		logger.debug("ProfesorController - deleteProfesor");
 
-		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
-			return ProfesorConstants.FORM;
-		} else {
-			try {
-				profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
-			} catch (FieldNotFoundException e) {
-				return ProfesorConstants.DELETE_ERROR;
-			}
-			return ProfesorConstants.DELETE_OK;
-		}
+		// if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
+		// return ProfesorConstants.FORM;
+		// } else {
+		// try {
+		// profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
+		// } catch (FieldNotFoundException e) {
+		// return ProfesorConstants.DELETE_ERROR;
+		// }
+		// return ProfesorConstants.DELETE_OK;
+		// }
+
+		return "";
 	}
 
 	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
 	public ModelAndView getProfesor(@Valid ProfesorForm profesorForm, BindingResult result, ModelMap model) {
 		logger.debug("ProfesorController - getProfesor");
 
-		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
-			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
-			return new ModelAndView(ProfesorConstants.FORM);
-		} else {
-			try {
-				model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
-			} catch (FieldNotFoundException e) {
-				return new ModelAndView(ProfesorConstants.DATA_ERROR);
-			}
-			return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
-		}
+		// if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
+		// model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
+		// return new ModelAndView(ProfesorConstants.FORM);
+		// } else {
+		// try {
+		// model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
+		// } catch (FieldNotFoundException e) {
+		// return new ModelAndView(ProfesorConstants.DATA_ERROR);
+		// }
+		// return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
+		// }
+
+		return null;
 	}
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllProfesores(ModelMap model) {
-		logger.debug("ProfesorController - getAllProfesores");
-		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.getAll());
-		return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
+		// logger.debug("ProfesorController - getAllProfesores");
+		// model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.getAll());
+		// return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
+
+		return null;
 	}
 }

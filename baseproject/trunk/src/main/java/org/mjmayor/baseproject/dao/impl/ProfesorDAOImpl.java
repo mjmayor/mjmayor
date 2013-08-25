@@ -9,7 +9,7 @@ import org.mjmayor.jpa.dao.impl.DAOImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProfesorDAOImpl extends DAOImpl<ProfesorForm, ProfesorDTO> implements ProfesorDAO {
+public class ProfesorDAOImpl extends DAOImpl<ProfesorDTO> implements ProfesorDAO {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfesorDAOImpl.class);
 

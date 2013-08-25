@@ -20,7 +20,8 @@ public class ProfesorBeansConfig {
 
 	@Bean
 	public ProfesorFacade profesorFacade() {
-		return new ProfesorFacadeImpl(profesorDAO(), profesorFormAssembler(), profesorViewAssembler());
+		//TODO configurar bien
+		return new ProfesorFacadeImpl();
 	}
 
 	@Bean
