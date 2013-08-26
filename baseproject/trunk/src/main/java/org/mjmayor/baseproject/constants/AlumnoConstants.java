@@ -10,17 +10,6 @@ import org.mjmayor.baseproject.constants.application.ApplicationConstants;
  */
 public class AlumnoConstants {
 
-	public class Database {
-
-		public static final String TABLE_NAME = "alumno";
-
-		public class Queries {
-			public static final String FIND_ALL = "from AlumnoDTO";
-			public static final String FIND_BY_DNI = "from AlumnoDTO where dni = :dni";
-		}
-
-	}
-
 	public class Fields {
 		public static final String DNI = "dni";
 	}

@@ -10,21 +10,6 @@ import org.mjmayor.baseproject.constants.application.ApplicationConstants;
  */
 public class AsignaturaConstants {
 
-	public class Database {
-
-		public static final String TABLE_NAME = "asignatura";
-
-		public class Queries {
-			public static final String FIELD = "field";
-			public static final String VALUE = "value";
-			public static final String FIND_ALL = "from AsignaturaDTO";
-			public static final String FIND_BY_FIELD = "from AsignaturaDTO where %s = :value";
-			public static final String FIND_LIKE_FIELD = "from AsignaturaDTO where %s like :value";
-			public static final String FIND_LIKE = "from AsignaturaDTO where ";
-		}
-
-	}
-
 	public class Fields {
 		public static final String CODIGO = "codigo";
 		public static final String NOMBRE = "nombre";

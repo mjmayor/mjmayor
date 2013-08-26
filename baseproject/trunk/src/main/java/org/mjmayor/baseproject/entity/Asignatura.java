@@ -1,8 +1,11 @@
-package org.mjmayor.baseproject.dto;
+package org.mjmayor.baseproject.entity;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class AsignaturaDTO implements Serializable {
+import org.mjmayor.jpa.entity.PersistentObject;
+
+@Entity
+public class Asignatura extends PersistentObject {
 
 	private static final long serialVersionUID = 5193440247827673686L;
 

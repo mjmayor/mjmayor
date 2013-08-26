@@ -1,14 +1,8 @@
 package org.mjmayor.baseproject.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-import org.mjmayor.baseproject.constants.AlumnoConstants;
-import org.mjmayor.jpa.dto.PersistentObject;
-
-@Entity
-@Table(name = AlumnoConstants.Database.TABLE_NAME)
-public class AlumnoDTO extends PersistentObject {
+public class AlumnoDTO implements Serializable {
 
 	private static final long serialVersionUID = -3496768348923866510L;
 

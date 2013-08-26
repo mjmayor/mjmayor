@@ -1,8 +1,11 @@
-package org.mjmayor.baseproject.dto;
+package org.mjmayor.baseproject.entity;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class ProfesorDTO implements Serializable {
+import org.mjmayor.jpa.entity.PersistentObject;
+
+@Entity
+public class Profesor extends PersistentObject {
 
 	private static final long serialVersionUID = -6712798672299387870L;
 

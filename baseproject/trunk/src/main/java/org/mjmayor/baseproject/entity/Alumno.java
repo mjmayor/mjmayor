@@ -1,16 +1,21 @@
-package org.mjmayor.baseproject.dto;
+package org.mjmayor.baseproject.entity;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class ProfesorDTO implements Serializable {
+import org.mjmayor.jpa.entity.PersistentObject;
 
-	private static final long serialVersionUID = -6712798672299387870L;
+@Entity
+public class Alumno extends PersistentObject {
+
+	private static final long serialVersionUID = -3496768348923866510L;
 
 	private String dni;
 
 	private String nombre;
 
 	private String apellidos;
+
+	private String email;
 
 	public String getDni() {
 		return dni;
@@ -34,5 +39,13 @@ public class ProfesorDTO implements Serializable {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
