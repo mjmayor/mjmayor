@@ -35,43 +35,51 @@ public class AlumnoController {
 	public String insertAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
 		logger.debug("AlumnoController - insertAlumno");
 
-		if (result.hasErrors()) {
-			return AlumnoConstants.FORM;
-		} else {
-			alumnoFacade.addAlumno(alumnoForm);
-			return AlumnoConstants.INSERTOK;
-		}
+//		if (result.hasErrors()) {
+//			return AlumnoConstants.FORM;
+//		} else {
+//			alumnoFacade.addAlumno(alumnoForm);
+//			return AlumnoConstants.INSERTOK;
+//		}
+		
+		return null;
 	}
 
 	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
 	public String deleteAlumno(@Valid AlumnoForm alumnoForm, BindingResult result) {
 		logger.debug("AlumnoController - deleteAlumno");
 
-		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
-			return AlumnoConstants.FORM;
-		} else {
-			alumnoFacade.removeAlumno(alumnoForm);
-			return AlumnoConstants.DELETEOK;
-		}
+//		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
+//			return AlumnoConstants.FORM;
+//		} else {
+//			alumnoFacade.removeAlumno(alumnoForm);
+//			return AlumnoConstants.DELETEOK;
+//		}
+		
+		return null;
 	}
 
 	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
 	public ModelAndView getAlumno(@Valid AlumnoForm alumnoForm, BindingResult result, ModelMap model) {
 		logger.debug("AlumnoController - getAlumno");
 
-		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
-			model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoForm);
-			return new ModelAndView(AlumnoConstants.FORM);
-		} else {
-			model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoFacade.getAlumno(alumnoForm));
-			return new ModelAndView(AlumnoConstants.DATA, ApplicationConstants.MODEL, model);
-		}
+//		if (result.hasFieldErrors(AlumnoConstants.Fields.DNI)) {
+//			model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoForm);
+//			return new ModelAndView(AlumnoConstants.FORM);
+//		} else {
+//			model.addAttribute(AlumnoConstants.ALUMNO_DATA, alumnoFacade.getAlumno(alumnoForm));
+//			return new ModelAndView(AlumnoConstants.DATA, ApplicationConstants.MODEL, model);
+//		}
+		
+		return null;
 	}
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllAlumnos(ModelMap model) {
 		logger.debug("AlumnoController - getAllAlumnos");
-		model.addAttribute(AlumnoConstants.ALUMNOS_LIST_DATA, alumnoFacade.getAlumnos());
-		return new ModelAndView(AlumnoConstants.LIST, ApplicationConstants.MODEL, model);
+//		model.addAttribute(AlumnoConstants.ALUMNOS_LIST_DATA, alumnoFacade.getAlumnos());
+//		return new ModelAndView(AlumnoConstants.LIST, ApplicationConstants.MODEL, model);
+		
+		return null;
 	}
 }

@@ -9,8 +9,8 @@ import org.mjmayor.baseproject.dto.ProfesorDTO;
 import org.mjmayor.baseproject.entity.Profesor;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.facade.impl.ProfesorFacadeImpl;
-import org.mjmayor.jpa.service.Service;
-import org.mjmayor.jpa.service.impl.ServiceImpl;
+import org.mjmayor.jpa.service.GenericService;
+import org.mjmayor.jpa.service.impl.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +27,8 @@ public class ProfesorBeansConfig {
 		return new ProfesorFacadeImpl(service());
 	}
 
-	public Service<ProfesorDTO, Profesor> service() {
-		return new ServiceImpl<ProfesorDTO, Profesor>(entityManager, profesorDTOAssembler());
+	public GenericService<Profesor, ProfesorDTO> service() {
+		return new GenericServiceImpl<Profesor, ProfesorDTO>(entityManager, profesorDTOAssembler());
 	}
 
 	@Bean
@@ -41,6 +41,7 @@ public class ProfesorBeansConfig {
 		return new ProfesorFormAssembler();
 	}
 
+	@Bean
 	public ProfesorDTOAssembler profesorDTOAssembler() {
 		return new ProfesorDTOAssembler();
 	}

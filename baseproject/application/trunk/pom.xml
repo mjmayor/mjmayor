@@ -142,8 +142,8 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.mjmayor.modules</groupId>
-			<artifactId>jpa</artifactId>
+			<groupId>org.mjmayor.baseproject</groupId>
+			<artifactId>persistence</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		

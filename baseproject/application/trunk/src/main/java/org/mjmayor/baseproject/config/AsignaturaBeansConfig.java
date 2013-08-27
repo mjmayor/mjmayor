@@ -19,12 +19,7 @@ public class AsignaturaBeansConfig {
 
 	@Bean
 	public AsignaturaFacade asignaturaFacade() {
-		return new AsignaturaFacadeImpl(asignaturaDAO(), asignaturaViewAssembler());
-	}
-
-	@Bean
-	public AsignaturaDAO asignaturaDAO() {
-		return new AsignaturaDAOImpl(sessionFactory, asignaturaFormAssembler());
+		return new AsignaturaFacadeImpl(null);
 	}
 
 	@Bean
