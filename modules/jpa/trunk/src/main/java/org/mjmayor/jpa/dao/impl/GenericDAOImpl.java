@@ -11,16 +11,16 @@ import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.hibernate.Criteria;
-import org.mjmayor.jpa.dao.DAO;
+import org.mjmayor.jpa.dao.GenericDAO;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //TODO mjmayor Comprobar el manejo de excepciones
-public class DAOImpl<ENTITY> implements DAO<ENTITY> {
+public class GenericDAOImpl<ENTITY> implements GenericDAO<ENTITY> {
 
-	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(GenericDAOImpl.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -31,9 +31,9 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	private Class<ENTITY> persistentClass;
 
 	@SuppressWarnings("unchecked")
-	public DAOImpl(EntityManager entityManager) {
+	public GenericDAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
-		if (getClass().getSuperclass().equals((DAOImpl.class))) {
+		if (getClass().getSuperclass().equals((GenericDAOImpl.class))) {
 			persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 		} else {
 			persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[1];

@@ -8,7 +8,7 @@ import org.hibernate.Criteria;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 
-public interface Service<DTO, ENTITY> {
+public interface GenericService<ENTITY, DTO> {
 
 	public void add(DTO form) throws ConstraintViolationException, JPAPersistenceException;
 

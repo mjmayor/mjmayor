@@ -8,26 +8,26 @@ import javax.validation.ConstraintViolationException;
 
 import org.hibernate.Criteria;
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
-import org.mjmayor.jpa.dao.DAO;
-import org.mjmayor.jpa.dao.impl.DAOImpl;
+import org.mjmayor.jpa.dao.GenericDAO;
+import org.mjmayor.jpa.dao.impl.GenericDAOImpl;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
-import org.mjmayor.jpa.service.Service;
+import org.mjmayor.jpa.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-public class ServiceImpl<DTO, ENTITY> implements Service<DTO, ENTITY> {
+public class GenericServiceImpl<ENTITY, DTO> implements GenericService<ENTITY, DTO> {
 
-	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(GenericDAOImpl.class);
 
-	private DAO<ENTITY> dao;
+	private GenericDAO<ENTITY> dao;
 
 	private EntityManager entityManager;
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler) {
+	public GenericServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler) {
 		this.entityManager = entityManager;
 		this.assembler = assembler;
 	}
