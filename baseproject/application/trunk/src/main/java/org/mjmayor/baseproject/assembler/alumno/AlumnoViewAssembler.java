@@ -2,7 +2,7 @@ package org.mjmayor.baseproject.assembler.alumno;
 
 import org.mjmayor.baseproject.view.AlumnoView;
 import org.mjmayor.jpa.assembler.AbstractAssembler;
-import org.mjmayor.persistence.entity.Alumno;
+import org.mjmayor.model.entity.Alumno;
 
 public class AlumnoViewAssembler extends AbstractAssembler<Alumno, AlumnoView> {
 
