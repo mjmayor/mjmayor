@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 
 import org.mjmayor.jpa.entity.PersistentObject;
 
+
 @Entity
 public class Asignatura extends PersistentObject {
 
