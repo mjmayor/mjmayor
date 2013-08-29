@@ -1,8 +1,8 @@
 package org.mjmayor.baseproject.assembler.asignatura;
 
-import org.mjmayor.baseproject.entity.Asignatura;
 import org.mjmayor.baseproject.form.AsignaturaForm;
 import org.mjmayor.jpa.assembler.AbstractAssembler;
+import org.mjmayor.persistence.entity.Asignatura;
 import org.springframework.beans.BeanUtils;
 
 public class AsignaturaFormAssembler extends AbstractAssembler<AsignaturaForm, Asignatura> {

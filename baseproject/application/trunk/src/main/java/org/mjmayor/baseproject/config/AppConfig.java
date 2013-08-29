@@ -1,6 +1,7 @@
 package org.mjmayor.baseproject.config;
 
 import org.mjmayor.jpa.config.JPAConfig;
+import org.mjmayor.persistence.config.RepositoryConfig;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

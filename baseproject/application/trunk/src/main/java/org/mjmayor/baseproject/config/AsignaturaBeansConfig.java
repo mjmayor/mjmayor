@@ -3,13 +3,10 @@ package org.mjmayor.baseproject.config;
 import org.hibernate.SessionFactory;
 import org.mjmayor.baseproject.assembler.asignatura.AsignaturaFormAssembler;
 import org.mjmayor.baseproject.assembler.asignatura.AsignaturaViewAssembler;
-import org.mjmayor.baseproject.dao.AsignaturaDAO;
-import org.mjmayor.baseproject.dao.impl.AsignaturaDAOImpl;
 import org.mjmayor.baseproject.facade.AsignaturaFacade;
 import org.mjmayor.baseproject.facade.impl.AsignaturaFacadeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 public class AsignaturaBeansConfig {
