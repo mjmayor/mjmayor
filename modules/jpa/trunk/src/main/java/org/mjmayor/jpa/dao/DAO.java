@@ -8,7 +8,7 @@ import org.hibernate.Criteria;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 
-public interface GenericDAO<ENTITY> {
+public interface DAO<ENTITY> {
 
 	public void add(ENTITY entity) throws ConstraintViolationException, JPAPersistenceException;
 
