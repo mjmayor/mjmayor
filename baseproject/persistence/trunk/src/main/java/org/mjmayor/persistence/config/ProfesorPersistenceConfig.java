@@ -5,8 +5,8 @@ import javax.persistence.EntityManager;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.mjmayor.persistence.assembler.profesor.ProfesorDTOAssembler;
-import org.mjmayor.persistence.service.Service;
-import org.mjmayor.persistence.service.impl.ServiceImpl;
+import org.mjmayor.persistence.service.ProfesorService;
+import org.mjmayor.persistence.service.impl.ProfesorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +17,8 @@ public class ProfesorPersistenceConfig {
 	@Autowired
 	private EntityManager entityManager;
 
-	public Service<Profesor, ProfesorDTO> service() {
-		return new ServiceImpl<Profesor, ProfesorDTO>(entityManager, profesorDTOAssembler());
+	public ProfesorService<Profesor, ProfesorDTO> service() {
+		return new ProfesorServiceImpl<Profesor, ProfesorDTO>(entityManager, profesorDTOAssembler());
 	}
 
 	@Bean
