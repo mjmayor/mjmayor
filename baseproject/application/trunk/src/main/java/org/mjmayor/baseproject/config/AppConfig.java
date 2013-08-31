@@ -1,7 +1,7 @@
 package org.mjmayor.baseproject.config;
 
 import org.mjmayor.jpa.config.JPAConfig;
-import org.mjmayor.persistence.config.RepositoryConfig;
+import org.mjmayor.persistence.config.PersistenceRepositoryConfig;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 // @Import({ RepositoryConfig.class, AlumnoBeansConfig.class, AsignaturaBeansConfig.class, ProfesorBeansConfig.class })
-@Import({ RepositoryConfig.class, ProfesorBeansConfig.class, JPAConfig.class })
+@Import({ PersistenceRepositoryConfig.class, ProfesorBeansConfig.class, JPAConfig.class })
 @ComponentScan("org.mjmayor.baseproject")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
