@@ -2,8 +2,7 @@ package org.mjmayor.persistence.config;
 
 import javax.sql.DataSource;
 
-import org.mjmayor.jpa.config.AbstractRepositoryConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mjmayor.jpa.config.database.AbstractRepositoryConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +40,7 @@ public class PersistenceRepositoryConfig extends AbstractRepositoryConfig {
 		return ppc;
 	}
 	
+	@Override
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName(driverClassName);
@@ -50,10 +50,12 @@ public class PersistenceRepositoryConfig extends AbstractRepositoryConfig {
 		return ds;
 	}
 
+	@Override
 	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(getDatabase(dialect));
-		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
-		return jpaVendorAdapter;
+//		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+//		jpaVendorAdapter.setDatabase(getDatabase(dialect));
+//		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
+//		return jpaVendorAdapter;
+		return null;
 	}
 }
