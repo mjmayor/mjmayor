@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.config;
+package org.mjmayor.jpa.config.database;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +15,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableTransactionManagement
-public abstract class AbstractRepositoryConfig implements RepositoryConfig {
-
-	private static final String DIALECT_MYSQL = "org.hibernate.dialect.MySQLDialect";
+public abstract class AbstractRepositoryConfig extends WebMvcConfigurerAdapter implements RepositoryConfig {
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
@@ -32,14 +31,13 @@ public abstract class AbstractRepositoryConfig implements RepositoryConfig {
 	private Map<String, Database> databases;
 
 	protected AbstractRepositoryConfig() {
-		this.dataSource = dataSource();
 		this.jpaVendorAdapter = jpaVendorAdapter();
 		this.databases = buildDatabases();
 	}
 
 	private Map<String, Database> buildDatabases() {
 		Map<String, Database> databases = new HashMap<String, Database>();
-		databases.put(DIALECT_MYSQL, Database.MYSQL);
+		databases.put(Dialects.MYSQL, Database.MYSQL);
 		return databases;
 	}
 
@@ -48,6 +46,7 @@ public abstract class AbstractRepositoryConfig implements RepositoryConfig {
 	 */
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
+		initDataSource();
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
 		localContainerEntityManagerFactoryBean.setPackagesToScan("org.mjmayor.baseproject");
@@ -68,9 +67,16 @@ public abstract class AbstractRepositoryConfig implements RepositoryConfig {
 	 */
 	@Bean
 	public PlatformTransactionManager transactionManager() {
+		initDataSource();
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory);
 		transactionManager.setDataSource(dataSource);
 		return transactionManager;
+	}
+
+	private void initDataSource() {
+		if (dataSource == null) {
+			dataSource = dataSource();
+		}
 	}
 }

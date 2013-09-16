@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.config;
+package org.mjmayor.jpa.config.database;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

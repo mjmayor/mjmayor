@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.config;
+package org.mjmayor.jpa.config.aop;
 
 import org.mjmayor.jpa.interceptors.JPAInterceptor;
 import org.springframework.context.annotation.Bean;
