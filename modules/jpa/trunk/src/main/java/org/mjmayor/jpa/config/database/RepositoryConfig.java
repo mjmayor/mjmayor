@@ -9,13 +9,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 public interface RepositoryConfig {
 
-	public EntityManagerFactory entityManagerFactory();
+	EntityManagerFactory entityManagerFactory();
 
-	public Database getDatabase(String dialect);
+	Database getDatabase(String dialect);
 
-	public PlatformTransactionManager transactionManager();
+	PlatformTransactionManager transactionManager();
 
-	public DataSource dataSource();
+	DataSource dataSource();
 
-	public JpaVendorAdapter jpaVendorAdapter();
+	JpaVendorAdapter jpaVendorAdapter();
 }

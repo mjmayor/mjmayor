@@ -7,11 +7,6 @@ import java.util.List;
 
 public abstract class AbstractAssembler<SOURCE, TARGET> implements Assembler<SOURCE, TARGET> {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.irtve.plataforma.components.core.assembler.Assembler#canConver(java .lang.Class)
-	 */
 	public boolean canConvert(Class<?> clazz) {
 		Class<?> srcClass = (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		return clazz.isAssignableFrom(srcClass);
