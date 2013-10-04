@@ -24,7 +24,8 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(BidirectionalAssembler<ENTITY, DTO> assembler) {
+	public ServiceImpl(DAO<ENTITY> dao, BidirectionalAssembler<ENTITY, DTO> assembler) {
+		this.dao = dao;
 		this.assembler = assembler;
 	}
 

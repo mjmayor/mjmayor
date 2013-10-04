@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@Import({ ProfesorPersistenceConfig.class })
+@Import({ BeanRepositoryConfig.class })
 @EnableTransactionManagement
 public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter implements RepositoryConfig {
 
@@ -38,7 +38,6 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
 	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
 
-	
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 

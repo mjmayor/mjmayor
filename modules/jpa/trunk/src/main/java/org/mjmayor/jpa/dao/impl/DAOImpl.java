@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,7 +16,6 @@ import org.mjmayor.jpa.support.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//TODO mjmayor Comprobar el manejo de excepciones
 public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
@@ -34,8 +34,8 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	private CriteriaBuilder criteriaBuilder;
 
 	@SuppressWarnings("unchecked")
-	public DAOImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public DAOImpl(EntityManagerFactory entityManagerFactory) {
+		this.entityManager = entityManagerFactory.createEntityManager();
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
