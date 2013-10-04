@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.assembler;
+package org.mjmayor.jpa.support;
 
 import java.io.Serializable;
 import java.util.List;

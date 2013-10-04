@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.mjmayor.jpa.support.PageResult;
+
 public abstract class AbstractBidirectionalAssembler<SOURCE, TARGET> implements BidirectionalAssembler<SOURCE, TARGET> {
 
 	// TODO mjmayor Intentar generalizar los metodos

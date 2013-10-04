@@ -2,6 +2,8 @@ package org.mjmayor.jpa.assembler;
 
 import java.util.Collection;
 
+import org.mjmayor.jpa.support.PageResult;
+
 public interface Assembler<SOURCE, TARGET> {
 
 	boolean canConvert(Class<?> clazz);

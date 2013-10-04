@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
-import org.hibernate.Criteria;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.mjmayor.jpa.support.Criteria;
 
 public interface Service<ENTITY, DTO> {
 
@@ -18,13 +18,13 @@ public interface Service<ENTITY, DTO> {
 
 	void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
-	List<DTO> getAll();
+	Long countAll();
+	
+	DTO get(Long id);
 
-	long countAll();
+	List<DTO> get(Criteria criteria);
 
-	List<DTO> getByField(String field, Object value) throws FieldNotFoundException;
+	List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException;
 
-	List<DTO> getLikeField(String field, String value) throws FieldNotFoundException;
-
-	List<DTO> getByCriteria(Criteria criteria) throws FieldNotFoundException;
+	List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException;
 }

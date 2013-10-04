@@ -2,11 +2,11 @@ package org.mjmayor.jpa.dao;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
-import org.hibernate.Criteria;
-import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.mjmayor.jpa.support.Criteria;
 
 public interface DAO<ENTITY> {
 
@@ -14,17 +14,13 @@ public interface DAO<ENTITY> {
 
 	void update(ENTITY entity) throws JPAPersistenceException;
 
-	void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException;
+	void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException;
 
-	void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
+	Long countAll();
 
-	List<ENTITY> getAll();
+	ENTITY get(Long id);
 
-	long countAll();
+	List<ENTITY> get(Criteria criteria) throws JPAPersistenceException;
 
-	List<ENTITY> getByField(String field, Object value) throws FieldNotFoundException;
-
-	List<ENTITY> getLikeField(String field, String value) throws FieldNotFoundException;
-
-	List<ENTITY> getByCriteria(Criteria criteria) throws JPAPersistenceException;
+	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException;
 }

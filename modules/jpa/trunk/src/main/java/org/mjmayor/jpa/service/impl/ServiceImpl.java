@@ -6,13 +6,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
-import org.hibernate.Criteria;
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.service.Service;
+import org.mjmayor.jpa.support.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +58,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional
 	public void removeByField(String field, Object value) throws JPAPersistenceException, FieldNotFoundException {
-		dao.removeByField(field, value);
+		// TODO mjmayor Auto-generated method stub
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional
 	public void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException {
-		dao.removeByField(field, value);
+		// TODO mjmayor Auto-generated method stub
 	}
 
 	/**
@@ -75,8 +75,8 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<DTO> getAll() {
-		List<ENTITY> listEntity = dao.getAll();
+	public List<DTO> get(Criteria criteria) {
+		List<ENTITY> listEntity = dao.get(criteria);
 		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
 		return listDTO;
 	}
@@ -86,40 +86,26 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public long countAll() {
+	public Long countAll() {
 		return dao.countAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	@Transactional(readOnly = true)
-	public List<DTO> getByField(String field, Object value) throws FieldNotFoundException {
-		List<ENTITY> listEntity = dao.getByField(field, value);
-		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
-		return listDTO;
+	public DTO get(Long id) {
+		// TODO mjmayor Auto-generated method stub
+		ENTITY entity = dao.get(id);
+		return assembler.assemble(entity);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	@Transactional(readOnly = true)
-	public List<DTO> getLikeField(String field, String value) throws FieldNotFoundException {
-		List<ENTITY> listEntity = dao.getLikeField(field, value);
-		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
-		return listDTO;
+	public List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException {
+		// TODO mjmayor Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	@Transactional(readOnly = true)
-	public List<DTO> getByCriteria(Criteria criteria) throws FieldNotFoundException {
-		List<ENTITY> listEntity = dao.getByCriteria(criteria);
-		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
-		return listDTO;
+	public List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException {
+		// TODO mjmayor Auto-generated method stub
+		return null;
 	}
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.mjmayor.jpa.support.PageResult;
+
 public abstract class AbstractAssembler<SOURCE, TARGET> implements Assembler<SOURCE, TARGET> {
 
 	public boolean canConvert(Class<?> clazz) {
