@@ -7,7 +7,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration
 @EnableAspectJAutoProxy
-public class JPAConfig {
+public class AOPConfig {
 
 	@Bean
 	public JPAInterceptor jpaInterceptor() {
