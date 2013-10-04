@@ -5,15 +5,18 @@ import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.facade.impl.ProfesorFacadeImpl;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
+import org.mjmayor.persistence.config.ProfesorPersistenceConfig;
 import org.mjmayor.persistence.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-public class ProfesorBeansConfig {
+@Import({ ProfesorPersistenceConfig.class })
+public class ProfesorBeanConfig {
 
-	ProfesorService<Profesor, ProfesorDTO> service;
+	private ProfesorService<Profesor, ProfesorDTO> service;
 
 	@Autowired
 	public ProfesorService<Profesor, ProfesorDTO> getService() {
