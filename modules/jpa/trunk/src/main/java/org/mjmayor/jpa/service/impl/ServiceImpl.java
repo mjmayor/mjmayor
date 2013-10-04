@@ -92,7 +92,6 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	@Override
 	public DTO get(Long id) {
-		// TODO mjmayor Auto-generated method stub
 		ENTITY entity = dao.get(id);
 		return assembler.assemble(entity);
 	}

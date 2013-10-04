@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
@@ -27,9 +28,16 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 */
 	private Class<ENTITY> persistentClass;
 
+	/**
+	 * CriteriaBuilder para construir consultas JPA
+	 */
+	private CriteriaBuilder criteriaBuilder;
+
 	@SuppressWarnings("unchecked")
 	public DAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
+		this.criteriaBuilder = entityManager.getCriteriaBuilder();
+
 		if (getClass().getSuperclass().equals((DAOImpl.class))) {
 			persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 		} else {
@@ -71,14 +79,14 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 
 	@Override
 	public Long countAll() {
-		// TODO mjmayor Auto-generated method stub
-		return null;
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
+		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
 
 	@Override
 	public ENTITY get(Long id) {
-		// TODO mjmayor Auto-generated method stub
-		return null;
+		return entityManager.find(persistentClass, id);
 	}
 
 	@Override
