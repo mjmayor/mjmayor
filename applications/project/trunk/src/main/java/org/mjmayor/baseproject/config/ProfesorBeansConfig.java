@@ -1,6 +1,5 @@
 package org.mjmayor.baseproject.config;
 
-import org.mjmayor.baseproject.assembler.profesor.ProfesorFormAssembler;
 import org.mjmayor.baseproject.assembler.profesor.ProfesorViewAssembler;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.facade.impl.ProfesorFacadeImpl;
@@ -14,22 +13,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProfesorBeansConfig {
 
-//	@Autowired
-	private ProfesorService<Profesor, ProfesorDTO> service;
+	ProfesorService<Profesor, ProfesorDTO> service;
+
+	@Autowired
+	public ProfesorService<Profesor, ProfesorDTO> getService() {
+		return service;
+	}
 
 	@Bean
 	public ProfesorFacade profesorFacade() {
-		// TODO configurar bien
-		return new ProfesorFacadeImpl(null);
+		return new ProfesorFacadeImpl(service, assembler());
 	}
 
 	@Bean
-	public ProfesorViewAssembler profesorViewAssembler() {
+	public ProfesorViewAssembler assembler() {
 		return new ProfesorViewAssembler();
-	}
-
-	@Bean
-	public ProfesorFormAssembler profesorFormAssembler() {
-		return new ProfesorFormAssembler();
 	}
 }

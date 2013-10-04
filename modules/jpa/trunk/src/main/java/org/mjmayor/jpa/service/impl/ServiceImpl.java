@@ -3,7 +3,6 @@ package org.mjmayor.jpa.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
@@ -23,12 +22,9 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private DAO<ENTITY> dao;
 
-	private EntityManager entityManager;
-
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler) {
-		this.entityManager = entityManager;
+	public ServiceImpl(BidirectionalAssembler<ENTITY, DTO> assembler) {
 		this.assembler = assembler;
 	}
 

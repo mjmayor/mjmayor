@@ -24,8 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@Import({ BeanRepositoryConfig.class })
-//@PropertySource("classpath:/config/database.properties")
+@Import({ BeanRepositoryConfig.class, ProfesorPersistenceConfig.class })
 @EnableTransactionManagement
 public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter implements RepositoryConfig {
 

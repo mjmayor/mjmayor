@@ -6,6 +6,7 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
+import org.mjmayor.baseproject.view.ProfesorView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,21 @@ public class ProfesorController {
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showProfesorForm(ModelMap model) {
 		logger.debug("ProfesorController - showProfesorForm");
+
+		Long total = profesorFacade.countAll();
+		System.out.println(total);
+
+		ProfesorView profesorView = profesorFacade.get(1L);
+		System.out.println(profesorView);
+
+		logger.debug("ProfesorController - insertProfesor");
+
 		model.addAttribute(ProfesorConstants.PROFESOR_DATA, new ProfesorForm());
 		return ProfesorConstants.FORM;
 	}
 
 	@RequestMapping(value = ApplicationConstants.INSERT, method = RequestMethod.POST)
 	public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
-		logger.debug("ProfesorController - insertProfesor");
-
 		// if (result.hasErrors()) {
 		// return ProfesorConstants.FORM;
 		// } else {
