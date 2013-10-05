@@ -3,6 +3,7 @@ package org.mjmayor.persistence.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -28,15 +29,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter implements RepositoryConfig {
 
-	@Value("${jdbc.driverClassName}")	private String driverClassName;
-	@Value("${jdbc.dialect}")			private String dialect;
-	@Value("${jdbc.databaseurl}")		private String databaseUrl;
-	@Value("${jdbc.username}")			private String username;
-	@Value("${jdbc.password}")			private String password;
+	@Value("${repository.packagesToScan}")	private String packagesToScan;
 
-	@Value("${hibernate.dialect}")		private String hibernateDialect;
-	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
-	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
+	@Value("${jdbc.driverClassName}")		private String driverClassName;
+	@Value("${jdbc.dialect}")				private String dialect;
+	@Value("${jdbc.databaseurl}")			private String databaseUrl;
+	@Value("${jdbc.username}")				private String username;
+	@Value("${jdbc.password}")				private String password;
+
+	@Value("${hibernate.dialect}")			private String hibernateDialect;
+	@Value("${hibernate.show_sql}")			private String hibernateShowSql;
+	@Value("${hibernate.hbm2ddl.auto}")		private String hibernateHbm2ddlAuto;
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
@@ -65,10 +68,14 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 		initDataSource();
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
-		localContainerEntityManagerFactoryBean.setPackagesToScan("org.mjmayor.baseproject");
+		localContainerEntityManagerFactoryBean.setPackagesToScan(getPackagesToScan(packagesToScan));
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
 		localContainerEntityManagerFactoryBean.afterPropertiesSet();
 		return localContainerEntityManagerFactoryBean.getNativeEntityManagerFactory();
+	}
+
+	private String[] getPackagesToScan(String originalString) {
+		return originalString.split(",");
 	}
 
 	/**
@@ -96,7 +103,6 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 			jpaVendorAdapter = jpaVendorAdapter();
 		}
 	}
-	
 
 	@Override
 	public DataSource dataSource() {
@@ -114,5 +120,10 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 		jpaVendorAdapter.setDatabase(getDatabase(dialect));
 		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
 		return jpaVendorAdapter;
+	}
+
+	@Bean(name = "entityManager")
+	public EntityManager entityManager() {
+		return entityManagerFactory.createEntityManager();
 	}
 }

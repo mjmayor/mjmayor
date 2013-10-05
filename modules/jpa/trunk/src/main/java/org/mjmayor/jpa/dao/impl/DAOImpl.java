@@ -1,10 +1,8 @@
 package org.mjmayor.jpa.dao.impl;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -33,16 +31,16 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 */
 	private CriteriaBuilder criteriaBuilder;
 
-	@SuppressWarnings("unchecked")
-	public DAOImpl(EntityManagerFactory entityManagerFactory) {
-		this.entityManager = entityManagerFactory.createEntityManager();
+	public DAOImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
+		this.entityManager = entityManager;
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();
+		this.persistentClass = persistentClass;
 
-		if (getClass().getSuperclass().equals((DAOImpl.class))) {
-			persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-		} else {
-			persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[1];
-		}
+		// if (getClass().getSuperclass().equals((DAOImpl.class))) {
+		// persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		// } else {
+		// persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
+		// }
 	}
 
 	/**

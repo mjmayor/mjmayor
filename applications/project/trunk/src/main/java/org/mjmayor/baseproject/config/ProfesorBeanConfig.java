@@ -16,12 +16,8 @@ import org.springframework.context.annotation.Import;
 @Import({ ProfesorPersistenceConfig.class })
 public class ProfesorBeanConfig {
 
-	private ProfesorService<Profesor, ProfesorDTO> service;
-
 	@Autowired
-	public ProfesorService<Profesor, ProfesorDTO> getService() {
-		return service;
-	}
+	ProfesorService<Profesor, ProfesorDTO> service;
 
 	@Bean
 	public ProfesorFacade profesorFacade() {

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@Import({ PersistenceRepositoryConfig.class, ProfesorBeansConfig.class })
+@Import({ PersistenceRepositoryConfig.class, ProfesorBeanConfig.class })
 @ComponentScan("org.mjmayor.baseproject")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {

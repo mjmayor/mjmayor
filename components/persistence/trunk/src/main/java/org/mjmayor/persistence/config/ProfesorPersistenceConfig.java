@@ -1,5 +1,7 @@
 package org.mjmayor.persistence.config;
 
+import javax.persistence.EntityManager;
+
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
 import org.mjmayor.model.dto.ProfesorDTO;
@@ -7,11 +9,17 @@ import org.mjmayor.model.entity.Profesor;
 import org.mjmayor.persistence.assembler.profesor.ProfesorDTOAssembler;
 import org.mjmayor.persistence.service.ProfesorService;
 import org.mjmayor.persistence.service.impl.ProfesorServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ProfesorPersistenceConfig {
+
+	@Autowired
+	@Qualifier("entityManager")
+	private EntityManager entityManager;
 
 	@Bean
 	public ProfesorService<Profesor, ProfesorDTO> service() {
@@ -25,6 +33,6 @@ public class ProfesorPersistenceConfig {
 
 	@Bean
 	public DAO<Profesor> dao() {
-		return new DAOImpl<Profesor>(null);
+		return new DAOImpl<Profesor>(entityManager, Profesor.class);
 	}
 }
