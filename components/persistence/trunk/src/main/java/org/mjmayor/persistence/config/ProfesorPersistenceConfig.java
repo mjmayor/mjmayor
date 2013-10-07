@@ -4,11 +4,11 @@ import javax.persistence.EntityManager;
 
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.dao.impl.DAOImpl;
+import org.mjmayor.jpa.service.Service;
+import org.mjmayor.jpa.service.impl.ServiceImpl;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.mjmayor.persistence.assembler.profesor.ProfesorDTOAssembler;
-import org.mjmayor.persistence.service.ProfesorService;
-import org.mjmayor.persistence.service.impl.ProfesorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,17 +22,13 @@ public class ProfesorPersistenceConfig {
 	private EntityManager entityManager;
 
 	@Bean
-	public ProfesorService<Profesor, ProfesorDTO> service() {
-		return new ProfesorServiceImpl<Profesor, ProfesorDTO>(dao(), profesorDTOAssembler());
-	}
-
-	@Bean
 	public ProfesorDTOAssembler profesorDTOAssembler() {
 		return new ProfesorDTOAssembler();
 	}
 
 	@Bean
-	public DAO<Profesor> dao() {
-		return new DAOImpl<Profesor>(entityManager, Profesor.class);
+	public Service<Profesor, ProfesorDTO> service() {
+		DAO<Profesor> dao = new DAOImpl<Profesor>(entityManager, Profesor.class);
+		return new ServiceImpl<Profesor, ProfesorDTO>(dao, profesorDTOAssembler());
 	}
 }
