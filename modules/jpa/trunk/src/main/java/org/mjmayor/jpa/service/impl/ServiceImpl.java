@@ -3,6 +3,7 @@ package org.mjmayor.jpa.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
@@ -14,9 +15,15 @@ import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
+
+	@Autowired
+	@Qualifier("entityManager")
+	private EntityManager entityManager;
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 
@@ -24,8 +31,8 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(DAO<ENTITY> dao, BidirectionalAssembler<ENTITY, DTO> assembler) {
-		this.dao = dao;
+	public ServiceImpl(BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> entityClass) {
+		this.dao = new DAOImpl<ENTITY>(entityManager, entityClass);
 		this.assembler = assembler;
 	}
 
