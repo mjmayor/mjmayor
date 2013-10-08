@@ -30,7 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements RepositoryConfig {
 
-@Value("${repository.packagesToScan}")	private String packagesToScan;
+	@Value("${repository.packagesToScan}")	private String packagesToScan;
 	
 	@Value("${jdbc.driverClassName}")	private String driverClassName;
 	@Value("${jdbc.dialect}")			private String dialect;
