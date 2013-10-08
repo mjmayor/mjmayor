@@ -1,4 +1,4 @@
-package org.mjmayor.persistence.config;
+package org.mjmayor.jpa.config.database.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.mjmayor.jpa.config.database.Dialects;
 import org.mjmayor.jpa.config.database.RepositoryConfig;
+import org.mjmayor.jpa.config.database.support.Dialects;
+import org.mjmayor.jpa.config.database.support.PersistenceBeanConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,19 +28,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @Import({ PersistenceBeanConfig.class })
 @EnableTransactionManagement
-public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter implements RepositoryConfig {
+public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements RepositoryConfig {
 
-	@Value("${repository.packagesToScan}")	private String packagesToScan;
+@Value("${repository.packagesToScan}")	private String packagesToScan;
+	
+	@Value("${jdbc.driverClassName}")	private String driverClassName;
+	@Value("${jdbc.dialect}")			private String dialect;
+	@Value("${jdbc.databaseurl}")		private String databaseUrl;
+	@Value("${jdbc.username}")			private String username;
+	@Value("${jdbc.password}")			private String password;
 
-	@Value("${jdbc.driverClassName}")		private String driverClassName;
-	@Value("${jdbc.dialect}")				private String dialect;
-	@Value("${jdbc.databaseurl}")			private String databaseUrl;
-	@Value("${jdbc.username}")				private String username;
-	@Value("${jdbc.password}")				private String password;
-
-	@Value("${hibernate.dialect}")			private String hibernateDialect;
-	@Value("${hibernate.show_sql}")			private String hibernateShowSql;
-	@Value("${hibernate.hbm2ddl.auto}")		private String hibernateHbm2ddlAuto;
+	@Value("${hibernate.dialect}")		private String hibernateDialect;
+	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
+	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
@@ -50,7 +51,7 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 
 	private Map<String, Database> databases;
 
-	protected PersistenceRepositoryConfig() {
+	protected RepositoryConfigImpl() {
 		this.databases = buildDatabases();
 	}
 
@@ -60,9 +61,41 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 		return databases;
 	}
 
+	private String[] getPackagesToScan(String originalString) {
+		return originalString.split(",");
+	}
+
+	public Database getDatabase(String dialect) {
+		return databases.get(dialect);
+	}
+
+	private void initDataSource() {
+		if (dataSource == null) {
+			dataSource = dataSource();
+			jpaVendorAdapter = jpaVendorAdapter();
+		}
+	}
+
+	public DataSource dataSource() {
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName(driverClassName);
+		ds.setUrl(databaseUrl);
+		ds.setUsername(username);
+		ds.setPassword(password);
+		return ds;
+	}
+
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		jpaVendorAdapter.setDatabase(getDatabase(dialect));
+		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
+		return jpaVendorAdapter;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		initDataSource();
@@ -74,20 +107,10 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 		return localContainerEntityManagerFactoryBean.getNativeEntityManagerFactory();
 	}
 
-	private String[] getPackagesToScan(String originalString) {
-		return originalString.split(",");
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
-	public Database getDatabase(String dialect) {
-		return databases.get(dialect);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		initDataSource();
@@ -97,31 +120,10 @@ public class PersistenceRepositoryConfig extends WebMvcConfigurerAdapter impleme
 		return transactionManager;
 	}
 
-	private void initDataSource() {
-		if (dataSource == null) {
-			dataSource = dataSource();
-			jpaVendorAdapter = jpaVendorAdapter();
-		}
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public DataSource dataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(driverClassName);
-		ds.setUrl(databaseUrl);
-		ds.setUsername(username);
-		ds.setPassword(password);
-		return ds;
-	}
-
-	@Override
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(getDatabase(dialect));
-		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
-		return jpaVendorAdapter;
-	}
-
 	@Bean(name = "entityManager")
 	public EntityManager entityManager() {
 		return entityManagerFactory.createEntityManager();

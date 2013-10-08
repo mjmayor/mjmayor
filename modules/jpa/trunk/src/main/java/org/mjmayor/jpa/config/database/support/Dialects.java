@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.config.database;
+package org.mjmayor.jpa.config.database.support;
 
 /**
  * Clase con los distintos dialectos de bases de datos a usar
