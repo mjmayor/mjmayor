@@ -47,8 +47,6 @@ public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements Rep
 
 	private DataSource dataSource;
 
-	private JpaVendorAdapter jpaVendorAdapter;
-
 	private Map<String, Database> databases;
 
 	protected RepositoryConfigImpl() {
@@ -72,7 +70,6 @@ public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements Rep
 	private void initDataSource() {
 		if (dataSource == null) {
 			dataSource = dataSource();
-			jpaVendorAdapter = jpaVendorAdapter();
 		}
 	}
 
@@ -102,7 +99,7 @@ public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements Rep
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
 		localContainerEntityManagerFactoryBean.setPackagesToScan(getPackagesToScan(packagesToScan));
-		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		localContainerEntityManagerFactoryBean.afterPropertiesSet();
 		return localContainerEntityManagerFactoryBean.getNativeEntityManagerFactory();
 	}

@@ -1,6 +1,5 @@
 package org.mjmayor.baseproject.config;
 
-import org.mjmayor.jpa.config.database.impl.RepositoryConfigImpl;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@Import({ ProfesorBeanConfig.class, RepositoryConfigImpl.class })
+@Import({ ProfesorBeanConfig.class })
 @ComponentScan("org.mjmayor.baseproject")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
