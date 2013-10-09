@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 
 import org.springframework.transaction.PlatformTransactionManager;
 
-public interface RepositoryConfig {
+public interface PersistenceConfig {
 	EntityManagerFactory entityManagerFactory();
 
 	PlatformTransactionManager transactionManager();

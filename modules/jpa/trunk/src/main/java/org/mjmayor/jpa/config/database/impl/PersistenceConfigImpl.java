@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.mjmayor.jpa.config.database.RepositoryConfig;
+import org.mjmayor.jpa.config.database.PersistenceConfig;
 import org.mjmayor.jpa.config.database.support.Dialects;
 import org.mjmayor.jpa.config.database.support.PersistenceBeanConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +28,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @Import({ PersistenceBeanConfig.class })
 @EnableTransactionManagement
-public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements RepositoryConfig {
+public class PersistenceConfigImpl extends WebMvcConfigurerAdapter implements PersistenceConfig {
 
 	@Value("${repository.packagesToScan}")	private String packagesToScan;
 	
-	@Value("${jdbc.driverClassName}")	private String driverClassName;
-	@Value("${jdbc.dialect}")			private String dialect;
-	@Value("${jdbc.databaseurl}")		private String databaseUrl;
-	@Value("${jdbc.username}")			private String username;
-	@Value("${jdbc.password}")			private String password;
+	@Value("${jdbc.driverClassName}")		private String driverClassName;
+	@Value("${jdbc.dialect}")				private String dialect;
+	@Value("${jdbc.databaseurl}")			private String databaseUrl;
+	@Value("${jdbc.username}")				private String username;
+	@Value("${jdbc.password}")				private String password;
 
-	@Value("${hibernate.dialect}")		private String hibernateDialect;
-	@Value("${hibernate.show_sql}")		private String hibernateShowSql;
-	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
+	@Value("${hibernate.dialect}")			private String hibernateDialect;
+	@Value("${hibernate.show_sql}")			private String hibernateShowSql;
+	@Value("${hibernate.hbm2ddl.auto}")		private String hibernateHbm2ddlAuto;
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
@@ -49,7 +49,7 @@ public class RepositoryConfigImpl extends WebMvcConfigurerAdapter implements Rep
 
 	private Map<String, Database> databases;
 
-	protected RepositoryConfigImpl() {
+	protected PersistenceConfigImpl() {
 		this.databases = buildDatabases();
 	}
 
