@@ -15,15 +15,9 @@ import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
-
-	@Autowired
-	@Qualifier("entityManager")
-	private EntityManager entityManager;
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 
@@ -31,7 +25,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> entityClass) {
+	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> entityClass) {
 		this.dao = new DAOImpl<ENTITY>(entityManager, entityClass);
 		this.assembler = assembler;
 	}

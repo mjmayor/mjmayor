@@ -32,15 +32,9 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	private CriteriaBuilder criteriaBuilder;
 
 	public DAOImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
-//		this.entityManager = entityManager;
-//		this.criteriaBuilder = entityManager.getCriteriaBuilder();
-//		this.persistentClass = persistentClass;
-
-		// if (getClass().getSuperclass().equals((DAOImpl.class))) {
-		// persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		// } else {
-		// persistentClass = (Class<ENTITY>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
-		// }
+		this.entityManager = entityManager;
+		this.criteriaBuilder = entityManager.getCriteriaBuilder();
+		this.persistentClass = persistentClass;
 	}
 
 	/**
