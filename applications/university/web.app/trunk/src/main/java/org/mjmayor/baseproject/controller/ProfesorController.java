@@ -1,5 +1,7 @@
 package org.mjmayor.baseproject.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.mjmayor.baseproject.constants.ProfesorConstants;
@@ -7,6 +9,8 @@ import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +34,18 @@ public class ProfesorController {
 	public String showProfesorForm(ModelMap model) {
 		logger.debug("ProfesorController - showProfesorForm");
 
-		Long total = profesorFacade.countAll();
-		System.out.println(total);
+		Criteria criteria = new Criteria();
+		criteria.setPageRequest(new PageRequest(1, 20));
+		List<ProfesorView> list = profesorFacade.get(criteria);
+		System.out.println(list);
 
-		ProfesorView profesorView = profesorFacade.get(1L);
-		System.out.println(profesorView);
+		criteria.setPageRequest(new PageRequest(1, 2));
+		list = profesorFacade.get(criteria);
+		System.out.println(list);
+
+		criteria.setPageRequest(new PageRequest(2, 2));
+		list = profesorFacade.get(criteria);
+		System.out.println(list);
 
 		logger.debug("ProfesorController - insertProfesor");
 
