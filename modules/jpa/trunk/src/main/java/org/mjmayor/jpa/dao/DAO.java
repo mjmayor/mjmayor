@@ -22,5 +22,5 @@ public interface DAO<ENTITY> {
 
 	List<ENTITY> get(Criteria criteria) throws JPAPersistenceException;
 
-	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException;
+	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
 }

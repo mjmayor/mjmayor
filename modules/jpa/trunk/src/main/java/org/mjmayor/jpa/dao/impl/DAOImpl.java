@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
@@ -11,6 +12,9 @@ import javax.validation.ConstraintViolationException;
 import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageRequest;
+import org.mjmayor.jpa.support.PersistenceUtils;
+import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,13 +87,28 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 
 	@Override
 	public List<ENTITY> get(Criteria criteria) throws JPAPersistenceException {
-		// TODO mjmayor Auto-generated method stub
-		return null;
+		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
+		criteriaQuery.select(criteriaQuery.from(persistentClass));
+		Query query = entityManager.createQuery(criteriaQuery);
+
+		PageRequest pageRequest = criteria.getPageRequest();
+		query.setFirstResult(PersistenceUtils.getFirstResult(pageRequest));
+		query.setMaxResults(pageRequest.getSize());
+		return ListUtils.castList(persistentClass, query.getResultList());
 	}
 
 	@Override
-	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException {
+	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		// TODO mjmayor Auto-generated method stub
+		// CriteriaBuilder qb = em.getCriteriaBuilder();
+		// CriteriaQuery<Submission> cq = qb.createQuery(Submission.class);
+		//
+		// Root<Submission> root = cq.from(Submission.class);
+		// cq.where( qb.or(
+		// qb.equal(root.get("code"), qb.parameter(String.class, "code")),
+		// qb.equal(root.get("id"), qb.parameter(Integer.class, "id"))
+		// ));
+		// Query query = em.createQuery(cq);
 		return null;
 	}
 }
