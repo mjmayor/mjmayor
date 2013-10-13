@@ -68,11 +68,17 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException {
 		// TODO mjmayor Auto-generated method stub
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Long countAll() {
 		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
@@ -80,11 +86,17 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ENTITY get(Long id) {
 		return entityManager.find(persistentClass, id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<ENTITY> get(Criteria criteria) throws JPAPersistenceException {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
@@ -97,6 +109,9 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 		return ListUtils.castList(persistentClass, query.getResultList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		// TODO mjmayor Auto-generated method stub

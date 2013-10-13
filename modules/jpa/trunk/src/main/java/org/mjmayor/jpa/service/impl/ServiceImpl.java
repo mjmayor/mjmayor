@@ -88,19 +88,31 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 		return dao.countAll();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public DTO get(Long id) {
 		ENTITY entity = dao.get(id);
 		return assembler.assemble(entity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException {
 		// TODO mjmayor Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException {
 		// TODO mjmayor Auto-generated method stub
 		return null;
