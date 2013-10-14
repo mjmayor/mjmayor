@@ -12,6 +12,8 @@ public class ProfesorConstants {
 
 	public class Fields {
 		public static final String DNI = "dni";
+		public static final String NAME = "nombre";
+		public static final String SURNAME = "apellidos";
 	}
 
 	public static final String PATH = "/profesor";

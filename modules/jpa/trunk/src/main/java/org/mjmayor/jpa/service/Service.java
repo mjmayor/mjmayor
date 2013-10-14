@@ -2,6 +2,7 @@ package org.mjmayor.jpa.service;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
@@ -19,7 +20,7 @@ public interface Service<ENTITY, DTO> {
 	void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
 	Long countAll();
-	
+
 	DTO get(Long id);
 
 	List<DTO> get(Criteria criteria);
@@ -27,4 +28,6 @@ public interface Service<ENTITY, DTO> {
 	List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException;
 
 	List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException;
+
+	List<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria);
 }

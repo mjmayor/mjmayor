@@ -83,9 +83,7 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	@Override
 	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		Query query = entityManager.createQuery(criteriaQuery);
-		PageRequest pageRequest = criteria.getPageRequest();
-		query.setFirstResult(PersistenceUtils.getFirstResult(pageRequest));
-		query.setMaxResults(pageRequest.getSize());
+		setCriteriaParams(criteria, query);
 		return ListUtils.castList(persistentClass, query.getResultList());
 	}
 
@@ -95,5 +93,13 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	@Override
 	public Long count(CriteriaQuery<Long> criteriaQuery) {
 		return entityManager.createQuery(criteriaQuery).getSingleResult();
+	}
+
+	private void setCriteriaParams(Criteria criteria, Query query) {
+		if (criteria != null && criteria.getPageRequest() != null) {
+			PageRequest pageRequest = criteria.getPageRequest();
+			query.setFirstResult(PersistenceUtils.getFirstResult(pageRequest));
+			query.setMaxResults(pageRequest.getSize());
+		}
 	}
 }

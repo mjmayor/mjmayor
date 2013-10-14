@@ -12,4 +12,10 @@ public interface ProfesorFacade {
 	ProfesorView get(Long id);
 
 	List<ProfesorView> get(Criteria criteria);
+
+	List<ProfesorView> getByDNI(String dni);
+
+	List<ProfesorView> getLikeName(String name, Criteria criteria);
+
+	List<ProfesorView> getLikeSurname(String surname, Criteria criteria);
 }

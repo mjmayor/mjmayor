@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
@@ -127,7 +128,8 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Transactional(readOnly = true)
 	public List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
-		Predicate predicate = criteriaBuilder.equal(criteriaBuilder.upper(criteriaBuilder.literal(field)), value);
+		Root<ENTITY> root = criteriaQuery.from(persistentClass);
+		Predicate predicate = criteriaBuilder.equal(root.get(field), value);
 		criteriaQuery.where(predicate);
 		List<ENTITY> list = dao.get(criteriaQuery, criteria);
 		return new ArrayList<DTO>(assembler.assemble(list));
@@ -139,7 +141,21 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException {
-		// TODO mjmayor Auto-generated method stub
-		return null;
+		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
+		Root<ENTITY> root = criteriaQuery.from(persistentClass);
+		Predicate predicate = criteriaBuilder.like(root.<String> get(field), value);
+		criteriaQuery.where(predicate);
+		List<ENTITY> list = dao.get(criteriaQuery, criteria);
+		return new ArrayList<DTO>(assembler.assemble(list));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) {
+		List<ENTITY> list = dao.get(criteriaQuery, criteria);
+		return new ArrayList<DTO>(assembler.assemble(list));
 	}
 }
