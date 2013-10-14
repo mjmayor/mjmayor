@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
@@ -21,13 +24,28 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 
+	/**
+	 * DAO que se encargara de las operaciones de persistencia
+	 */
 	private DAO<ENTITY> dao;
+
+	/**
+	 * CriteriaBuilder para construir consultas JPA
+	 */
+	private CriteriaBuilder criteriaBuilder;
+
+	/**
+	 * Clase sobre la que se realizara la persistencia (clase del objeto sobre el que interactuar)
+	 */
+	private Class<ENTITY> persistentClass;
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> entityClass) {
-		this.dao = new DAOImpl<ENTITY>(entityManager, entityClass);
+	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
+		this.dao = new DAOImpl<ENTITY>(entityManager, persistentClass);
 		this.assembler = assembler;
+		this.criteriaBuilder = entityManager.getCriteriaBuilder();
+		this.persistentClass = persistentClass;
 	}
 
 	/**
@@ -74,7 +92,9 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<DTO> get(Criteria criteria) {
-		List<ENTITY> listEntity = dao.get(criteria);
+		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
+		criteriaQuery.select(criteriaQuery.from(persistentClass));
+		List<ENTITY> listEntity = dao.get(criteriaQuery, criteria);
 		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
 		return listDTO;
 	}
@@ -85,7 +105,9 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public Long countAll() {
-		return dao.countAll();
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
+		return dao.count(criteriaQuery);
 	}
 
 	/**
@@ -104,8 +126,11 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException {
-		// TODO mjmayor Auto-generated method stub
-		return null;
+		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
+		Predicate predicate = criteriaBuilder.equal(criteriaBuilder.upper(criteriaBuilder.literal(field)), value);
+		criteriaQuery.where(predicate);
+		List<ENTITY> list = dao.get(criteriaQuery, criteria);
+		return new ArrayList<DTO>(assembler.assemble(list));
 	}
 
 	/**

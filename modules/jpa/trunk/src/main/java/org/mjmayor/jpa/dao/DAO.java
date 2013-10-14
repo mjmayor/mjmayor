@@ -16,11 +16,9 @@ public interface DAO<ENTITY> {
 
 	void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException;
 
-	Long countAll();
-
 	ENTITY get(Long id);
 
-	List<ENTITY> get(Criteria criteria) throws JPAPersistenceException;
-
 	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
+
+	Long count(CriteriaQuery<Long> criteriaQuery);
 }

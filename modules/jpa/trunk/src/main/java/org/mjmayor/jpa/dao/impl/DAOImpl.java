@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
@@ -30,14 +29,8 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 */
 	private Class<ENTITY> persistentClass;
 
-	/**
-	 * CriteriaBuilder para construir consultas JPA
-	 */
-	private CriteriaBuilder criteriaBuilder;
-
 	public DAOImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
 		this.entityManager = entityManager;
-		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 		this.persistentClass = persistentClass;
 	}
 
@@ -80,16 +73,6 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Long countAll() {
-		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
-		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
-		return entityManager.createQuery(criteriaQuery).getSingleResult();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public ENTITY get(Long id) {
 		return entityManager.find(persistentClass, id);
 	}
@@ -98,11 +81,8 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ENTITY> get(Criteria criteria) throws JPAPersistenceException {
-		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
-		criteriaQuery.select(criteriaQuery.from(persistentClass));
+	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		Query query = entityManager.createQuery(criteriaQuery);
-
 		PageRequest pageRequest = criteria.getPageRequest();
 		query.setFirstResult(PersistenceUtils.getFirstResult(pageRequest));
 		query.setMaxResults(pageRequest.getSize());
@@ -113,17 +93,7 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
-		// TODO mjmayor Auto-generated method stub
-		// CriteriaBuilder qb = em.getCriteriaBuilder();
-		// CriteriaQuery<Submission> cq = qb.createQuery(Submission.class);
-		//
-		// Root<Submission> root = cq.from(Submission.class);
-		// cq.where( qb.or(
-		// qb.equal(root.get("code"), qb.parameter(String.class, "code")),
-		// qb.equal(root.get("id"), qb.parameter(Integer.class, "id"))
-		// ));
-		// Query query = em.createQuery(cq);
-		return null;
+	public Long count(CriteriaQuery<Long> criteriaQuery) {
+		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
 }

@@ -34,6 +34,12 @@ public class ProfesorController {
 	public String showProfesorForm(ModelMap model) {
 		logger.debug("ProfesorController - showProfesorForm");
 
+		Long number = profesorFacade.countAll();
+		System.out.println(number);
+
+		ProfesorView profesorView = profesorFacade.get(1L);
+		System.out.println(profesorView);
+
 		Criteria criteria = new Criteria();
 		criteria.setPageRequest(new PageRequest(1, 20));
 		List<ProfesorView> list = profesorFacade.get(criteria);
