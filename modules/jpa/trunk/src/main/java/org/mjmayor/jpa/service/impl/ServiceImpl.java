@@ -143,7 +143,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	public List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
 		Root<ENTITY> root = criteriaQuery.from(persistentClass);
-		Predicate predicate = criteriaBuilder.like(root.<String> get(field), value);
+		Predicate predicate = criteriaBuilder.like(root.<String> get(field), "%" + value + "%");
 		criteriaQuery.where(predicate);
 		List<ENTITY> list = dao.get(criteriaQuery, criteria);
 		return new ArrayList<DTO>(assembler.assemble(list));
