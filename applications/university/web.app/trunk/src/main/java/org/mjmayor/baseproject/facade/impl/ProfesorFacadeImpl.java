@@ -9,6 +9,7 @@ import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getByDNI(String dni) {
-		List<ProfesorDTO> list = service.getByField(ProfesorConstants.Fields.DNI, dni, null);
+		List<ProfesorDTO> list = service.getByField(new Field(ProfesorConstants.Fields.DNI, dni), null);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -67,7 +68,7 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getLikeName(String name, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLikeField(ProfesorConstants.Fields.NAME, name, criteria);
+		List<ProfesorDTO> list = service.getLikeField(new Field(ProfesorConstants.Fields.NAME, name), criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -76,7 +77,7 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getLikeSurname(String surname, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLikeField(ProfesorConstants.Fields.SURNAME, surname, criteria);
+		List<ProfesorDTO> list = service.getLikeField(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 }

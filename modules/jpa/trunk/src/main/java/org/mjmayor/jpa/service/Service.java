@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolationException;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
 
 public interface Service<ENTITY, DTO> {
 
@@ -25,9 +26,9 @@ public interface Service<ENTITY, DTO> {
 
 	List<DTO> get(Criteria criteria);
 
-	List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException;
+	List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException;
 
-	List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException;
+	List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException;
 
 	List<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria);
 }

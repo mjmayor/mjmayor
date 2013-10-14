@@ -17,6 +17,7 @@ import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,10 +127,10 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<DTO> getByField(String field, Object value, Criteria criteria) throws FieldNotFoundException {
+	public List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
 		Root<ENTITY> root = criteriaQuery.from(persistentClass);
-		Predicate predicate = criteriaBuilder.equal(root.get(field), value);
+		Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
 		criteriaQuery.where(predicate);
 		List<ENTITY> list = dao.get(criteriaQuery, criteria);
 		return new ArrayList<DTO>(assembler.assemble(list));
@@ -140,10 +141,10 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<DTO> getLikeField(String field, String value, Criteria criteria) throws FieldNotFoundException {
+	public List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
 		Root<ENTITY> root = criteriaQuery.from(persistentClass);
-		Predicate predicate = criteriaBuilder.like(root.<String> get(field), "%" + value + "%");
+		Predicate predicate = criteriaBuilder.like(root.<String> get(field.getName()), "%" + field.getValue() + "%");
 		criteriaQuery.where(predicate);
 		List<ENTITY> list = dao.get(criteriaQuery, criteria);
 		return new ArrayList<DTO>(assembler.assemble(list));

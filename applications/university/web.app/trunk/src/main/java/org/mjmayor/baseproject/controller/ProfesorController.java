@@ -55,19 +55,18 @@ public class ProfesorController {
 
 		list = profesorFacade.getByDNI("44444444a");
 		System.out.println(profesorView);
-		
+
 		list = profesorFacade.getLikeName("an", null);
 		System.out.println(profesorView);
-		
+
 		list = profesorFacade.getLikeSurname("az", null);
 		System.out.println(profesorView);
-		
+
 		list = profesorFacade.getLikeSurname("EZ", null);
 		System.out.println(profesorView);
-		
+
 		list = profesorFacade.getLikeSurname("asdf", null);
 		System.out.println(profesorView);
-
 
 		logger.debug("ProfesorController - insertProfesor");
 
