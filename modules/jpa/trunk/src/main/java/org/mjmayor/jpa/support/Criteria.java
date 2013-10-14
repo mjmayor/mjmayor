@@ -1,6 +1,7 @@
 package org.mjmayor.jpa.support;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Criterios para las consultas de BBDD
@@ -10,7 +11,15 @@ import java.util.Date;
  */
 public class Criteria {
 
-	public static final OrderType DEFAULT_ORDER = OrderType.DESC;
+	/**
+	 * Parametros para paginacion
+	 */
+	private PageRequest pageRequest;
+
+	/**
+	 * Lista de campos por los que ordenar
+	 */
+	private List<OrderField> orderFields;
 
 	/**
 	 * Fecha desde
@@ -23,22 +32,41 @@ public class Criteria {
 	private Date to;
 
 	/**
-	 * Orden de los resultados a devolver
-	 */
-	private OrderType order;
-
-	/**
-	 * Parametros para paginacion
-	 */
-	private PageRequest pageRequest;
-
-	/**
 	 * Constructor <br/>
 	 * 
 	 * Orden descendente por defecto
 	 */
 	public Criteria() {
-		order = DEFAULT_ORDER;
+	}
+
+	/**
+	 * @return the pageRequest
+	 */
+	public PageRequest getPageRequest() {
+		return pageRequest;
+	}
+
+	/**
+	 * @param pageRequest
+	 *            the pageRequest to set
+	 */
+	public void setPageRequest(PageRequest pageRequest) {
+		this.pageRequest = pageRequest;
+	}
+
+	/**
+	 * @return the orderFields
+	 */
+	public List<OrderField> getOrderFields() {
+		return orderFields;
+	}
+
+	/**
+	 * @param orderFields
+	 *            the orderFields to set
+	 */
+	public void setOrderFields(List<OrderField> orderFields) {
+		this.orderFields = orderFields;
 	}
 
 	/**
@@ -69,36 +97,6 @@ public class Criteria {
 	 */
 	public void setTo(Date to) {
 		this.to = to;
-	}
-
-	/**
-	 * @return the order
-	 */
-	public OrderType getOrder() {
-		return order;
-	}
-
-	/**
-	 * @param order
-	 *            the order to set
-	 */
-	public void setOrder(OrderType order) {
-		this.order = order;
-	}
-
-	/**
-	 * @return the pageRequest
-	 */
-	public PageRequest getPageRequest() {
-		return pageRequest;
-	}
-
-	/**
-	 * @param pageRequest
-	 *            the pageRequest to set
-	 */
-	public void setPageRequest(PageRequest pageRequest) {
-		this.pageRequest = pageRequest;
 	}
 
 	public boolean isDateAssigned() {

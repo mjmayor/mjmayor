@@ -80,4 +80,12 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 		List<ProfesorDTO> list = service.getLikeField(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<ProfesorView> getAlphabeticalList(Criteria criteria) {
+		return null;
+	}
 }

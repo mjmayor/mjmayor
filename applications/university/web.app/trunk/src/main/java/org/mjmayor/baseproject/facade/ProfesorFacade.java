@@ -18,4 +18,6 @@ public interface ProfesorFacade {
 	List<ProfesorView> getLikeName(String name, Criteria criteria);
 
 	List<ProfesorView> getLikeSurname(String surname, Criteria criteria);
+
+	List<ProfesorView> getAlphabeticalList(Criteria criteria);
 }
