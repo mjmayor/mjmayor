@@ -11,6 +11,11 @@ import java.util.List;
 public class QueryBuilder<T> {
 
 	/**
+	 * Clase a la que se accedera en la consulta
+	 */
+	private Class<T> from;
+
+	/**
 	 * Condiciones de la clausula where
 	 */
 	private Object where;
