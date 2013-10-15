@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.support;
+package org.mjmayor.jpa.support.querybuilder;
 
 /**
  * Clase para representar la ordenacion por un campo de una tabla

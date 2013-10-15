@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.support;
+package org.mjmayor.jpa.support.querybuilder;
 
 /**
  * Enumerado para el tipo de ordenacion

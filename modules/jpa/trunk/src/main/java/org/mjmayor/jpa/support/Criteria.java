@@ -1,10 +1,9 @@
 package org.mjmayor.jpa.support;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * Criterios para las consultas de BBDD
+ * Criterios para la paginacion de consultas
  * 
  * @author Manuel Jose Mayor Perez
  * @date 24/07/2013
@@ -15,11 +14,6 @@ public class Criteria {
 	 * Parametros para paginacion
 	 */
 	private PageRequest pageRequest;
-
-	/**
-	 * Lista de campos por los que ordenar
-	 */
-	private List<OrderField> orderFields;
 
 	/**
 	 * Fecha desde
@@ -52,21 +46,6 @@ public class Criteria {
 	 */
 	public void setPageRequest(PageRequest pageRequest) {
 		this.pageRequest = pageRequest;
-	}
-
-	/**
-	 * @return the orderFields
-	 */
-	public List<OrderField> getOrderFields() {
-		return orderFields;
-	}
-
-	/**
-	 * @param orderFields
-	 *            the orderFields to set
-	 */
-	public void setOrderFields(List<OrderField> orderFields) {
-		this.orderFields = orderFields;
 	}
 
 	/**
