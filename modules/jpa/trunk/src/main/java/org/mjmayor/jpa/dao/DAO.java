@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
 
 public interface DAO<ENTITY> {
 
@@ -18,7 +19,7 @@ public interface DAO<ENTITY> {
 
 	ENTITY get(Long id);
 
-	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
+	List<ENTITY> get(QueryBuilder<ENTITY> queryBuilder, Criteria criteria) throws JPAPersistenceException;
 
 	Long count(CriteriaQuery<Long> criteriaQuery);
 }

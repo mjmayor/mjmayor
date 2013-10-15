@@ -2,13 +2,13 @@ package org.mjmayor.jpa.service;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
 
 public interface Service<ENTITY, DTO> {
 
@@ -30,5 +30,5 @@ public interface Service<ENTITY, DTO> {
 
 	List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException;
 
-	List<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria);
+	List<DTO> get(QueryBuilder<ENTITY> queryBuilder, Criteria criteria);
 }

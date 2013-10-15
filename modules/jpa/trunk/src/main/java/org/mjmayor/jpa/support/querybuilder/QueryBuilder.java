@@ -1,6 +1,8 @@
 package org.mjmayor.jpa.support.querybuilder;
 
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * Clase para construir consultar genericas
@@ -10,22 +12,26 @@ import java.util.List;
  */
 public class QueryBuilder<T> {
 
-	/**
-	 * Clase a la que se accedera en la consulta
-	 */
-	private Class<T> from;
+	private QueryParams<T> queryParams;
 
-	/**
-	 * Condiciones de la clausula where
-	 */
-	private Object where;
+	private CriteriaQuery<T> criteriaQuery;
 
-	/**
-	 * Parametros para la clausula orderBy
-	 */
-	private List<OrderField> orderBy;
+	private Root<T> from;
 
-	private Object groupBy;
+	public QueryBuilder(QueryParams<T> queryParams) {
+		this.queryParams = queryParams;
+	}
 
-	private Object having;
+	public CriteriaQuery<T> query(CriteriaBuilder criteriaBuilder) {
+		criteriaQuery = createCriteriaQuery(criteriaBuilder);
+
+		return criteriaQuery;
+	}
+
+	private CriteriaQuery<T> createCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(queryParams.from());
+		from = criteriaQuery.from(queryParams.from());
+		criteriaQuery.select(from);
+		return criteriaQuery;
+	}
 }
