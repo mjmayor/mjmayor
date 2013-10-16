@@ -2,22 +2,40 @@ package org.mjmayor.jpa.support.querybuilder;
 
 public class Expresion {
 
-	private Object firstArgument;
+	private Argument firstArgument;
 
 	private Operator operator;
 
-	private Object secondArgument;
+	private Argument secondArgument;
 
-	public Expresion(Object firstArgument, Operator operator, Object secondArgument) {
+	public Expresion(Argument firstArgument, Operator operator, Argument secondArgument) {
 		this.firstArgument = firstArgument;
 		this.operator = operator;
 		this.secondArgument = secondArgument;
 	}
 
+	public Expresion(Argument firstArgument, Operator operator, Object secondArgument) {
+		this.firstArgument = firstArgument;
+		this.operator = operator;
+		this.secondArgument = new Argument(secondArgument);
+	}
+
+	public Expresion(Object firstArgument, Operator operator, Argument secondArgument) {
+		this.firstArgument = new Argument(firstArgument);
+		this.operator = operator;
+		this.secondArgument = secondArgument;
+	}
+
+	public Expresion(Object firstArgument, Operator operator, Object secondArgument) {
+		this.firstArgument = new Argument(firstArgument);
+		this.operator = operator;
+		this.secondArgument = new Argument(secondArgument);
+	}
+
 	/**
 	 * @return the firstArgument
 	 */
-	public Object getFirstArgument() {
+	public Argument getFirstArgument() {
 		return firstArgument;
 	}
 
@@ -25,7 +43,7 @@ public class Expresion {
 	 * @param firstArgument
 	 *            the firstArgument to set
 	 */
-	public void setFirstArgument(Object firstArgument) {
+	public void setFirstArgument(Argument firstArgument) {
 		this.firstArgument = firstArgument;
 	}
 
@@ -47,7 +65,7 @@ public class Expresion {
 	/**
 	 * @return the secondArgument
 	 */
-	public Object getSecondArgument() {
+	public Argument getSecondArgument() {
 		return secondArgument;
 	}
 
@@ -55,7 +73,7 @@ public class Expresion {
 	 * @param secondArgument
 	 *            the secondArgument to set
 	 */
-	public void setSecondArgument(Object secondArgument) {
+	public void setSecondArgument(Argument secondArgument) {
 		this.secondArgument = secondArgument;
 	}
 }

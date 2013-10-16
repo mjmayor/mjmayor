@@ -45,8 +45,8 @@ public class QueryBuilder<T> {
 	}
 
 	private Predicate createPredicate(CriteriaBuilder criteriaBuilder, Expresion expresion) {
-		String firstArgument = (String) expresion.getFirstArgument();
-		String secondArgument = (String) expresion.getSecondArgument();
+		String firstArgument = expresion.getFirstArgument().getValue();
+		String secondArgument = expresion.getSecondArgument().getValue();
 		return criteriaBuilder.equal(from.<String> get(firstArgument), secondArgument);
 	}
 }
