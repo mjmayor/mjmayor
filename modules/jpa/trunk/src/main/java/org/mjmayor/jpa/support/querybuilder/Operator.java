@@ -2,7 +2,7 @@ package org.mjmayor.jpa.support.querybuilder;
 
 public enum Operator {
 
-	LIKE("LIKE"), IN("IN"), BETWEEN("BETWEEN"), NE("NE"), GT("GT"), LT("LT"), GE("GE"), LE("LE");
+	EQ("equal"), NE("notEqual"), LIKE("like"), IN("in"), BETWEEN("between"), GT("gt"), LT("lt"), GE("ge"), LE("le");
 
 	private String type;
 

@@ -22,7 +22,7 @@ public class QueryParams<T> {
 	/**
 	 * Condiciones de la clausula where
 	 */
-	private List<Expresion> where;
+	private Expresion where;
 
 	/**
 	 * Parametros para la clausula orderBy
@@ -51,7 +51,7 @@ public class QueryParams<T> {
 	/**
 	 * @return the where
 	 */
-	public List<Expresion> where() {
+	public Expresion where() {
 		return where;
 	}
 
@@ -59,7 +59,7 @@ public class QueryParams<T> {
 	 * @param where
 	 *            the where to set
 	 */
-	public void where(List<Expresion> where) {
+	public void where(Expresion where) {
 		this.where = where;
 	}
 

@@ -2,6 +2,7 @@ package org.mjmayor.jpa.support.querybuilder;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -24,7 +25,7 @@ public class QueryBuilder<T> {
 
 	public CriteriaQuery<T> query(CriteriaBuilder criteriaBuilder) {
 		criteriaQuery = createCriteriaQuery(criteriaBuilder);
-
+		setWhere(criteriaBuilder, queryParams.where());
 		return criteriaQuery;
 	}
 
@@ -33,5 +34,19 @@ public class QueryBuilder<T> {
 		from = criteriaQuery.from(queryParams.from());
 		criteriaQuery.select(from);
 		return criteriaQuery;
+	}
+
+	// Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
+	// criteriaQuery.where(predicate);
+	private void setWhere(CriteriaBuilder criteriaBuilder, Expresion where) {
+		if (where != null) {
+			criteriaQuery.where(createPredicate(criteriaBuilder, where));
+		}
+	}
+
+	private Predicate createPredicate(CriteriaBuilder criteriaBuilder, Expresion expresion) {
+		String firstArgument = (String) expresion.getFirstArgument();
+		String secondArgument = (String) expresion.getSecondArgument();
+		return criteriaBuilder.equal(from.<String> get(firstArgument), secondArgument);
 	}
 }

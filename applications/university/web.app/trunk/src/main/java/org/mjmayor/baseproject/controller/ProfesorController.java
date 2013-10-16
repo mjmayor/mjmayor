@@ -53,9 +53,12 @@ public class ProfesorController {
 		list = profesorFacade.get(criteria);
 		System.out.println(list);
 
-		// list = profesorFacade.getByDNI("44444444a");
-		// System.out.println(profesorView);
-		//
+		list = profesorFacade.getByDNI("44444444a");
+		System.out.println(profesorView);
+
+		list = profesorFacade.getByDNI("aaa");
+		System.out.println(profesorView);
+
 		// list = profesorFacade.getLikeName("an", null);
 		// System.out.println(profesorView);
 		//

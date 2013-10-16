@@ -18,6 +18,8 @@ import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.querybuilder.Expresion;
+import org.mjmayor.jpa.support.querybuilder.Operator;
 import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
 import org.mjmayor.jpa.support.querybuilder.QueryParams;
 import org.slf4j.Logger;
@@ -129,12 +131,9 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException {
-		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
-		Root<ENTITY> root = criteriaQuery.from(persistentClass);
-		Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
-		criteriaQuery.where(predicate);
-		// List<ENTITY> list = dao.get(criteriaQuery, criteria);
-		List<ENTITY> list = dao.get(null, criteria);
+		QueryParams<ENTITY> queryParams = new QueryParams<ENTITY>(persistentClass);
+		queryParams.where(new Expresion(field.getName(), Operator.EQ, field.getValue()));
+		List<ENTITY> list = dao.get(new QueryBuilder<ENTITY>(queryParams), criteria);
 		return new ArrayList<DTO>(assembler.assemble(list));
 	}
 
