@@ -1,5 +1,7 @@
 package org.mjmayor.jpa.support.querybuilder;
 
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -19,17 +21,21 @@ public class QueryBuilder<T> {
 
 	private Root<T> from;
 
+	private CriteriaBuilder criteriaBuilder;
+
 	public QueryBuilder(QueryParams<T> queryParams) {
 		this.queryParams = queryParams;
 	}
 
 	public CriteriaQuery<T> query(CriteriaBuilder criteriaBuilder) {
-		criteriaQuery = createCriteriaQuery(criteriaBuilder);
-		setWhere(criteriaBuilder, queryParams.where());
+		this.criteriaBuilder = criteriaBuilder;
+		criteriaQuery = createCriteriaQuery();
+		setWhere(queryParams.where());
+		setOrderBy(queryParams.orderBy());
 		return criteriaQuery;
 	}
 
-	private CriteriaQuery<T> createCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+	private CriteriaQuery<T> createCriteriaQuery() {
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(queryParams.from());
 		from = criteriaQuery.from(queryParams.from());
 		criteriaQuery.select(from);
@@ -38,15 +44,19 @@ public class QueryBuilder<T> {
 
 	// Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
 	// criteriaQuery.where(predicate);
-	private void setWhere(CriteriaBuilder criteriaBuilder, Expresion where) {
+	private void setWhere(Expresion where) {
 		if (where != null) {
-			criteriaQuery.where(createPredicate(criteriaBuilder, where));
+			criteriaQuery.where(createPredicate(where));
 		}
 	}
 
-	private Predicate createPredicate(CriteriaBuilder criteriaBuilder, Expresion expresion) {
+	private Predicate createPredicate(Expresion expresion) {
 		String firstArgument = expresion.getFirstArgument().getValue();
 		String secondArgument = expresion.getSecondArgument().getValue();
 		return criteriaBuilder.equal(from.<String> get(firstArgument), secondArgument);
+	}
+
+	private void setOrderBy(List<OrderField> orders) {
+
 	}
 }
