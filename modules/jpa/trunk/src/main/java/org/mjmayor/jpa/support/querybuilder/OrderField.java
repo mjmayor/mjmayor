@@ -31,26 +31,7 @@ public class OrderField {
 		return name;
 	}
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the order
-	 */
-	public OrderType getOrder() {
-		return order;
-	}
-
-	/**
-	 * @param order
-	 *            the order to set
-	 */
-	public void setOrder(OrderType order) {
-		this.order = order;
+	public boolean isAscending() {
+		return order.equals(OrderType.ASC);
 	}
 }

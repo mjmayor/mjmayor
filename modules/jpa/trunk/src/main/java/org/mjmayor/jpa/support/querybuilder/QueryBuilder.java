@@ -1,9 +1,11 @@
 package org.mjmayor.jpa.support.querybuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -53,10 +55,18 @@ public class QueryBuilder<T> {
 	private Predicate createPredicate(Expresion expresion) {
 		String firstArgument = expresion.getFirstArgument().getValue();
 		String secondArgument = expresion.getSecondArgument().getValue();
-		return criteriaBuilder.equal(from.<String> get(firstArgument), secondArgument);
+		return criteriaBuilder.equal(from.get(firstArgument), secondArgument);
 	}
 
 	private void setOrderBy(List<OrderField> orders) {
-
+		List<Order> criteriaOrder = new ArrayList<Order>();
+		for (OrderField order : orders) {
+			if (order.isAscending()) {
+				criteriaOrder.add(criteriaBuilder.asc(from.get(order.getName())));
+			} else {
+				criteriaOrder.add(criteriaBuilder.desc(from.get(order.getName())));
+			}
+		}
+		criteriaQuery.orderBy(criteriaOrder);
 	}
 }
