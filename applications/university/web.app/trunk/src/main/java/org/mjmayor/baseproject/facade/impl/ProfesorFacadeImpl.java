@@ -10,6 +10,10 @@ import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.querybuilder.OrderField;
+import org.mjmayor.jpa.support.querybuilder.OrderType;
+import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
+import org.mjmayor.jpa.support.querybuilder.QueryParams;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.slf4j.Logger;
@@ -86,6 +90,12 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getAlphabeticalList(Criteria criteria) {
-		return null;
+		List<OrderField> orders = new ArrayList<OrderField>();
+		orders.add(new OrderField("apellidos", OrderType.ASC));
+		orders.add(new OrderField("nombre", OrderType.ASC));
+		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
+		queryParams.orderBy(orders);
+		List<ProfesorDTO> list = service.get(new QueryBuilder<Profesor>(queryParams), criteria);
+		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 }
