@@ -9,6 +9,8 @@ import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,42 +37,42 @@ public class ProfesorController {
 		List<ProfesorView> list = null;
 		ProfesorView profesorView = null;
 
-		// Long number = profesorFacade.countAll();
-		// System.out.println(number);
-		//
-		// profesorView = profesorFacade.get(1L);
-		// System.out.println(profesorView);
-		//
-		// Criteria criteria = new Criteria();
-		// criteria.setPageRequest(new PageRequest(1, 20));
-		// list = profesorFacade.get(criteria);
-		// System.out.println(list);
-		//
-		// criteria.setPageRequest(new PageRequest(1, 2));
-		// list = profesorFacade.get(criteria);
-		// System.out.println(list);
-		//
-		// criteria.setPageRequest(new PageRequest(2, 2));
-		// list = profesorFacade.get(criteria);
-		// System.out.println(list);
+		Long number = profesorFacade.countAll();
+		System.out.println(number);
 
-		// list = profesorFacade.getByDNI("44444444a");
-		// System.out.println(list);
-		//
-		// list = profesorFacade.getByDNI("aaa");
-		// System.out.println(list);
+		profesorView = profesorFacade.get(1L);
+		System.out.println(profesorView);
 
-		// list = profesorFacade.getLikeName("an", null);
-		// System.out.println(profesorView);
-		//
-		// list = profesorFacade.getLikeSurname("az", null);
-		// System.out.println(profesorView);
-		//
-		// list = profesorFacade.getLikeSurname("EZ", null);
-		// System.out.println(profesorView);
-		//
-		// list = profesorFacade.getLikeSurname("asdf", null);
-		// System.out.println(profesorView);
+		Criteria criteria = new Criteria();
+		criteria.setPageRequest(new PageRequest(1, 20));
+		list = profesorFacade.get(criteria);
+		System.out.println(list);
+
+		criteria.setPageRequest(new PageRequest(1, 2));
+		list = profesorFacade.get(criteria);
+		System.out.println(list);
+
+		criteria.setPageRequest(new PageRequest(2, 2));
+		list = profesorFacade.get(criteria);
+		System.out.println(list);
+
+		list = profesorFacade.getByDNI("44444444a");
+		System.out.println(list);
+
+		list = profesorFacade.getByDNI("aaa");
+		System.out.println(list);
+
+		list = profesorFacade.getLikeName("an", null);
+		System.out.println(profesorView);
+
+		list = profesorFacade.getLikeSurname("az", null);
+		System.out.println(profesorView);
+
+		list = profesorFacade.getLikeSurname("EZ", null);
+		System.out.println(profesorView);
+
+		list = profesorFacade.getLikeSurname("asdf", null);
+		System.out.println(profesorView);
 
 		list = profesorFacade.getAlphabeticalList(null);
 		System.out.println(list);

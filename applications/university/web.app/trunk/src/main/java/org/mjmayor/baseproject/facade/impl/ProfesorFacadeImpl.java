@@ -12,7 +12,6 @@ import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.querybuilder.OrderField;
 import org.mjmayor.jpa.support.querybuilder.OrderType;
-import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
 import org.mjmayor.jpa.support.querybuilder.QueryParams;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
@@ -37,7 +36,8 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public Long countAll() {
-		return service.countAll();
+		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
+		return service.count(queryParams, null);
 	}
 
 	/**
@@ -54,7 +54,8 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> get(Criteria criteria) {
-		List<ProfesorDTO> list = service.get(criteria);
+		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
+		List<ProfesorDTO> list = service.get(queryParams, criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -95,7 +96,7 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 		orders.add(new OrderField("nombre", OrderType.ASC));
 		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
 		queryParams.orderBy(orders);
-		List<ProfesorDTO> list = service.get(new QueryBuilder<Profesor>(queryParams), criteria);
+		List<ProfesorDTO> list = service.get(queryParams, criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 }

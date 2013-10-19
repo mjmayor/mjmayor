@@ -10,7 +10,7 @@ public class ProfesorViewAssembler extends AbstractAssembler<ProfesorDTO, Profes
 	public ProfesorView assemble(ProfesorDTO dto) {
 		ProfesorView profesorView = new ProfesorView();
 		profesorView.setDni(dto.getDni());
-		profesorView.setNombreCompleto(dto.getNombre() + " " + dto.getApellidos());
+		profesorView.setNombreCompleto(dto.getApellidos() + ", " + dto.getNombre());
 		return profesorView;
 	}
 }
