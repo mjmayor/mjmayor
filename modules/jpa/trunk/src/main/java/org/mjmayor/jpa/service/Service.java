@@ -8,7 +8,7 @@ import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
-import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
+import org.mjmayor.jpa.support.querybuilder.QueryParams;
 
 public interface Service<ENTITY, DTO> {
 
@@ -20,15 +20,13 @@ public interface Service<ENTITY, DTO> {
 
 	void removeLikeField(String field, String value) throws JPAPersistenceException, FieldNotFoundException;
 
-	Long countAll();
+	Long count(QueryParams<ENTITY> queryParams, Criteria criteria);
+
+	List<DTO> get(QueryParams<ENTITY> queryParams, Criteria criteria);
 
 	DTO get(Long id);
-
-	List<DTO> get(Criteria criteria);
 
 	List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException;
 
 	List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException;
-
-	List<DTO> get(QueryBuilder<ENTITY> queryBuilder, Criteria criteria);
 }

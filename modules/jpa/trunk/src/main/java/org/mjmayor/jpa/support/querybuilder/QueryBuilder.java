@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -15,58 +14,58 @@ import javax.persistence.criteria.Root;
  * @author Manuel Jose Mayor Perez
  * @date 15/10/2013
  */
-public class QueryBuilder<T> {
+public class QueryBuilder {
 
-	private QueryParams<T> queryParams;
+	private static CriteriaBuilder criteriaBuilder;
 
-	private CriteriaQuery<T> criteriaQuery;
+	private Root<?> from;
 
-	private Root<T> from;
-
-	private CriteriaBuilder criteriaBuilder;
-
-	public QueryBuilder(QueryParams<T> queryParams) {
-		this.queryParams = queryParams;
+	public QueryBuilder(CriteriaBuilder criteriaBuilder) {
+		QueryBuilder.criteriaBuilder = criteriaBuilder;
 	}
 
-	public CriteriaQuery<T> query(CriteriaBuilder criteriaBuilder) {
-		this.criteriaBuilder = criteriaBuilder;
-		criteriaQuery = createCriteriaQuery();
-		setWhere(queryParams.where());
-		setOrderBy(queryParams.orderBy());
+	public <T> CriteriaQuery<T> query(QueryParams<T> queryParams) {
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(queryParams.from());
+		setQueryParams(criteriaQuery, queryParams);
 		return criteriaQuery;
 	}
 
-	private CriteriaQuery<T> createCriteriaQuery() {
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(queryParams.from());
-		from = criteriaQuery.from(queryParams.from());
-		criteriaQuery.select(from);
+	public <T> CriteriaQuery<Long> count(QueryParams<T> queryParams) {
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		setQueryParams(criteriaQuery, queryParams);
+		criteriaQuery.select(criteriaBuilder.count(from));
+		return criteriaQuery;
+	}
+
+	private CriteriaQuery<?> setQueryParams(CriteriaQuery<?> criteriaQuery, QueryParams<?> queryParams) {
+		Root<?> from = criteriaQuery.from(queryParams.from());
+		this.from = from;
+		setWhere(criteriaQuery, queryParams.where());
+		setOrderBy(criteriaQuery, queryParams.orderBy());
 		return criteriaQuery;
 	}
 
 	// Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
 	// criteriaQuery.where(predicate);
-	private void setWhere(Expresion where) {
-		if (where != null) {
-			criteriaQuery.where(createPredicate(where));
+	private void setWhere(CriteriaQuery<?> criteriaQuery, Expresion expresion) {
+		if (expresion != null) {
+			String firstArgument = expresion.getFirstArgument().getValue();
+			String secondArgument = expresion.getSecondArgument().getValue();
+			criteriaQuery.where(criteriaBuilder.equal(from.get(firstArgument), secondArgument));
 		}
 	}
 
-	private Predicate createPredicate(Expresion expresion) {
-		String firstArgument = expresion.getFirstArgument().getValue();
-		String secondArgument = expresion.getSecondArgument().getValue();
-		return criteriaBuilder.equal(from.get(firstArgument), secondArgument);
-	}
-
-	private void setOrderBy(List<OrderField> orders) {
-		List<Order> criteriaOrder = new ArrayList<Order>();
-		for (OrderField order : orders) {
-			if (order.isAscending()) {
-				criteriaOrder.add(criteriaBuilder.asc(from.get(order.getName())));
-			} else {
-				criteriaOrder.add(criteriaBuilder.desc(from.get(order.getName())));
+	private void setOrderBy(CriteriaQuery<?> criteriaQuery, List<OrderField> orders) {
+		if (orders != null && orders.size() > 1) {
+			List<Order> criteriaOrder = new ArrayList<Order>();
+			for (OrderField order : orders) {
+				if (order.isAscending()) {
+					criteriaOrder.add(criteriaBuilder.asc(from.get(order.getName())));
+				} else {
+					criteriaOrder.add(criteriaBuilder.desc(from.get(order.getName())));
+				}
 			}
+			criteriaQuery.orderBy(criteriaOrder);
 		}
-		criteriaQuery.orderBy(criteriaOrder);
 	}
 }
