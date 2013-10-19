@@ -15,16 +15,17 @@ public class ListUtils {
 	/**
 	 * Convierte una coleccion generica a una lista de un tipo determinado
 	 * 
-	 * @param clazz
-	 *            Clase que se desea que tengan los objetos de la lista
 	 * @param c
 	 *            Coleccion generica que se desea convertir
+	 * @param clazz
+	 *            Clase que se desea que tengan los objetos de la lista
 	 * @return Lista del tipo indicado
 	 */
-	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	public static <T> List<T> castList(Collection<?> c, Class<? extends T> clazz) {
 		List<T> r = new ArrayList<T>(c.size());
-		for (Object o : c)
+		for (Object o : c) {
 			r.add(clazz.cast(o));
+		}
 		return r;
 	}
 }
