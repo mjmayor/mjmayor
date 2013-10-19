@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -26,20 +27,20 @@ public class QueryBuilder {
 
 	public <T> CriteriaQuery<T> query(QueryParams<T> queryParams) {
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(queryParams.from());
+		this.from = criteriaQuery.from(queryParams.from());
 		setQueryParams(criteriaQuery, queryParams);
 		return criteriaQuery;
 	}
 
 	public <T> CriteriaQuery<Long> count(QueryParams<T> queryParams) {
 		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
-		setQueryParams(criteriaQuery, queryParams);
+		this.from = criteriaQuery.from(queryParams.from());
 		criteriaQuery.select(criteriaBuilder.count(from));
+		setQueryParams(criteriaQuery, queryParams);
 		return criteriaQuery;
 	}
 
 	private CriteriaQuery<?> setQueryParams(CriteriaQuery<?> criteriaQuery, QueryParams<?> queryParams) {
-		Root<?> from = criteriaQuery.from(queryParams.from());
-		this.from = from;
 		setWhere(criteriaQuery, queryParams.where());
 		setOrderBy(criteriaQuery, queryParams.orderBy());
 		return criteriaQuery;
@@ -49,10 +50,14 @@ public class QueryBuilder {
 	// criteriaQuery.where(predicate);
 	private void setWhere(CriteriaQuery<?> criteriaQuery, Expresion expresion) {
 		if (expresion != null) {
-			String firstArgument = expresion.getFirstArgument().getValue();
-			String secondArgument = expresion.getSecondArgument().getValue();
-			criteriaQuery.where(criteriaBuilder.equal(from.get(firstArgument), secondArgument));
+			criteriaQuery.where(createPredicate(expresion));
 		}
+	}
+	
+	private Predicate createPredicate(Expresion expresion){
+		String firstArgument = expresion.getFirstArgument().getValue();
+		String secondArgument = expresion.getSecondArgument().getValue();
+		return criteriaBuilder.equal(from.get(firstArgument), secondArgument);
 	}
 
 	private void setOrderBy(CriteriaQuery<?> criteriaQuery, List<OrderField> orders) {
