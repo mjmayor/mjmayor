@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.sql.DataSource;
 
 import org.mjmayor.jpa.config.database.PersistenceConfig;
@@ -30,17 +31,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class PersistenceConfigImpl extends WebMvcConfigurerAdapter implements PersistenceConfig {
 
-	@Value("${repository.packagesToScan}")	private String packagesToScan;
-	
-	@Value("${jdbc.driverClassName}")		private String driverClassName;
-	@Value("${jdbc.dialect}")				private String dialect;
-	@Value("${jdbc.databaseurl}")			private String databaseUrl;
-	@Value("${jdbc.username}")				private String username;
-	@Value("${jdbc.password}")				private String password;
+	@Value("${repository.packagesToScan}")
+	private String packagesToScan;
+	@Value("${jdbc.driverClassName}")
+	private String driverClassName;
+	@Value("${jdbc.dialect}")
+	private String dialect;
+	@Value("${jdbc.databaseurl}")
+	private String databaseUrl;
+	@Value("${jdbc.username}")
+	private String username;
+	@Value("${jdbc.password}")
+	private String password;
 
-	@Value("${hibernate.dialect}")			private String hibernateDialect;
-	@Value("${hibernate.show_sql}")			private String hibernateShowSql;
-	@Value("${hibernate.hbm2ddl.auto}")		private String hibernateHbm2ddlAuto;
+	@Value("${hibernate.dialect}")
+	private String hibernateDialect;
+	@Value("${hibernate.show_sql}")
+	private String hibernateShowSql;
+	@Value("${hibernate.hbm2ddl.auto}")
+	private String hibernateHbm2ddlAuto;
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
@@ -48,6 +57,8 @@ public class PersistenceConfigImpl extends WebMvcConfigurerAdapter implements Pe
 	private DataSource dataSource;
 
 	private Map<String, Database> databases;
+
+	private EntityManager entityManager;
 
 	protected PersistenceConfigImpl() {
 		this.databases = buildDatabases();
@@ -123,6 +134,15 @@ public class PersistenceConfigImpl extends WebMvcConfigurerAdapter implements Pe
 	@Override
 	@Bean(name = "entityManager")
 	public EntityManager entityManager() {
-		return entityManagerFactory.createEntityManager();
+		if (entityManager == null) {
+			entityManager = entityManagerFactory.createEntityManager();
+		}
+		return entityManager;
+	}
+
+	@Override
+	@Bean(name = "criteriaBuilder")
+	public CriteriaBuilder criteriaBuilder() {
+		return entityManager().getCriteriaBuilder();
 	}
 }

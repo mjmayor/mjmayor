@@ -13,8 +13,6 @@ import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.PageRequest;
 import org.mjmayor.jpa.support.PersistenceUtils;
-import org.mjmayor.jpa.support.querybuilder.QueryBuilder;
-import org.mjmayor.jpa.support.querybuilder.QueryParams;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +24,6 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	private QueryBuilder queryBuilder;
-
 	/**
 	 * Clase sobre la que se realizara la persistencia (clase del objeto sobre el que interactuar)
 	 */
@@ -36,7 +32,6 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	public DAOImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
 		this.entityManager = entityManager;
 		this.persistentClass = persistentClass;
-		this.queryBuilder = new QueryBuilder(entityManager.getCriteriaBuilder());
 	}
 
 	/**
@@ -70,7 +65,20 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void remove(QueryParams<ENTITY> queryParams) throws JPAPersistenceException {
+	public void remove(Long id) {
+		logger.debug("DAOImpl - remove");
+		try {
+			entityManager.remove(get(id));
+		} catch (Exception e) {
+			throw new JPAPersistenceException(e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException {
 		// TODO mjmayor Auto-generated method stub
 	}
 
@@ -86,8 +94,7 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ENTITY> get(QueryParams<ENTITY> queryParams, Criteria criteria) throws JPAPersistenceException {
-		CriteriaQuery<ENTITY> criteriaQuery = queryBuilder.query(queryParams);
+	public List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		Query query = entityManager.createQuery(criteriaQuery);
 		setCriteriaParams(query, criteria);
 		return ListUtils.castList(query.getResultList(), persistentClass);
@@ -97,8 +104,7 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Long count(QueryParams<ENTITY> queryParams, Criteria criteria) {
-		CriteriaQuery<Long> criteriaQuery = queryBuilder.count(queryParams);
+	public Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria) {
 		Query query = entityManager.createQuery(criteriaQuery);
 		setCriteriaParams(query, criteria);
 		return (Long) query.getSingleResult();
