@@ -3,22 +3,25 @@ package org.mjmayor.baseproject.facade.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
+
 import org.mjmayor.baseproject.assembler.profesor.ProfesorViewAssembler;
 import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
+import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.facade.Facade;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
-import org.mjmayor.jpa.support.querybuilder.OrderField;
-import org.mjmayor.jpa.support.querybuilder.OrderType;
-import org.mjmayor.jpa.support.querybuilder.QueryParams;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProfesorFacadeImpl implements ProfesorFacade {
+public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfesorFacadeImpl.class);
 
@@ -27,17 +30,26 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	private ProfesorViewAssembler assembler;
 
 	public ProfesorFacadeImpl(Service<Profesor, ProfesorDTO> service, ProfesorViewAssembler assembler) {
+		super(service);
 		this.service = service;
 		this.assembler = assembler;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public Long countAll() {
-		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
-		return service.count(queryParams, null);
+	public void add(ProfesorForm form) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(ProfesorForm form) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remove(Long id) {
+		service.remove(id);
 	}
 
 	/**
@@ -53,9 +65,19 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Long countAll() {
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		return service.count(criteriaQuery, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<ProfesorView> get(Criteria criteria) {
-		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
-		List<ProfesorDTO> list = service.get(queryParams, criteria);
+		CriteriaQuery<Profesor> criteriaQuery = criteriaBuilder.createQuery(Profesor.class);
+		criteriaQuery.from(Profesor.class);
+		List<ProfesorDTO> list = service.get(criteriaQuery, criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -91,12 +113,13 @@ public class ProfesorFacadeImpl implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getAlphabeticalList(Criteria criteria) {
-		List<OrderField> orders = new ArrayList<OrderField>();
-		orders.add(new OrderField("apellidos", OrderType.ASC));
-		orders.add(new OrderField("nombre", OrderType.ASC));
-		QueryParams<Profesor> queryParams = new QueryParams<Profesor>(Profesor.class);
-		queryParams.orderBy(orders);
-		List<ProfesorDTO> list = service.get(queryParams, criteria);
+		CriteriaQuery<Profesor> criteriaQuery = criteriaBuilder.createQuery(Profesor.class);
+		Root<Profesor> root = criteriaQuery.from(Profesor.class);
+		List<Order> orders = new ArrayList<Order>();
+		orders.add(criteriaBuilder.asc(root.get("apellidos")));
+		orders.add(criteriaBuilder.asc(root.get("nombre")));
+		criteriaQuery.orderBy(orders);
+		List<ProfesorDTO> list = service.get(criteriaQuery, criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 }
