@@ -2,15 +2,15 @@ package org.mjmayor.baseproject.facade;
 
 import java.util.List;
 
-import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.model.dto.ProfesorDTO;
 
 public interface ProfesorFacade {
 
-	void add(ProfesorForm form);
+	void add(ProfesorDTO profesorDTO);
 
-	void update(ProfesorForm form);
+	void update(ProfesorDTO profesorDTO);
 
 	void remove(Long id);
 

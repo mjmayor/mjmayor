@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 import org.mjmayor.baseproject.assembler.profesor.ProfesorViewAssembler;
 import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
-import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.facade.Facade;
 import org.mjmayor.jpa.service.Service;
@@ -36,14 +35,13 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	}
 
 	@Override
-	public void add(ProfesorForm form) {
-		// TODO Auto-generated method stub
-
+	public void add(ProfesorDTO profesorDTO) {
+		service.add(profesorDTO);
 	}
 
 	@Override
-	public void update(ProfesorForm form) {
-		// TODO Auto-generated method stub
+	public void update(ProfesorDTO profesorDTO) {
+		service.update(profesorDTO);
 
 	}
 
@@ -86,7 +84,7 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getByDNI(String dni) {
-		List<ProfesorDTO> list = service.getByField(new Field(ProfesorConstants.Fields.DNI, dni), null);
+		List<ProfesorDTO> list = service.get(new Field(ProfesorConstants.Fields.DNI, dni), null);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -95,7 +93,7 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getLikeName(String name, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLikeField(new Field(ProfesorConstants.Fields.NAME, name), criteria);
+		List<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.NAME, name), criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 
@@ -104,7 +102,7 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	 */
 	@Override
 	public List<ProfesorView> getLikeSurname(String surname, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLikeField(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
+		List<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
 		return new ArrayList<ProfesorView>(assembler.assemble(list));
 	}
 

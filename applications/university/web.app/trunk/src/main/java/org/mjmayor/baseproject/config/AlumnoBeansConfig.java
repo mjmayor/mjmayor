@@ -1,7 +1,6 @@
 package org.mjmayor.baseproject.config;
 
 import org.hibernate.SessionFactory;
-import org.mjmayor.baseproject.assembler.alumno.AlumnoFormAssembler;
 import org.mjmayor.baseproject.assembler.alumno.AlumnoViewAssembler;
 import org.mjmayor.baseproject.facade.AlumnoFacade;
 import org.mjmayor.baseproject.facade.impl.AlumnoFacadeImpl;
@@ -22,10 +21,5 @@ public class AlumnoBeansConfig {
 	@Bean
 	public AlumnoViewAssembler alumnoViewAssembler() {
 		return new AlumnoViewAssembler();
-	}
-
-	@Bean
-	public AlumnoFormAssembler alumnoFormAssembler() {
-		return new AlumnoFormAssembler();
 	}
 }

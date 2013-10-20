@@ -1,7 +1,6 @@
 package org.mjmayor.baseproject.config;
 
 import org.hibernate.SessionFactory;
-import org.mjmayor.baseproject.assembler.asignatura.AsignaturaFormAssembler;
 import org.mjmayor.baseproject.assembler.asignatura.AsignaturaViewAssembler;
 import org.mjmayor.baseproject.facade.AsignaturaFacade;
 import org.mjmayor.baseproject.facade.impl.AsignaturaFacadeImpl;
@@ -22,10 +21,5 @@ public class AsignaturaBeansConfig {
 	@Bean
 	public AsignaturaViewAssembler asignaturaViewAssembler() {
 		return new AsignaturaViewAssembler();
-	}
-
-	@Bean
-	public AsignaturaFormAssembler asignaturaFormAssembler() {
-		return new AsignaturaFormAssembler();
 	}
 }

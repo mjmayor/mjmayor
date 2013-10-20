@@ -7,11 +7,11 @@ import org.mjmayor.model.entity.Alumno;
 public class AlumnoViewAssembler extends AbstractAssembler<Alumno, AlumnoView> {
 
 	@Override
-	public AlumnoView assemble(Alumno alumnoDTO) {
-		AlumnoView alumnoView = new AlumnoView();
-		alumnoView.setDni(alumnoDTO.getDni());
-		alumnoView.setNombreCompleto(alumnoDTO.getNombre() + " " + alumnoDTO.getApellidos());
-		alumnoView.setEmail(alumnoDTO.getEmail());
-		return alumnoView;
+	public AlumnoView assemble(Alumno source) {
+		AlumnoView destination = new AlumnoView();
+		destination.setDni(source.getDni());
+		destination.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
+		destination.setEmail(source.getEmail());
+		return destination;
 	}
 }

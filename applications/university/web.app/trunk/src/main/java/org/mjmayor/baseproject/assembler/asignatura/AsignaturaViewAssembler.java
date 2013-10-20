@@ -8,9 +8,9 @@ import org.springframework.beans.BeanUtils;
 public class AsignaturaViewAssembler extends AbstractAssembler<Asignatura, AsignaturaView> {
 
 	@Override
-	public AsignaturaView assemble(Asignatura asignaturaDTO) {
-		AsignaturaView asignaturaView = new AsignaturaView();
-		BeanUtils.copyProperties(asignaturaDTO, asignaturaView);
-		return asignaturaView;
+	public AsignaturaView assemble(Asignatura source) {
+		AsignaturaView destination = new AsignaturaView();
+		BeanUtils.copyProperties(source, destination);
+		return destination;
 	}
 }

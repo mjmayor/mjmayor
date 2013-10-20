@@ -7,10 +7,10 @@ import org.mjmayor.model.dto.ProfesorDTO;
 public class ProfesorViewAssembler extends AbstractAssembler<ProfesorDTO, ProfesorView> {
 
 	@Override
-	public ProfesorView assemble(ProfesorDTO dto) {
-		ProfesorView profesorView = new ProfesorView();
-		profesorView.setDni(dto.getDni());
-		profesorView.setNombreCompleto(dto.getApellidos() + ", " + dto.getNombre());
-		return profesorView;
+	public ProfesorView assemble(ProfesorDTO source) {
+		ProfesorView destination = new ProfesorView();
+		destination.setDni(source.getDni());
+		destination.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
+		return destination;
 	}
 }
