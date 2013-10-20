@@ -8,16 +8,16 @@ import org.springframework.beans.BeanUtils;
 public class ProfesorDTOAssembler extends AbstractBidirectionalAssembler<Profesor, ProfesorDTO> {
 
 	@Override
-	public ProfesorDTO assemble(Profesor profesor) {
-		ProfesorDTO profesorDTO = new ProfesorDTO();
-		BeanUtils.copyProperties(profesor, profesorDTO);
-		return profesorDTO;
+	public ProfesorDTO assemble(Profesor source) {
+		ProfesorDTO destination = new ProfesorDTO();
+		BeanUtils.copyProperties(source, destination);
+		return destination;
 	}
 
 	@Override
-	public Profesor reverseAssemble(ProfesorDTO profesorDTO) {
-		Profesor profesor = new Profesor();
-		BeanUtils.copyProperties(profesorDTO, profesor);
-		return profesor;
+	public Profesor reverseAssemble(ProfesorDTO source) {
+		Profesor destination = new Profesor();
+		BeanUtils.copyProperties(source, destination);
+		return destination;
 	}
 }
