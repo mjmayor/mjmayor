@@ -78,8 +78,13 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException {
-		// TODO mjmayor Auto-generated method stub
+	public void remove(List<ENTITY> entities) throws JPAPersistenceException {
+		logger.debug("DAOImpl - remove");
+		try {
+			entityManager.remove(entities);
+		} catch (Exception e) {
+			throw new JPAPersistenceException(e);
+		}
 	}
 
 	/**

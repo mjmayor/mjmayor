@@ -91,8 +91,10 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional
-	public void removeByField(Field field) throws JPAPersistenceException, FieldNotFoundException {
-		// TODO mjmayor Auto-generated method stub
+	public void remove(Field field) throws JPAPersistenceException, FieldNotFoundException {
+		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
+		List<ENTITY> entities = dao.get(criteriaQuery, null);
+		dao.remove(entities);
 	}
 
 	/**
@@ -100,8 +102,10 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 */
 	@Override
 	@Transactional
-	public void removeLikeField(Field field) throws JPAPersistenceException, FieldNotFoundException {
-		// TODO mjmayor Auto-generated method stub
+	public void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
+		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
+		List<ENTITY> entities = dao.get(criteriaQuery, null);
+		dao.remove(entities);
 	}
 
 	/**
@@ -120,9 +124,31 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) {
-		List<ENTITY> listEntity = dao.get(criteriaQuery, criteria);
-		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(listEntity));
+		List<ENTITY> entities = dao.get(criteriaQuery, criteria);
+		List<DTO> listDTO = new ArrayList<DTO>(assembler.assemble(entities));
 		return listDTO;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException {
+		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
+		List<ENTITY> list = dao.get(criteriaQuery, criteria);
+		return new ArrayList<DTO>(assembler.assemble(list));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException {
+		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
+		List<ENTITY> entities = dao.get(criteriaQuery, criteria);
+		return new ArrayList<DTO>(assembler.assemble(entities));
 	}
 
 	/**
@@ -135,31 +161,19 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 		return dao.count(criteriaQuery, criteria);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@Transactional(readOnly = true)
-	public List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException {
+	private CriteriaQuery<ENTITY> createGetQuery(Field field) {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
 		Root<ENTITY> root = criteriaQuery.from(persistentClass);
 		Predicate predicate = criteriaBuilder.equal(root.get(field.getName()), field.getValue());
 		criteriaQuery.where(predicate);
-		List<ENTITY> list = dao.get(criteriaQuery, criteria);
-		return new ArrayList<DTO>(assembler.assemble(list));
+		return criteriaQuery;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@Transactional(readOnly = true)
-	public List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException {
+	private CriteriaQuery<ENTITY> createGetLikeQuery(Field field) {
 		CriteriaQuery<ENTITY> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
 		Root<ENTITY> root = criteriaQuery.from(persistentClass);
 		Predicate predicate = criteriaBuilder.like(root.<String> get(field.getName()), "%" + field.getValue() + "%");
 		criteriaQuery.where(predicate);
-		List<ENTITY> list = dao.get(criteriaQuery, criteria);
-		return new ArrayList<DTO>(assembler.assemble(list));
+		return criteriaQuery;
 	}
 }

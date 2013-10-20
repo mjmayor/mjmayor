@@ -16,7 +16,7 @@ public interface DAO<ENTITY> {
 
 	void remove(Long id);
 
-	void remove(CriteriaQuery<ENTITY> criteriaQuery) throws JPAPersistenceException;
+	void remove(List<ENTITY> entities) throws JPAPersistenceException;
 
 	ENTITY get(Long id);
 

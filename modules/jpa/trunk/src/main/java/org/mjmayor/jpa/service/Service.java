@@ -21,17 +21,17 @@ public interface Service<ENTITY, DTO> {
 
 	void remove(Long id);
 
-	void removeByField(Field field) throws JPAPersistenceException, FieldNotFoundException;
+	void remove(Field field) throws JPAPersistenceException, FieldNotFoundException;
 
-	void removeLikeField(Field field) throws JPAPersistenceException, FieldNotFoundException;
+	void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException;
 
 	DTO get(Long id);
 
 	List<DTO> get(CriteriaQuery<ENTITY> queryParams, Criteria criteria);
 
+	List<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException;
+
+	List<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException;
+
 	Long count(CriteriaQuery<Long> queryParams, Criteria criteria);
-
-	List<DTO> getByField(Field field, Criteria criteria) throws FieldNotFoundException;
-
-	List<DTO> getLikeField(Field field, Criteria criteria) throws FieldNotFoundException;
 }
