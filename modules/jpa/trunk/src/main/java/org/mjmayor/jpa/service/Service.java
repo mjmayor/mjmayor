@@ -1,7 +1,5 @@
 package org.mjmayor.jpa.service;
 
-import java.util.List;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
@@ -10,6 +8,7 @@ import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.PageResult;
 
 public interface Service<ENTITY, DTO> {
 
@@ -27,11 +26,11 @@ public interface Service<ENTITY, DTO> {
 
 	DTO get(Long id);
 
-	List<DTO> get(CriteriaQuery<ENTITY> queryParams, Criteria criteria);
+	PageResult<DTO> get(CriteriaQuery<ENTITY> queryParams, Criteria criteria);
 
-	List<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException;
+	PageResult<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException;
 
-	List<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException;
+	PageResult<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException;
 
 	Long count(CriteriaQuery<Long> queryParams, Criteria criteria);
 }

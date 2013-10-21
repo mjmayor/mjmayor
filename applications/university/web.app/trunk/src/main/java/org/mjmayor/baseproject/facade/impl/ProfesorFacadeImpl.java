@@ -15,6 +15,7 @@ import org.mjmayor.jpa.facade.Facade;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.PageResult;
 import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.slf4j.Logger;
@@ -72,52 +73,52 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProfesorView> get(Criteria criteria) {
+	public PageResult<ProfesorView> get(Criteria criteria) {
 		CriteriaQuery<Profesor> criteriaQuery = criteriaBuilder.createQuery(Profesor.class);
 		criteriaQuery.from(Profesor.class);
-		List<ProfesorDTO> list = service.get(criteriaQuery, criteria);
-		return new ArrayList<ProfesorView>(assembler.assemble(list));
+		PageResult<ProfesorDTO> list = service.get(criteriaQuery, criteria);
+		return assembler.assemble(list);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProfesorView> getByDNI(String dni) {
-		List<ProfesorDTO> list = service.get(new Field(ProfesorConstants.Fields.DNI, dni), null);
-		return new ArrayList<ProfesorView>(assembler.assemble(list));
+	public PageResult<ProfesorView> getByDNI(String dni) {
+		PageResult<ProfesorDTO> list = service.get(new Field(ProfesorConstants.Fields.DNI, dni), null);
+		return assembler.assemble(list);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProfesorView> getLikeName(String name, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.NAME, name), criteria);
-		return new ArrayList<ProfesorView>(assembler.assemble(list));
+	public PageResult<ProfesorView> getLikeName(String name, Criteria criteria) {
+		PageResult<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.NAME, name), criteria);
+		return assembler.assemble(list);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProfesorView> getLikeSurname(String surname, Criteria criteria) {
-		List<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
-		return new ArrayList<ProfesorView>(assembler.assemble(list));
+	public PageResult<ProfesorView> getLikeSurname(String surname, Criteria criteria) {
+		PageResult<ProfesorDTO> list = service.getLike(new Field(ProfesorConstants.Fields.SURNAME, surname), criteria);
+		return assembler.assemble(list);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProfesorView> getAlphabeticalList(Criteria criteria) {
+	public PageResult<ProfesorView> getAlphabeticalList(Criteria criteria) {
 		CriteriaQuery<Profesor> criteriaQuery = criteriaBuilder.createQuery(Profesor.class);
 		Root<Profesor> root = criteriaQuery.from(Profesor.class);
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(criteriaBuilder.asc(root.get("apellidos")));
 		orders.add(criteriaBuilder.asc(root.get("nombre")));
 		criteriaQuery.orderBy(orders);
-		List<ProfesorDTO> list = service.get(criteriaQuery, criteria);
-		return new ArrayList<ProfesorView>(assembler.assemble(list));
+		PageResult<ProfesorDTO> list = service.get(criteriaQuery, criteria);
+		return assembler.assemble(list);
 	}
 }

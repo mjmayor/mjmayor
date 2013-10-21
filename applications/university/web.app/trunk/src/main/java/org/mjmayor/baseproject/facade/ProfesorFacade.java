@@ -1,9 +1,8 @@
 package org.mjmayor.baseproject.facade;
 
-import java.util.List;
-
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageResult;
 import org.mjmayor.model.dto.ProfesorDTO;
 
 public interface ProfesorFacade {
@@ -18,13 +17,13 @@ public interface ProfesorFacade {
 
 	Long countAll();
 
-	List<ProfesorView> get(Criteria criteria);
+	PageResult<ProfesorView> get(Criteria criteria);
 
-	List<ProfesorView> getByDNI(String dni);
+	PageResult<ProfesorView> getByDNI(String dni);
 
-	List<ProfesorView> getLikeName(String name, Criteria criteria);
+	PageResult<ProfesorView> getLikeName(String name, Criteria criteria);
 
-	List<ProfesorView> getLikeSurname(String surname, Criteria criteria);
+	PageResult<ProfesorView> getLikeSurname(String surname, Criteria criteria);
 
-	List<ProfesorView> getAlphabeticalList(Criteria criteria);
+	PageResult<ProfesorView> getAlphabeticalList(Criteria criteria);
 }

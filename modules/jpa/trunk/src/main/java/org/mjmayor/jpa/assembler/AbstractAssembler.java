@@ -15,11 +15,11 @@ public abstract class AbstractAssembler<SOURCE, TARGET> implements Assembler<SOU
 	}
 
 	public PageResult<TARGET> assemble(PageResult<SOURCE> source) {
-		if (source == null || source.numElements == 0) {
-			return new PageResult<TARGET>(0, 0, 0, 0, 0, 0, new ArrayList<TARGET>(0));
+		if (source == null || source.getNumElements() == 0) {
+			return new PageResult<TARGET>(source.getSize(), 0, source.getNumber(), 0, 0, 0, new ArrayList<TARGET>(0));
 		}
-		List<TARGET> result = new ArrayList<TARGET>(source.numElements);
-		for (SOURCE s : source.items) {
+		List<TARGET> result = new ArrayList<TARGET>(source.getNumElements());
+		for (SOURCE s : source.getItems()) {
 			result.add(assemble(s));
 		}
 		return createPageResult(source, result);
@@ -37,6 +37,6 @@ public abstract class AbstractAssembler<SOURCE, TARGET> implements Assembler<SOU
 	}
 
 	private PageResult<TARGET> createPageResult(PageResult<SOURCE> source, List<TARGET> items) {
-		return new PageResult<TARGET>(source.size, source.offset, source.number, source.total, source.totalPages, source.numElements, items);
+		return new PageResult<TARGET>(source.getSize(), source.getOffset(), source.getNumber(), source.getTotal(), source.getTotalPages(), source.getNumElements(), items);
 	}
 }

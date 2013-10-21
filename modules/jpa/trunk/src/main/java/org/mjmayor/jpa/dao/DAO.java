@@ -2,13 +2,17 @@ package org.mjmayor.jpa.dao;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageResult;
 
 public interface DAO<ENTITY> {
+
+	CriteriaBuilder getCriteriaBuilder();
 
 	void add(ENTITY entity) throws ConstraintViolationException, JPAPersistenceException;
 
@@ -20,7 +24,7 @@ public interface DAO<ENTITY> {
 
 	ENTITY get(Long id);
 
-	List<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
+	PageResult<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
 
 	Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria);
 }

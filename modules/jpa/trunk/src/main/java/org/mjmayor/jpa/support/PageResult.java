@@ -5,13 +5,13 @@ import java.util.List;
 
 public class PageResult<T> implements Serializable {
 	private static final long serialVersionUID = -1469819404477393119L;
-	public final int size;
-	public final int offset;
-	public final int number;
-	public final long total;
-	public final int totalPages;
-	public final int numElements;
-	public final List<T> items;
+	private final int size;
+	private final int offset;
+	private final int number;
+	private final long total;
+	private final int totalPages;
+	private final int numElements;
+	private final List<T> items;
 
 	public PageResult(List<T> items, long total, Criteria criteria) {
 		PageRequest pageRequest = null;

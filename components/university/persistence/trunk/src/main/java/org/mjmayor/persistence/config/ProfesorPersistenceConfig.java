@@ -1,7 +1,6 @@
 package org.mjmayor.persistence.config;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.mjmayor.jpa.config.database.impl.PersistenceConfigImpl;
 import org.mjmayor.jpa.service.Service;
@@ -18,15 +17,11 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({ PersistenceConfigImpl.class })
 public class ProfesorPersistenceConfig {
-	
+
 	@Autowired
 	@Qualifier("entityManager")
 	private EntityManager entityManager;
-	
-	@Autowired
-	@Qualifier("criteriaBuilder")
-	private CriteriaBuilder criteriaBuilder;
-	
+
 	@Bean
 	public ProfesorDTOAssembler profesorDTOAssembler() {
 		return new ProfesorDTOAssembler();
@@ -34,6 +29,6 @@ public class ProfesorPersistenceConfig {
 
 	@Bean
 	public Service<Profesor, ProfesorDTO> service() {
-		return new ServiceImpl<Profesor, ProfesorDTO>(entityManager, criteriaBuilder, profesorDTOAssembler(), Profesor.class);
+		return new ServiceImpl<Profesor, ProfesorDTO>(entityManager, profesorDTOAssembler(), Profesor.class);
 	}
 }

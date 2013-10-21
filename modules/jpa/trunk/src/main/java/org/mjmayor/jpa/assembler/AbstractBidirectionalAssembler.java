@@ -22,11 +22,11 @@ public abstract class AbstractBidirectionalAssembler<SOURCE, TARGET> implements 
 	}
 
 	public PageResult<TARGET> assemble(PageResult<SOURCE> source) {
-		if (source == null || source.numElements == 0) {
-			return new PageResult<TARGET>(0, 0, 0, 0, 0, 0, new ArrayList<TARGET>(0));
+		if (source == null || source.getNumElements() == 0) {
+			return new PageResult<TARGET>(source.getSize(), 0, source.getNumber(), 0, 0, 0, new ArrayList<TARGET>(0));
 		}
-		List<TARGET> result = new ArrayList<TARGET>(source.numElements);
-		for (SOURCE s : source.items) {
+		List<TARGET> result = new ArrayList<TARGET>(source.getNumElements());
+		for (SOURCE s : source.getItems()) {
 			result.add(assemble(s));
 		}
 		return createPageResult(source, result);
@@ -43,15 +43,15 @@ public abstract class AbstractBidirectionalAssembler<SOURCE, TARGET> implements 
 		return items;
 	}
 
-	public PageResult<SOURCE> reverseAssemble(PageResult<TARGET> target) {
-		if (target == null || target.numElements == 0) {
-			return new PageResult<SOURCE>(0, 0, 0, 0, 0, 0, new ArrayList<SOURCE>(0));
+	public PageResult<SOURCE> reverseAssemble(PageResult<TARGET> source) {
+		if (source == null || source.getNumElements() == 0) {
+			return new PageResult<SOURCE>(source.getSize(), 0, source.getNumber(), 0, 0, 0, new ArrayList<SOURCE>(0));
 		}
-		List<SOURCE> result = new ArrayList<SOURCE>(target.numElements);
-		for (TARGET t : target.items) {
+		List<SOURCE> result = new ArrayList<SOURCE>(source.getNumElements());
+		for (TARGET t : source.getItems()) {
 			result.add(reverseAssemble(t));
 		}
-		return createReversePageResult(target, result);
+		return createReversePageResult(source, result);
 	}
 
 	public Collection<SOURCE> reverseAssemble(Collection<TARGET> target) {
@@ -66,10 +66,10 @@ public abstract class AbstractBidirectionalAssembler<SOURCE, TARGET> implements 
 	}
 
 	private PageResult<TARGET> createPageResult(PageResult<SOURCE> source, List<TARGET> items) {
-		return new PageResult<TARGET>(source.size, source.offset, source.number, source.total, source.totalPages, source.numElements, items);
+		return new PageResult<TARGET>(source.getSize(), source.getOffset(), source.getNumber(), source.getTotal(), source.getTotalPages(), source.getNumElements(), items);
 	}
 
 	private PageResult<SOURCE> createReversePageResult(PageResult<TARGET> source, List<SOURCE> items) {
-		return new PageResult<SOURCE>(source.size, source.offset, source.number, source.total, source.totalPages, source.numElements, items);
+		return new PageResult<SOURCE>(source.getSize(), source.getOffset(), source.getNumber(), source.getTotal(), source.getTotalPages(), source.getNumElements(), items);
 	}
 }
