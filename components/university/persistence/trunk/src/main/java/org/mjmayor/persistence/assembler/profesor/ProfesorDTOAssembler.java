@@ -9,15 +9,15 @@ public class ProfesorDTOAssembler extends AbstractBidirectionalAssembler<Profeso
 
 	@Override
 	public ProfesorDTO assemble(Profesor source) {
-		ProfesorDTO destination = new ProfesorDTO();
-		BeanUtils.copyProperties(source, destination);
-		return destination;
+		ProfesorDTO target = new ProfesorDTO();
+		BeanUtils.copyProperties(source, target);
+		return target;
 	}
 
 	@Override
 	public Profesor reverseAssemble(ProfesorDTO source) {
-		Profesor destination = new Profesor();
-		BeanUtils.copyProperties(source, destination);
-		return destination;
+		Profesor target = new Profesor();
+		BeanUtils.copyProperties(source, target);
+		return target;
 	}
 }

@@ -8,10 +8,10 @@ public class AlumnoViewAssembler extends AbstractAssembler<Alumno, AlumnoView> {
 
 	@Override
 	public AlumnoView assemble(Alumno source) {
-		AlumnoView destination = new AlumnoView();
-		destination.setDni(source.getDni());
-		destination.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
-		destination.setEmail(source.getEmail());
-		return destination;
+		AlumnoView target = new AlumnoView();
+		target.setDni(source.getDni());
+		target.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
+		target.setEmail(source.getEmail());
+		return target;
 	}
 }

@@ -1,5 +1,6 @@
 package org.mjmayor.baseproject.config;
 
+import org.mjmayor.baseproject.assembler.profesor.ProfesorFormAssembler;
 import org.mjmayor.baseproject.assembler.profesor.ProfesorViewAssembler;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.facade.impl.ProfesorFacadeImpl;
@@ -21,11 +22,16 @@ public class ProfesorBeanConfig {
 
 	@Bean
 	public ProfesorFacade profesorFacade() {
-		return new ProfesorFacadeImpl(service, assembler());
+		return new ProfesorFacadeImpl(service, profesorViewAssembler());
 	}
 
 	@Bean
-	public ProfesorViewAssembler assembler() {
+	public ProfesorViewAssembler profesorViewAssembler() {
 		return new ProfesorViewAssembler();
+	}
+
+	@Bean
+	public ProfesorFormAssembler profesorFormAssembler() {
+		return new ProfesorFormAssembler();
 	}
 }

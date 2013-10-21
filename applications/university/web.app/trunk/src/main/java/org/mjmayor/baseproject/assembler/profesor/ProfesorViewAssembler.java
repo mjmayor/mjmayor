@@ -8,9 +8,9 @@ public class ProfesorViewAssembler extends AbstractAssembler<ProfesorDTO, Profes
 
 	@Override
 	public ProfesorView assemble(ProfesorDTO source) {
-		ProfesorView destination = new ProfesorView();
-		destination.setDni(source.getDni());
-		destination.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
-		return destination;
+		ProfesorView target = new ProfesorView();
+		target.setDni(source.getDni());
+		target.setNombreCompleto(source.getApellidos() + ", " + source.getNombre());
+		return target;
 	}
 }

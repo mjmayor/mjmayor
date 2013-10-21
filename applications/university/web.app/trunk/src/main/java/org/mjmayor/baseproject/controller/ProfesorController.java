@@ -1,18 +1,18 @@
 package org.mjmayor.baseproject.controller;
 
+import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+import org.mjmayor.baseproject.assembler.profesor.ProfesorFormAssembler;
 import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.baseproject.view.ProfesorView;
-import org.mjmayor.jpa.support.Criteria;
-import org.mjmayor.jpa.support.PageRequest;
-import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,79 +26,45 @@ public class ProfesorController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
 
-	@Autowired
 	private ProfesorFacade profesorFacade;
+
+	private ProfesorFormAssembler assembler;
+
+	@Autowired
+	public void setProfesorFacade(ProfesorFacade profesorFacade) {
+		this.profesorFacade = profesorFacade;
+	}
+
+	@Autowired
+	public void setAssembler(ProfesorFormAssembler assembler) {
+		this.assembler = assembler;
+	}
+
+	@Autowired
+	private EntityManager em;
 
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showProfesorForm(ModelMap model) {
 		logger.debug("ProfesorController - showProfesorForm");
-
-		PageResult<ProfesorView> pageResult = null;
-		ProfesorView profesorView = null;
-
-		Long number = profesorFacade.countAll();
-		System.out.println(number);
-
-		profesorView = profesorFacade.get(1L);
-		System.out.println(profesorView);
-
-		Criteria criteria = new Criteria();
-		criteria.setPageRequest(new PageRequest(1, 20));
-		pageResult = profesorFacade.get(criteria);
-		System.out.println(pageResult);
-
-		criteria.setPageRequest(new PageRequest(1, 2));
-		pageResult = profesorFacade.get(criteria);
-		System.out.println(pageResult);
-
-		criteria.setPageRequest(new PageRequest(2, 2));
-		pageResult = profesorFacade.get(criteria);
-		System.out.println(pageResult);
-
-		pageResult = profesorFacade.getByDNI("44444444a");
-		System.out.println(pageResult);
-
-		pageResult = profesorFacade.getByDNI("aaa");
-		System.out.println(pageResult);
-
-		pageResult = profesorFacade.getLikeName("an", null);
-		System.out.println(profesorView);
-
-		pageResult = profesorFacade.getLikeSurname("az", null);
-		System.out.println(profesorView);
-
-		pageResult = profesorFacade.getLikeSurname("EZ", null);
-		System.out.println(profesorView);
-
-		criteria.setPageRequest(new PageRequest(1, 20));
-		pageResult = profesorFacade.getLikeSurname("asdf", criteria);
-		System.out.println(profesorView);
-
-		pageResult = profesorFacade.getAlphabeticalList(null);
-		System.out.println(pageResult);
-
-		logger.debug("ProfesorController - insertProfesor");
-
 		model.addAttribute(ProfesorConstants.PROFESOR_DATA, new ProfesorForm());
 		return ProfesorConstants.FORM;
 	}
 
 	@RequestMapping(value = ApplicationConstants.INSERT, method = RequestMethod.POST)
 	public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
-		// if (result.hasErrors()) {
-		// return ProfesorConstants.FORM;
-		// } else {
-		// try {
-		// profesorFacade.add(profesorForm);
-		// } catch (ConstraintViolationException e) {
-		// return ProfesorConstants.INSERT_ERROR;
-		// } catch (JpaSystemException e) {
-		// return ProfesorConstants.INSERT_ERROR;
-		// }
-		// return ProfesorConstants.INSERT_OK;
-		// }
-
-		return "";
+		if (result.hasErrors()) {
+			return ProfesorConstants.FORM;
+		}
+		try {
+			profesorFacade.add(assembler.assemble(profesorForm));
+		} catch (ConstraintViolationException e) {
+			return ProfesorConstants.INSERT_ERROR;
+		} catch (JpaSystemException e) {
+			return ProfesorConstants.INSERT_ERROR;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ProfesorConstants.INSERT_OK;
 	}
 
 	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)

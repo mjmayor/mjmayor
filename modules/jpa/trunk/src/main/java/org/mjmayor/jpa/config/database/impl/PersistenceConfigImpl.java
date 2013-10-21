@@ -30,16 +30,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class PersistenceConfigImpl extends WebMvcConfigurerAdapter implements PersistenceConfig {
 
-	@Value("${repository.packagesToScan}")	private String packagesToScan;
-	@Value("${jdbc.driverClassName}")	private String driverClassName;
-	@Value("${jdbc.dialect}")	private String dialect;
-	@Value("${jdbc.databaseurl}")	private String databaseUrl;
-	@Value("${jdbc.username}")	private String username;
-	@Value("${jdbc.password}")	private String password;
+	@Value("${repository.packagesToScan}")
+	private String packagesToScan;
+	@Value("${jdbc.driverClassName}")
+	private String driverClassName;
+	@Value("${jdbc.dialect}")
+	private String dialect;
+	@Value("${jdbc.databaseurl}")
+	private String databaseUrl;
+	@Value("${jdbc.username}")
+	private String username;
+	@Value("${jdbc.password}")
+	private String password;
 
-	@Value("${hibernate.dialect}")	private String hibernateDialect;
-	@Value("${hibernate.show_sql}")	private String hibernateShowSql;
-	@Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
+	@Value("${hibernate.dialect}")
+	private String hibernateDialect;
+	@Value("${hibernate.show_sql}")
+	private String hibernateShowSql;
+	@Value("${hibernate.hbm2ddl.auto}")
+	private String hibernateHbm2ddlAuto;
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;

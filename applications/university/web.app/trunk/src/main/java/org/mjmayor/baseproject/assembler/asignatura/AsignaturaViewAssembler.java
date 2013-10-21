@@ -9,8 +9,8 @@ public class AsignaturaViewAssembler extends AbstractAssembler<Asignatura, Asign
 
 	@Override
 	public AsignaturaView assemble(Asignatura source) {
-		AsignaturaView destination = new AsignaturaView();
-		BeanUtils.copyProperties(source, destination);
-		return destination;
+		AsignaturaView target = new AsignaturaView();
+		BeanUtils.copyProperties(source, target);
+		return target;
 	}
 }
