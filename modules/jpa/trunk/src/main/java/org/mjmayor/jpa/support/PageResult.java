@@ -14,7 +14,6 @@ public class PageResult<T> implements Serializable {
 	public final List<T> items;
 
 	public PageResult(int size, int offset, int number, long total, int totalPages, int numElements, List<T> items) {
-		super();
 		this.size = size;
 		this.offset = offset;
 		this.number = number;

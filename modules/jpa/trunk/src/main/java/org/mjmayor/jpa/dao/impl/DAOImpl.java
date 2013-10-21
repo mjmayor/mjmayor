@@ -12,7 +12,6 @@ import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.PageRequest;
-import org.mjmayor.jpa.support.PersistenceUtils;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,7 +117,7 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	private void setCriteriaParams(Query query, Criteria criteria) {
 		if (criteria != null && criteria.getPageRequest() != null) {
 			PageRequest pageRequest = criteria.getPageRequest();
-			query.setFirstResult(PersistenceUtils.getFirstResult(pageRequest));
+			query.setFirstResult(pageRequest.getFirstResult());
 			query.setMaxResults(pageRequest.getSize());
 		}
 	}

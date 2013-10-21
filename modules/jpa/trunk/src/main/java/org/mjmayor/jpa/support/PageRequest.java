@@ -73,4 +73,8 @@ public class PageRequest {
 			this.size = size;
 		}
 	}
+
+	public int getFirstResult() {
+		return (page - 1) * size;
+	}
 }
