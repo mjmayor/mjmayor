@@ -1,4 +1,4 @@
-package org.mjmayor.jpa.config.database.support;
+package org.mjmayor.jpa.config.database;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
