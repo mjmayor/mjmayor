@@ -2,7 +2,7 @@ package org.mjmayor.persistence.config;
 
 import javax.persistence.EntityManager;
 
-import org.mjmayor.jpa.config.database.impl.PersistenceConfigImpl;
+import org.mjmayor.jpa.config.database.PersistenceConfig;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.service.impl.ServiceImpl;
 import org.mjmayor.model.dto.ProfesorDTO;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ PersistenceConfigImpl.class })
+@Import({ PersistenceConfig.class })
 public class ProfesorPersistenceConfig {
 
 	@Autowired

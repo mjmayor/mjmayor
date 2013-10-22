@@ -1,6 +1,5 @@
 package org.mjmayor.baseproject.controller;
 
-import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
@@ -9,6 +8,9 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
+import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,6 @@ public class ProfesorController {
 	public void setAssembler(ProfesorFormAssembler assembler) {
 		this.assembler = assembler;
 	}
-
-	@Autowired
-	private EntityManager em;
 
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showProfesorForm(ModelMap model) {
