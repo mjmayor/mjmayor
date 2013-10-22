@@ -114,7 +114,7 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Bean
+	@Bean(name = "transactionManager")
 	public PlatformTransactionManager transactionManager() {
 		initDataSource();
 		JpaTransactionManager transactionManager = new JpaTransactionManager();

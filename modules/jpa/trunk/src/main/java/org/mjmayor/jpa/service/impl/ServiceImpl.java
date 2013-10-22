@@ -61,7 +61,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
 		dao.add(entity);
