@@ -2,6 +2,7 @@ package org.mjmayor.jpa.config.database;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,6 +49,15 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 	@Value("${hibernate.hbm2ddl.auto}")
 	private String hibernateHbm2ddlAuto;
 
+	@Value("${hibernate.cache.use_second_level_cache}")
+	private String useSecondLevelCache;
+	@Value("${hibernate.cache.provider_class}")
+	private String cacheProviderClass;
+	@Value("${hibernate.cache.use_query_cache}")
+	private String useQueryCache;
+	@Value("${hibernate.cache.region.factory_class}")
+	private String regionFactoryClass;
+
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
@@ -90,13 +100,6 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 		return ds;
 	}
 
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(getDatabase(dialect));
-		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
-		return jpaVendorAdapter;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -107,8 +110,25 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource);
 		localContainerEntityManagerFactoryBean.setPackagesToScan(getPackagesToScan(packagesToScan));
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties());
 		localContainerEntityManagerFactoryBean.afterPropertiesSet();
 		return localContainerEntityManagerFactoryBean.getNativeEntityManagerFactory();
+	}
+
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		jpaVendorAdapter.setDatabase(getDatabase(dialect));
+		jpaVendorAdapter.setShowSql(Boolean.parseBoolean(hibernateShowSql));
+		return jpaVendorAdapter;
+	}
+
+	private Properties jpaProperties() {
+		Properties jpaProperties = new Properties();
+		jpaProperties.setProperty("hibernate.cache.use_second_level_cache", useSecondLevelCache);
+		jpaProperties.setProperty("hibernate.cache.provider_class", cacheProviderClass);
+		jpaProperties.setProperty("hibernate.cache.use_query_cache", useQueryCache);
+		jpaProperties.setProperty("hibernate.cache.region.factory_class", regionFactoryClass);
+		return jpaProperties;
 	}
 
 	/**

@@ -109,6 +109,13 @@
 			<version>4.1.3.Final</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>4.1.3.Final</version>
+		</dependency>
+		
+		
 		<!-- spring-orm proporciona el entityManager (@Persistence) y el TransactionManager (@Transactional)-->
 		<dependency>
 			<groupId>org.springframework</groupId>
