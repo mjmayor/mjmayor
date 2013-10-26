@@ -19,6 +19,7 @@ import org.mjmayor.jpa.support.PageResult;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 
@@ -42,8 +43,8 @@ public class DAOImpl<ENTITY> implements DAO<ENTITY> {
 	 */
 	private Class<ENTITY> persistentClass;
 
-	public DAOImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
-		this.entityManager = entityManager;
+	public DAOImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, Class<ENTITY> persistentClass) {
+		this.entityManager = entityManagerFactory.getObject().createEntityManager();
 		this.persistentClass = persistentClass;
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 	}

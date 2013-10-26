@@ -2,7 +2,6 @@ package org.mjmayor.jpa.service.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -20,6 +19,7 @@ import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
@@ -43,8 +43,8 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
-		this.dao = new DAOImpl<ENTITY>(entityManager, persistentClass);
+	public ServiceImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
+		this.dao = new DAOImpl<ENTITY>(entityManagerFactory, persistentClass);
 		this.criteriaBuilder = dao.getCriteriaBuilder();
 		this.assembler = assembler;
 		this.persistentClass = persistentClass;
@@ -61,7 +61,7 @@ public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(value = "transactionManager")
+	@Transactional
 	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
 		dao.add(entity);
