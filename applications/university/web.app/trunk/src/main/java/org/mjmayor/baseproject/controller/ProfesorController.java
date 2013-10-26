@@ -8,9 +8,7 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
-import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.support.Criteria;
-import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,10 +103,9 @@ public class ProfesorController {
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllProfesores(ModelMap model) {
-		// logger.debug("ProfesorController - getAllProfesores");
-		// model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.getAll());
-		// return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
-
-		return null;
+		logger.debug("ProfesorController - getAllProfesores");
+		Criteria criteria = null;
+		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.get(criteria));
+		return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 }
