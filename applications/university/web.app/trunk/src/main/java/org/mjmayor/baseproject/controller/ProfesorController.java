@@ -8,7 +8,10 @@ import org.mjmayor.baseproject.constants.ProfesorConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.ProfesorFacade;
 import org.mjmayor.baseproject.form.ProfesorForm;
+import org.mjmayor.baseproject.view.ProfesorView;
+import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,19 +89,25 @@ public class ProfesorController {
 	public ModelAndView getProfesor(@Valid ProfesorForm profesorForm, BindingResult result, ModelMap model) {
 		logger.debug("ProfesorController - getProfesor");
 
-		// if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
-		// model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
-		// return new ModelAndView(ProfesorConstants.FORM);
-		// } else {
-		// try {
-		// model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorFacade.getByField(ProfesorConstants.Fields.DNI, profesorForm.getDni()));
-		// } catch (FieldNotFoundException e) {
-		// return new ModelAndView(ProfesorConstants.DATA_ERROR);
-		// }
-		// return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
-		// }
+		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
+			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
+			return new ModelAndView(ProfesorConstants.FORM);
+		} else {
+			try {
+				PageResult<ProfesorView> profesor = profesorFacade.getByDNI(profesorForm.getDni());
+				ProfesorView profesorView = null;
+				if (profesor.getItems().size() > 0) {
+					profesorView = profesor.getItems().get(0);
+				} else {
+					profesorView = new ProfesorView();
+				}
+				model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorView);
 
-		return null;
+			} catch (FieldNotFoundException e) {
+				return new ModelAndView(ProfesorConstants.DATA_ERROR);
+			}
+			return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
+		}
 	}
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
