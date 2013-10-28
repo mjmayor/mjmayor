@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.mjmayor.validations.dni.constants.DNIConstants;
+import org.mjmayor.validations.dni.constants.DNI;
 import org.mjmayor.validations.dni.impl.CheckDNILetterImpl;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -16,7 +16,7 @@ import org.mjmayor.validations.dni.impl.CheckDNILetterImpl;
 @Constraint(validatedBy = CheckDNILetterImpl.class)
 public @interface CheckDNILetter {
 
-	String message() default DNIConstants.DEFAULT_MESSAGE;
+	String message() default DNI.DEFAULT_MESSAGE;
 
 	Class<?>[] groups() default {};
 
