@@ -3,14 +3,14 @@ package org.mjmayor.baseproject.form;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.mjmayor.validations.constants.AnnotationConstants;
-import org.mjmayor.validations.dni.CheckDNI;
+import org.mjmayor.validations.dni.CheckDNILetter;
+import org.mjmayor.validations.dni.constants.DNI;
 
 public class ProfesorForm {
 
 	@NotEmpty
-	@Pattern(regexp = AnnotationConstants.DNI.PATTERN)
-	@CheckDNI
+	@Pattern(regexp = DNI.PATTERN)
+	@CheckDNILetter
 	private String dni;
 
 	@NotEmpty

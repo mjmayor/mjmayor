@@ -4,16 +4,16 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.mjmayor.validations.constants.AnnotationConstants;
-import org.mjmayor.validations.dni.CheckDNI;
+import org.mjmayor.validations.dni.CheckDNILetter;
+import org.mjmayor.validations.dni.constants.DNI;
 
 public class AlumnoForm {
 
 	private int id;
 
 	@NotEmpty
-	@Pattern(regexp = AnnotationConstants.DNI.PATTERN)
-	@CheckDNI
+	@Pattern(regexp = DNI.PATTERN)
+	@CheckDNILetter
 	private String dni;
 
 	@NotEmpty
