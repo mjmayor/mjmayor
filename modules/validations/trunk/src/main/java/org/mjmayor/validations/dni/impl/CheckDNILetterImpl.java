@@ -3,11 +3,11 @@ package org.mjmayor.validations.dni.impl;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.mjmayor.validations.dni.CheckDNI;
+import org.mjmayor.validations.dni.CheckDNILetter;
 
-public class CheckDNIImpl implements ConstraintValidator<CheckDNI, String> {
+public class CheckDNILetterImpl implements ConstraintValidator<CheckDNILetter, String> {
 
-	public void initialize(CheckDNI arg0) {
+	public void initialize(CheckDNILetter arg0) {
 		// TODO Auto-generated method stub
 
 	}
