@@ -1,5 +1,6 @@
 package org.mjmayor.jpa.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
-public class ServiceImpl<ENTITY, DTO> implements Service<ENTITY, DTO> {
+public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<ENTITY, DTO> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 

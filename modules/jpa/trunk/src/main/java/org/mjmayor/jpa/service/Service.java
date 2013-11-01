@@ -1,5 +1,7 @@
 package org.mjmayor.jpa.service;
 
+import java.io.Serializable;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolationException;
@@ -10,7 +12,7 @@ import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.PageResult;
 
-public interface Service<ENTITY, DTO> {
+public interface Service<ENTITY extends Serializable, DTO> {
 
 	CriteriaBuilder getCriteriaBuilder();
 

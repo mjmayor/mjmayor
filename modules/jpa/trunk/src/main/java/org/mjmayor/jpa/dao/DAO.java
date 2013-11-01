@@ -1,5 +1,6 @@
 package org.mjmayor.jpa.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,7 +11,7 @@ import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.PageResult;
 
-public interface DAO<ENTITY> {
+public interface DAO<ENTITY extends Serializable> {
 
 	CriteriaBuilder getCriteriaBuilder();
 

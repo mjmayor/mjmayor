@@ -1,5 +1,6 @@
 package org.mjmayor.jpa.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-public class DAOImpl<ENTITY> implements DAO<ENTITY> {
+public class DAOImpl<ENTITY extends Serializable> implements DAO<ENTITY> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
 

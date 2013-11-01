@@ -6,23 +6,24 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.hibernate.ejb.HibernatePersistence;
 import org.mjmayor.jpa.config.database.support.Dialects;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @Import({ PersistenceBeanConfig.class })
 @EnableTransactionManagement
-public class PersistenceConfig extends WebMvcConfigurerAdapter {
+public class PersistenceConfig {
 
 	@Value("${repository.packagesToScan}")
 	private String packagesToScan;
@@ -54,6 +55,7 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 	private Map<String, Database> databases;
 
 	protected PersistenceConfig() {
+		super();
 		this.databases = buildDatabases();
 	}
 
@@ -71,6 +73,17 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 		return databases.get(dialect);
 	}
 
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactoryBean.setDataSource(dataSource());
+		entityManagerFactoryBean.setPackagesToScan(getPackagesToScan(packagesToScan));
+		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		entityManagerFactoryBean.setJpaProperties(additionalProperties());
+		return entityManagerFactoryBean;
+	}
+
+	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(driverClassName);
@@ -80,37 +93,27 @@ public class PersistenceConfig extends WebMvcConfigurerAdapter {
 		return dataSource;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setDataSource(dataSource());
-		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
-		entityManagerFactoryBean.setPackagesToScan(getPackagesToScan(packagesToScan));
-		entityManagerFactoryBean.setJpaProperties(jpaProperties());
-		return entityManagerFactoryBean;
-	}
-
-	private Properties jpaProperties() {
-		Properties jpaProperties = new Properties();
-		jpaProperties.setProperty("hibernate.dialect", hibernateDialect);
-		jpaProperties.setProperty("hibernate.show_sql", hibernateShowSql);
-		jpaProperties.setProperty("hibernate.cache.use_second_level_cache", useSecondLevelCache);
-		jpaProperties.setProperty("hibernate.cache.provider_class", cacheProviderClass);
-		jpaProperties.setProperty("hibernate.cache.use_query_cache", useQueryCache);
-		jpaProperties.setProperty("hibernate.cache.region.factory_class", regionFactoryClass);
-		return jpaProperties;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Bean
-	public JpaTransactionManager transactionManager() {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
+	public PlatformTransactionManager transactionManager() {
+		final JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
+	}
+
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
+
+	final Properties additionalProperties() {
+		Properties additionalProperties = new Properties();
+		additionalProperties.setProperty("hibernate.hbm2dll.auto", hibernateHbm2ddlAuto);
+		additionalProperties.setProperty("hibernate.dialect", hibernateDialect);
+		additionalProperties.setProperty("hibernate.show_sql", hibernateShowSql);
+		additionalProperties.setProperty("hibernate.cache.use_second_level_cache", useSecondLevelCache);
+		additionalProperties.setProperty("hibernate.cache.provider_class", cacheProviderClass);
+		additionalProperties.setProperty("hibernate.cache.use_query_cache", useQueryCache);
+		additionalProperties.setProperty("hibernate.cache.region.factory_class", regionFactoryClass);
+		return additionalProperties;
 	}
 }
