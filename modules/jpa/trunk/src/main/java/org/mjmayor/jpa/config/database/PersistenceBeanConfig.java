@@ -7,7 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class PersistenceBeanConfig extends WebMvcConfigurerAdapter {
+public class PersistenceBeanConfig {
 
 	@Bean
 	public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
