@@ -6,6 +6,7 @@ create table alumno(
 	dni varchar(9) unique,
 	nombre varchar(20),
 	apellidos varchar(30),
+	fechaNacimiento date,
 	email varchar(30)
 );
 
@@ -27,9 +28,9 @@ create table asignatura(
 
 
 
-insert into alumno values (1, "11111111H", "pepe", "perez", "a@a.com");
-insert into alumno values (2, "22222222J", "manuel", "rodriguez", "b@b.com");
-insert into alumno values (3, "33333333P", "pedro", "garcia", "c@c.com");
+insert into alumno values (1, "11111111H", "pepe", "perez", "1980-01-01", "a@a.com");
+insert into alumno values (2, "22222222J", "manuel", "rodriguez", "1980-01-02", "b@b.com");
+insert into alumno values (3, "33333333P", "pedro", "garcia", "1980-01-03", "c@c.com");
 
 insert into profesor values (1, "44444444A", "juan", "lopez");
 insert into profesor values (2, "55555555K", "antonio", "sanchez");
