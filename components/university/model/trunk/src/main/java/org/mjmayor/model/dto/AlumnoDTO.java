@@ -1,6 +1,7 @@
 package org.mjmayor.model.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AlumnoDTO implements Serializable {
 
@@ -11,6 +12,8 @@ public class AlumnoDTO implements Serializable {
 	private String nombre;
 
 	private String apellidos;
+
+	private Date fechaNacimiento;
 
 	private String email;
 
@@ -36,6 +39,21 @@ public class AlumnoDTO implements Serializable {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	/**
+	 * @return the fechaNacimiento
+	 */
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	/**
+	 * @param fechaNacimiento
+	 *            the fechaNacimiento to set
+	 */
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getEmail() {
