@@ -47,8 +47,13 @@ public class ProfesorFacadeImpl extends Facade implements ProfesorFacade {
 	}
 
 	@Override
-	public void remove(Long id) {
-		service.remove(id);
+	public void delete(Long id) {
+		service.delete(id);
+	}
+
+	@Override
+	public void delete(Field field) {
+		service.delete(field);
 	}
 
 	/**

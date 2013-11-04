@@ -11,6 +11,7 @@ import org.mjmayor.baseproject.form.ProfesorForm;
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,18 +72,16 @@ public class ProfesorController {
 	public String deleteProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
 		logger.debug("ProfesorController - deleteProfesor");
 
-		// if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
-		// return ProfesorConstants.FORM;
-		// } else {
-		// try {
-		// profesorFacade.removeByField(ProfesorConstants.Fields.DNI, profesorForm.getDni());
-		// } catch (FieldNotFoundException e) {
-		// return ProfesorConstants.DELETE_ERROR;
-		// }
-		// return ProfesorConstants.DELETE_OK;
-		// }
-
-		return "";
+		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
+			return ProfesorConstants.FORM;
+		}
+		try {
+			Field field = new Field(ProfesorConstants.Fields.DNI, profesorForm.getDni());
+			profesorFacade.delete(field);
+		} catch (FieldNotFoundException e) {
+			return ProfesorConstants.DELETE_ERROR;
+		}
+		return ProfesorConstants.DELETE_OK;
 	}
 
 	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
@@ -92,22 +91,21 @@ public class ProfesorController {
 		if (result.hasFieldErrors(ProfesorConstants.Fields.DNI)) {
 			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorForm);
 			return new ModelAndView(ProfesorConstants.FORM);
-		} else {
-			try {
-				PageResult<ProfesorView> profesor = profesorFacade.getByDNI(profesorForm.getDni());
-				ProfesorView profesorView = null;
-				if (profesor.getItems().size() > 0) {
-					profesorView = profesor.getItems().get(0);
-				} else {
-					profesorView = new ProfesorView();
-				}
-				model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorView);
-
-			} catch (FieldNotFoundException e) {
-				return new ModelAndView(ProfesorConstants.DATA_ERROR);
-			}
-			return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
 		}
+		try {
+			PageResult<ProfesorView> profesor = profesorFacade.getByDNI(profesorForm.getDni());
+			ProfesorView profesorView = null;
+			if (profesor.getItems().size() > 0) {
+				profesorView = profesor.getItems().get(0);
+			} else {
+				profesorView = new ProfesorView();
+			}
+			model.addAttribute(ProfesorConstants.PROFESOR_DATA, profesorView);
+
+		} catch (FieldNotFoundException e) {
+			return new ModelAndView(ProfesorConstants.DATA_ERROR);
+		}
+		return new ModelAndView(ProfesorConstants.DATA, ApplicationConstants.MODEL, model);
 	}
 
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)

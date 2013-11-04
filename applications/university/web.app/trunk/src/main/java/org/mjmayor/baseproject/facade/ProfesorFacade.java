@@ -2,6 +2,7 @@ package org.mjmayor.baseproject.facade;
 
 import org.mjmayor.baseproject.view.ProfesorView;
 import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.PageResult;
 import org.mjmayor.model.dto.ProfesorDTO;
 
@@ -11,7 +12,9 @@ public interface ProfesorFacade {
 
 	void update(ProfesorDTO profesorDTO);
 
-	void remove(Long id);
+	void delete(Long id);
+	
+	void delete(Field field);
 
 	ProfesorView get(Long id);
 
