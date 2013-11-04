@@ -19,9 +19,9 @@ public interface DAO<ENTITY extends Serializable> {
 
 	void update(ENTITY entity) throws JPAPersistenceException;
 
-	void remove(Long id);
+	void delete(Long id);
 
-	void remove(List<ENTITY> entities) throws JPAPersistenceException;
+	void delete(List<ENTITY> entities) throws JPAPersistenceException;
 
 	ENTITY get(Long id);
 

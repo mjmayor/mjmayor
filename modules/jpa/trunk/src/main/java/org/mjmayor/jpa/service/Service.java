@@ -20,9 +20,9 @@ public interface Service<ENTITY extends Serializable, DTO> {
 
 	void update(DTO form) throws JPAPersistenceException;
 
-	void remove(Long id);
+	void delete(Long id);
 
-	void remove(Field field) throws JPAPersistenceException, FieldNotFoundException;
+	void delete(Field field) throws JPAPersistenceException, FieldNotFoundException;
 
 	void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException;
 

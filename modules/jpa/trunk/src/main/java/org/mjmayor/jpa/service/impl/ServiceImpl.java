@@ -83,8 +83,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional
-	public void remove(Long id) {
-		dao.remove(id);
+	public void delete(Long id) {
+		dao.delete(id);
 	}
 
 	/**
@@ -92,10 +92,10 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional
-	public void remove(Field field) throws JPAPersistenceException, FieldNotFoundException {
+	public void delete(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
 		List<ENTITY> entities = dao.get(criteriaQuery, null).getItems();
-		dao.remove(entities);
+		dao.delete(entities);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	public void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
 		List<ENTITY> entities = dao.get(criteriaQuery, null).getItems();
-		dao.remove(entities);
+		dao.delete(entities);
 	}
 
 	/**

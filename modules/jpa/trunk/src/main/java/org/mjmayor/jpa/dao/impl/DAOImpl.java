@@ -81,7 +81,7 @@ public class DAOImpl<ENTITY extends Serializable> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void remove(Long id) {
+	public void delete(Long id) {
 		logger.debug("DAOImpl - remove");
 		try {
 			entityManager.remove(get(id));
@@ -94,7 +94,7 @@ public class DAOImpl<ENTITY extends Serializable> implements DAO<ENTITY> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void remove(List<ENTITY> entities) throws JPAPersistenceException {
+	public void delete(List<ENTITY> entities) throws JPAPersistenceException {
 		logger.debug("DAOImpl - remove");
 		try {
 			entityManager.remove(entities);
