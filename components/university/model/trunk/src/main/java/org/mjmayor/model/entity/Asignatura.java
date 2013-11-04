@@ -1,21 +1,25 @@
 package org.mjmayor.model.entity;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.mjmayor.jpa.entity.PersistentObject;
-
 
 @Entity
 public class Asignatura extends PersistentObject {
 
 	private static final long serialVersionUID = 5193440247827673686L;
 
+	@NotNull
 	private String codigo;
 
+	@NotNull
 	private String nombre;
 
+	@NotNull
 	private int curso;
 
+	@NotNull
 	private Float creditos;
 
 	/**
