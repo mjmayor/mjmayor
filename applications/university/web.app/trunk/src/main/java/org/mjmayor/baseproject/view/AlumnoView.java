@@ -1,12 +1,10 @@
 package org.mjmayor.baseproject.view;
 
-import java.util.Date;
-
 public class AlumnoView {
 
 	private String dni;
 	private String nombreCompleto;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String email;
 
 	/**
@@ -42,7 +40,7 @@ public class AlumnoView {
 	/**
 	 * @return the fechaNacimiento
 	 */
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
@@ -50,7 +48,7 @@ public class AlumnoView {
 	 * @param fechaNacimiento
 	 *            the fechaNacimiento to set
 	 */
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
