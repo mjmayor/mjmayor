@@ -16,6 +16,7 @@ import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,13 +31,13 @@ public class ProfesorController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
 
-	private ProfesorFacade profesorFacade;
+	private ProfesorFacade facade;
 
 	private ProfesorFormAssembler assembler;
 
 	@Autowired
-	public void setProfesorFacade(ProfesorFacade profesorFacade) {
-		this.profesorFacade = profesorFacade;
+	public void setFacade(ProfesorFacade facade) {
+		this.facade = facade;
 	}
 
 	@Autowired
@@ -53,11 +54,13 @@ public class ProfesorController {
 
 	@RequestMapping(value = ApplicationConstants.INSERT, method = RequestMethod.POST)
 	public String insertProfesor(@Valid ProfesorForm profesorForm, BindingResult result) {
+		logger.debug("ProfesorController - insertProfesor");
+
 		if (result.hasErrors()) {
 			return ProfesorConstants.FORM;
 		}
 		try {
-			profesorFacade.add(assembler.assemble(profesorForm));
+			facade.add(assembler.assemble(profesorForm));
 		} catch (ConstraintViolationException e) {
 			return ProfesorConstants.INSERT_ERROR;
 		} catch (JpaSystemException e) {
@@ -77,7 +80,7 @@ public class ProfesorController {
 		}
 		try {
 			Field field = new Field(ProfesorConstants.Fields.DNI, profesorForm.getDni());
-			profesorFacade.delete(field);
+			facade.delete(field);
 		} catch (FieldNotFoundException e) {
 			return ProfesorConstants.DELETE_ERROR;
 		}
@@ -93,7 +96,7 @@ public class ProfesorController {
 			return new ModelAndView(ProfesorConstants.FORM);
 		}
 		try {
-			PageResult<ProfesorView> profesor = profesorFacade.getByDNI(profesorForm.getDni());
+			PageResult<ProfesorView> profesor = facade.getByDNI(profesorForm.getDni());
 			ProfesorView profesorView = null;
 			if (profesor.getItems().size() > 0) {
 				profesorView = profesor.getItems().get(0);
@@ -112,7 +115,7 @@ public class ProfesorController {
 	public ModelAndView getAllProfesores(ModelMap model) {
 		logger.debug("ProfesorController - getAllProfesores");
 		Criteria criteria = null;
-		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, profesorFacade.get(criteria));
+		model.addAttribute(ProfesorConstants.PROFESORES_LIST_DATA, facade.get(criteria));
 		return new ModelAndView(ProfesorConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 }

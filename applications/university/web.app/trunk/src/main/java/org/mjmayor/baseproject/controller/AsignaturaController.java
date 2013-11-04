@@ -1,13 +1,23 @@
 package org.mjmayor.baseproject.controller;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+import org.mjmayor.baseproject.assembler.asignatura.AsignaturaFormAssembler;
 import org.mjmayor.baseproject.constants.AsignaturaConstants;
 import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 import org.mjmayor.baseproject.facade.AsignaturaFacade;
 import org.mjmayor.baseproject.form.AsignaturaForm;
+import org.mjmayor.baseproject.view.AsignaturaView;
+import org.mjmayor.jpa.exceptions.FieldNotFoundException;
+import org.mjmayor.jpa.support.Criteria;
+import org.mjmayor.jpa.support.Field;
+import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,8 +31,19 @@ public class AsignaturaController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AsignaturaController.class);
 
-//	@Autowired
-	private AsignaturaFacade asignaturaFacade;
+	private AsignaturaFacade facade;
+
+	private AsignaturaFormAssembler assembler;
+
+	@Autowired
+	public void setFacade(AsignaturaFacade facade) {
+		this.facade = facade;
+	}
+
+	@Autowired
+	public void setAssembler(AsignaturaFormAssembler assembler) {
+		this.assembler = assembler;
+	}
 
 	@RequestMapping(value = ApplicationConstants.FORM, method = RequestMethod.GET)
 	public String showAsignaturaForm(ModelMap model) {
@@ -35,82 +56,66 @@ public class AsignaturaController {
 	public String insertAsignatura(@Valid AsignaturaForm asignaturaForm, BindingResult result) {
 		logger.debug("AsignaturaController - insertAsignatura");
 
-//		if (result.hasErrors()) {
-//			return AsignaturaConstants.FORM;
-//		} else {
-//			asignaturaFacade.addAsignatura(asignaturaForm);
-//			return AsignaturaConstants.INSERTOK;
-//		}
-		
-		return null;
+		if (result.hasErrors()) {
+			return AsignaturaConstants.FORM;
+		}
+		try {
+			facade.add(assembler.assemble(asignaturaForm));
+		} catch (ConstraintViolationException e) {
+			return AsignaturaConstants.INSERT_ERROR;
+		} catch (JpaSystemException e) {
+			return AsignaturaConstants.INSERT_ERROR;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return AsignaturaConstants.INSERT_OK;
 	}
 
 	@RequestMapping(value = ApplicationConstants.DELETE, method = RequestMethod.POST)
 	public String deleteAsignatura(AsignaturaForm asignaturaForm, BindingResult result) {
 		logger.debug("AsignaturaController - deleteAsignatura");
-//		asignaturaFacade.removeAsignatura(asignaturaForm);
-//		return AsignaturaConstants.DELETEOK;
-		
-		return null;
+
+		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODE)) {
+			return AsignaturaConstants.FORM;
+		}
+		try {
+			Field field = new Field(AsignaturaConstants.Fields.CODE, asignaturaForm.getCodigo());
+			facade.delete(field);
+		} catch (FieldNotFoundException e) {
+			return AsignaturaConstants.DELETE_ERROR;
+		}
+		return AsignaturaConstants.DELETE_OK;
 	}
 
-	@RequestMapping(value = ApplicationConstants.GET_BY_COD, method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationConstants.GET, method = RequestMethod.POST)
 	public ModelAndView getAsignaturaByCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
 		logger.debug("AsignaturaController - getAsignaturaByCod");
-//		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
-//			return new ModelAndView(AsignaturaConstants.FORM);
-//		} else {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaFacade.getAsignaturaByCod(asignaturaForm));
-//			return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
-//		}
-		
-		return null;
+
+		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODE)) {
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
+			return new ModelAndView(AsignaturaConstants.FORM);
+		}
+		try {
+			PageResult<AsignaturaView> asignatura = facade.getByCode(asignaturaForm.getCodigo());
+			AsignaturaView asignaturaView = null;
+			if (asignatura.getItems().size() > 0) {
+				asignaturaView = asignatura.getItems().get(0);
+			} else {
+				asignaturaView = new AsignaturaView();
+			}
+			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaView);
+
+		} catch (FieldNotFoundException e) {
+			return new ModelAndView(AsignaturaConstants.DATA_ERROR);
+		}
+		return new ModelAndView(AsignaturaConstants.DATA, ApplicationConstants.MODEL, model);
 	}
 
-	@RequestMapping(value = ApplicationConstants.GET_LIKE_COD, method = RequestMethod.POST)
-	public ModelAndView getAsignaturaLikeCod(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
-		logger.debug("AsignaturaController - getAsignaturaLikeCod");
-//		if (result.hasFieldErrors(AsignaturaConstants.Fields.CODIGO)) {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
-//			return new ModelAndView(AsignaturaConstants.FORM);
-//		} else {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturasLikeCod(asignaturaForm));
-//			return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
-//		}
-		
-		return null;
-	}
-
-	@RequestMapping(value = ApplicationConstants.GET_LIKE_NAME, method = RequestMethod.POST)
-	public ModelAndView getAsignaturaLikeName(@Valid AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
-		logger.debug("AsignaturaController - getAsignaturaLikeName");
-//		if (result.hasFieldErrors(AsignaturaConstants.Fields.NOMBRE)) {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURA_DATA, asignaturaForm);
-//			return new ModelAndView(AsignaturaConstants.FORM);
-//		} else {
-//			model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturasLikeName(asignaturaForm));
-//			return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
-//		}
-		
-		return null;
-	}
-
-	@RequestMapping(value = ApplicationConstants.GET_LIKE_FIELDS, method = RequestMethod.POST)
-	public ModelAndView getAsignaturaLikeFields(AsignaturaForm asignaturaForm, BindingResult result, ModelMap model) {
-		logger.debug("AsignaturaController - getAsignaturaLikeFields");
-//		model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturas(asignaturaForm));
-//		return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
-		
-		return null;
-	}
-	
 	@RequestMapping(value = ApplicationConstants.GETALL, method = RequestMethod.POST)
 	public ModelAndView getAllAsignaturas(ModelMap model) {
 		logger.debug("AlumnoController - getAllAlumnos");
-//		model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, asignaturaFacade.getAsignaturas());
-//		return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
-		
-		return null;
+		Criteria criteria = null;
+		model.addAttribute(AsignaturaConstants.ASIGNATURAS_LIST_DATA, facade.get(criteria));
+		return new ModelAndView(AsignaturaConstants.LIST, ApplicationConstants.MODEL, model);
 	}
 }

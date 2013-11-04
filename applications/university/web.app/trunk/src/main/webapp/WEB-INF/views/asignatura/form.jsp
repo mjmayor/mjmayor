@@ -77,9 +77,8 @@
 			</table>
 		</form:form>
 		
-		
-		<h2><spring:message code="subject.dataTitleByCod"/></h2>
-		<form:form method="POST" commandName="asignaturaForm" action="getByCod">
+		<h2><spring:message code="subject.dataTitle"/></h2>
+		<form:form method="POST" commandName="asignaturaForm" action="get">
 			<table>			
 				
 				<tr>
@@ -96,77 +95,95 @@
 			</table>
 		</form:form>
 		
-		<h2><spring:message code="subject.dataTitleLikeCod"/></h2>
-		<form:form method="POST" commandName="asignaturaForm" action="getLikeCod">
-			<table>			
+<%-- 		<h2><spring:message code="subject.dataTitleByCod"/></h2> --%>
+<%-- 		<form:form method="POST" commandName="asignaturaForm" action="getByCod"> --%>
+<!-- 			<table>			 -->
 				
-				<tr>
-					<td><spring:message code="subject.cod"/></td>
-					<td><form:input path="codigo" /></td>
-					<td class="error"><form:errors path="codigo" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.cod"/></td> --%>
+<%-- 					<td><form:input path="codigo" /></td> --%>
+<%-- 					<td class="error"><form:errors path="codigo" /></td> --%>
+<!-- 				</tr> -->
 				
-				<tr>
-					<spring:message code="subject.viewButton" var="viewButton"/>
-					<td colspan="3"><input type="submit" value="${viewButton}" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<spring:message code="subject.viewButton" var="viewButton"/> --%>
+<%-- 					<td colspan="3"><input type="submit" value="${viewButton}" /></td> --%>
+<!-- 				</tr> -->
 				
-			</table>
-		</form:form>
+<!-- 			</table> -->
+<%-- 		</form:form> --%>
 		
-		<h2><spring:message code="subject.dataTitleLikeName"/></h2>
-		<form:form method="POST" commandName="asignaturaForm" action="getLikeName">
-			<table>			
+<%-- 		<h2><spring:message code="subject.dataTitleLikeCod"/></h2> --%>
+<%-- 		<form:form method="POST" commandName="asignaturaForm" action="getLikeCod"> --%>
+<!-- 			<table>			 -->
 				
-				<tr>
-					<td><spring:message code="subject.name"/></td>
-					<td><form:input path="nombre" /></td>
-					<td class="error"><form:errors path="nombre" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.cod"/></td> --%>
+<%-- 					<td><form:input path="codigo" /></td> --%>
+<%-- 					<td class="error"><form:errors path="codigo" /></td> --%>
+<!-- 				</tr> -->
 				
-				<tr>
-					<spring:message code="subject.viewButton" var="viewButton"/>
-					<td colspan="3"><input type="submit" value="${viewButton}" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<spring:message code="subject.viewButton" var="viewButton"/> --%>
+<%-- 					<td colspan="3"><input type="submit" value="${viewButton}" /></td> --%>
+<!-- 				</tr> -->
 				
-			</table>
-		</form:form>
+<!-- 			</table> -->
+<%-- 		</form:form> --%>
 		
-		<h2><spring:message code="subject.dataTitleAllFields"/></h2>
-		<form:form method="POST" commandName="asignaturaForm" action="getLikeFields">
-			<table>			
+<%-- 		<h2><spring:message code="subject.dataTitleLikeName"/></h2> --%>
+<%-- 		<form:form method="POST" commandName="asignaturaForm" action="getLikeName"> --%>
+<!-- 			<table>			 -->
 				
-				<tr>
-					<td><spring:message code="subject.cod"/></td>
-					<td><form:input path="codigo" /></td>
-					<td class="error"><form:errors path="codigo" /></td>
-				</tr>			
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.name"/></td> --%>
+<%-- 					<td><form:input path="nombre" /></td> --%>
+<%-- 					<td class="error"><form:errors path="nombre" /></td> --%>
+<!-- 				</tr> -->
 				
-				<tr>
-					<td><spring:message code="subject.name"/></td>
-					<td><form:input path="nombre" /></td>
-					<td class="error"><form:errors path="nombre" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<spring:message code="subject.viewButton" var="viewButton"/> --%>
+<%-- 					<td colspan="3"><input type="submit" value="${viewButton}" /></td> --%>
+<!-- 				</tr> -->
 				
-				<tr>
-					<td><spring:message code="subject.year"/></td>
-					<td><form:input path="curso" /></td>
-					<td class="error"><form:errors path="curso" /></td>
-				</tr>
+<!-- 			</table> -->
+<%-- 		</form:form> --%>
+		
+<%-- 		<h2><spring:message code="subject.dataTitleAllFields"/></h2> --%>
+<%-- 		<form:form method="POST" commandName="asignaturaForm" action="getLikeFields"> --%>
+<!-- 			<table>			 -->
 				
-				<tr>
-					<td><spring:message code="subject.credits"/></td>
-					<td><form:input path="creditos" /></td>
-					<td class="error"><form:errors path="creditos" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.cod"/></td> --%>
+<%-- 					<td><form:input path="codigo" /></td> --%>
+<%-- 					<td class="error"><form:errors path="codigo" /></td> --%>
+<!-- 				</tr>			 -->
 				
-				<tr>
-					<spring:message code="subject.viewButton" var="viewButton"/>
-					<td colspan="3"><input type="submit" value="${viewButton}" /></td>
-				</tr>
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.name"/></td> --%>
+<%-- 					<td><form:input path="nombre" /></td> --%>
+<%-- 					<td class="error"><form:errors path="nombre" /></td> --%>
+<!-- 				</tr> -->
 				
-			</table>
-		</form:form>
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.year"/></td> --%>
+<%-- 					<td><form:input path="curso" /></td> --%>
+<%-- 					<td class="error"><form:errors path="curso" /></td> --%>
+<!-- 				</tr> -->
+				
+<!-- 				<tr> -->
+<%-- 					<td><spring:message code="subject.credits"/></td> --%>
+<%-- 					<td><form:input path="creditos" /></td> --%>
+<%-- 					<td class="error"><form:errors path="creditos" /></td> --%>
+<!-- 				</tr> -->
+				
+<!-- 				<tr> -->
+<%-- 					<spring:message code="subject.viewButton" var="viewButton"/> --%>
+<%-- 					<td colspan="3"><input type="submit" value="${viewButton}" /></td> --%>
+<!-- 				</tr> -->
+				
+<!-- 			</table> -->
+<%-- 		</form:form> --%>
 		
 		<h2><spring:message code="subject.listTitle"/></h2>
 		<form:form method="POST" commandName="asignaturas" action="getAll">

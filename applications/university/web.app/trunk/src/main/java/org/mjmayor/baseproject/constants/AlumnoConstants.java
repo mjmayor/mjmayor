@@ -12,6 +12,8 @@ public class AlumnoConstants {
 
 	public class Fields {
 		public static final String DNI = "dni";
+		public static final String NAME = "nombre";
+		public static final String SURNAME = "apellidos";
 	}
 
 	public static final String PATH = "/alumno";
@@ -20,9 +22,12 @@ public class AlumnoConstants {
 	public static final String DELETE = PATH + ApplicationConstants.DELETE;
 	public static final String GET = PATH + ApplicationConstants.GET;
 	public static final String GETALL = PATH + ApplicationConstants.GETALL;
-	public static final String INSERTOK = PATH + ApplicationConstants.INSERT_OK;
-	public static final String DELETEOK = PATH + ApplicationConstants.DELETE_OK;
+	public static final String INSERT_OK = PATH + ApplicationConstants.INSERT_OK;
+	public static final String INSERT_ERROR = PATH + ApplicationConstants.INSERT_ERROR;
+	public static final String DELETE_OK = PATH + ApplicationConstants.DELETE_OK;
+	public static final String DELETE_ERROR = PATH + ApplicationConstants.DELETE_ERROR;
 	public static final String DATA = PATH + ApplicationConstants.DATA;
+	public static final String DATA_ERROR = PATH + ApplicationConstants.DATA_ERROR;
 	public static final String LIST = PATH + ApplicationConstants.LIST;
 	public static final String ALUMNO_DATA = "alumnoForm";
 	public static final String ALUMNOS_LIST_DATA = "alumnos";

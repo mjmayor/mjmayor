@@ -9,6 +9,7 @@ import org.mjmayor.model.dto.ProfesorDTO;
 import org.mjmayor.model.entity.Profesor;
 import org.mjmayor.persistence.config.ProfesorPersistenceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -18,11 +19,12 @@ import org.springframework.context.annotation.Import;
 public class ProfesorBeanConfig {
 
 	@Autowired
-	private Service<Profesor, ProfesorDTO> service;
+	@Qualifier(value = "profesorService")
+	private Service<Profesor, ProfesorDTO> profesorService;
 
-	@Bean
+	@Bean(name = "profesorFacade")
 	public ProfesorFacade profesorFacade() {
-		return new ProfesorFacadeImpl(service, profesorViewAssembler());
+		return new ProfesorFacadeImpl(profesorService, profesorViewAssembler());
 	}
 
 	@Bean

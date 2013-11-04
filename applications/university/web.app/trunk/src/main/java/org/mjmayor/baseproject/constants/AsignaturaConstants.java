@@ -11,20 +11,21 @@ import org.mjmayor.baseproject.constants.application.ApplicationConstants;
 public class AsignaturaConstants {
 
 	public class Fields {
-		public static final String CODIGO = "codigo";
-		public static final String NOMBRE = "nombre";
-		public static final String CURSO = "curso";
-		public static final String CREDITOS = "creditos";
+		public static final String CODE = "codigo";
 	}
 
 	public static final String PATH = "/asignatura";
 	public static final String FORM = PATH + ApplicationConstants.FORM;
 	public static final String INSERT = PATH + ApplicationConstants.INSERT;
 	public static final String DELETE = PATH + ApplicationConstants.DELETE;
+	public static final String GET = PATH + ApplicationConstants.GET;
 	public static final String GETALL = PATH + ApplicationConstants.GETALL;
-	public static final String INSERTOK = PATH + ApplicationConstants.INSERT_OK;
-	public static final String DELETEOK = PATH + ApplicationConstants.DELETE_OK;
+	public static final String INSERT_OK = PATH + ApplicationConstants.INSERT_OK;
+	public static final String INSERT_ERROR = PATH + ApplicationConstants.INSERT_ERROR;
+	public static final String DELETE_OK = PATH + ApplicationConstants.DELETE_OK;
+	public static final String DELETE_ERROR = PATH + ApplicationConstants.DELETE_ERROR;
 	public static final String DATA = PATH + ApplicationConstants.DATA;
+	public static final String DATA_ERROR = PATH + ApplicationConstants.DATA_ERROR;
 	public static final String LIST = PATH + ApplicationConstants.LIST;
 	public static final String ASIGNATURA_DATA = "asignaturaForm";
 	public static final String ASIGNATURAS_LIST_DATA = "asignaturas";
