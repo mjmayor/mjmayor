@@ -3,27 +3,27 @@ use mjmayor;
 
 create table alumno(
 	id int primary key,
-	dni varchar(9) unique,
-	nombre varchar(20),
-	apellidos varchar(30),
-	fechaNacimiento date,
+	dni varchar(9) unique not null,
+	nombre varchar(20) not null,
+	apellidos varchar(30) not null,
+	fechaNacimiento date not null,
 	email varchar(30)
 );
 
 create table profesor(
 	id int primary key,
-	dni varchar(9) unique,
-	nombre varchar(20),
-	apellidos varchar(30)
+	dni varchar(9) unique not null,
+	nombre varchar(20) not null,
+	apellidos varchar(30) not null
 );
 
 
 create table asignatura(
 	id int primary key,
-	codigo varchar(10) unique,
-	nombre varchar(30),
-	curso int,
-	creditos double(2,1)
+	codigo varchar(10) unique not null,
+	nombre varchar(30) not null,
+	curso int not null,
+	creditos double(2,1) not null
 );
 
 
