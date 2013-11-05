@@ -4,6 +4,19 @@
 	<artifactId>generic-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		
+		<repository>
+			<id>mjmayor</id>
+			<url>http://mjmayor.googlecode.com/svn/</url>
+		</repository>
+		
+	</repositories>
   
   	<dependencies>
   
