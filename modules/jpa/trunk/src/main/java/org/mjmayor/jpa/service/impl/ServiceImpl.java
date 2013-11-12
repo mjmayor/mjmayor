@@ -10,10 +10,10 @@ import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
-import org.mjmayor.jpa.dao.impl.RepositoryImpl;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.repository.Repository;
+import org.mjmayor.jpa.repository.impl.RepositoryImpl;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
