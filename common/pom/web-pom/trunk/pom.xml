@@ -5,7 +5,7 @@
 	
 	<parent>
 		<groupId>org.mjmayor.common</groupId>
-		<artifactId>generic-pom</artifactId>
+		<artifactId>javaconfig-pom</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
@@ -18,13 +18,6 @@
 	</properties>
 	
 	<dependencies>
-	
-		<!-- Dependencias de JavaConfig -->
-		<dependency>
-			<groupId>org.mjmayor.common</groupId>
-			<artifactId>javaconfig-pom</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	
 		<!-- Dependencias de Spring 3 -->
 		<dependency>
