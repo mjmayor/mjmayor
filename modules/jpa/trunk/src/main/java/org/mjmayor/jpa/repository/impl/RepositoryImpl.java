@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
+import org.mjmayor.jpa.constants.RepositoryConstants;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
 import org.mjmayor.jpa.repository.Repository;
 import org.mjmayor.jpa.support.Criteria;
@@ -127,8 +128,29 @@ public class RepositoryImpl<ENTITY extends Serializable> implements Repository<E
 	 * {@inheritDoc}
 	 */
 	@Override
+	public PageResult<ENTITY> get(String hql, Criteria criteria) throws JPAPersistenceException {
+		Query query = entityManager.createQuery(hql);
+		List<ENTITY> result = ListUtils.castList(query.getResultList(), persistentClass);
+		Long total = count(hql, null);
+		return new PageResult<ENTITY>(result, total, criteria);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria) {
 		Query query = entityManager.createQuery(criteriaQuery);
+		setCriteriaParams(query, criteria);
+		return (Long) query.getSingleResult();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Long count(String hql, Criteria criteria) {
+		Query query = entityManager.createQuery(String.format(RepositoryConstants.COUNT_QUERY, hql));
 		setCriteriaParams(query, criteria);
 		return (Long) query.getSingleResult();
 	}

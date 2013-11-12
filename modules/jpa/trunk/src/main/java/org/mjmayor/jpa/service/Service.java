@@ -34,5 +34,9 @@ public interface Service<ENTITY extends Serializable, DTO> {
 
 	PageResult<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException;
 
+	PageResult<DTO> get(String hql, Criteria criteria) throws JPAPersistenceException;
+
 	Long count(CriteriaQuery<Long> queryParams, Criteria criteria);
+
+	Long count(String hql, Criteria criteria);
 }

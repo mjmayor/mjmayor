@@ -27,5 +27,9 @@ public interface Repository<ENTITY extends Serializable> {
 
 	PageResult<ENTITY> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException;
 
+	PageResult<ENTITY> get(String hql, Criteria criteria) throws JPAPersistenceException;
+
 	Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria);
+
+	Long count(String hql, Criteria criteria);
 }

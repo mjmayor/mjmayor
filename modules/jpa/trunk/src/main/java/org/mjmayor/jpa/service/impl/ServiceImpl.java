@@ -156,9 +156,28 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional(readOnly = true)
+	public PageResult<DTO> get(String hql, Criteria criteria) throws JPAPersistenceException {
+		PageResult<ENTITY> entities = repository.get(hql, criteria);
+		return assembler.assemble(entities);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly = true)
 	public Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria) {
 		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
 		return repository.count(criteriaQuery, criteria);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Long count(String hql, Criteria criteria) {
+		return repository.count(hql, criteria);
 	}
 
 	private CriteriaQuery<ENTITY> createGetQuery(Field field) {
