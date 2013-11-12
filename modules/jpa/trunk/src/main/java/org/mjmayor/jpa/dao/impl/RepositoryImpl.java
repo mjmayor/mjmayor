@@ -12,8 +12,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
-import org.mjmayor.jpa.dao.DAO;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.mjmayor.jpa.repository.Repository;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.PageRequest;
 import org.mjmayor.jpa.support.PageResult;
@@ -22,9 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-public class DAOImpl<ENTITY extends Serializable> implements DAO<ENTITY> {
+public class RepositoryImpl<ENTITY extends Serializable> implements Repository<ENTITY> {
 
-	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(RepositoryImpl.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -44,7 +44,7 @@ public class DAOImpl<ENTITY extends Serializable> implements DAO<ENTITY> {
 	 */
 	private Class<ENTITY> persistentClass;
 
-	public DAOImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, Class<ENTITY> persistentClass) {
+	public RepositoryImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, Class<ENTITY> persistentClass) {
 		this.entityManager = entityManagerFactory.getObject().createEntityManager();
 		this.persistentClass = persistentClass;
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();

@@ -10,10 +10,10 @@ import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.mjmayor.jpa.assembler.BidirectionalAssembler;
-import org.mjmayor.jpa.dao.DAO;
-import org.mjmayor.jpa.dao.impl.DAOImpl;
+import org.mjmayor.jpa.dao.impl.RepositoryImpl;
 import org.mjmayor.jpa.exceptions.FieldNotFoundException;
 import org.mjmayor.jpa.exceptions.JPAPersistenceException;
+import org.mjmayor.jpa.repository.Repository;
 import org.mjmayor.jpa.service.Service;
 import org.mjmayor.jpa.support.Criteria;
 import org.mjmayor.jpa.support.Field;
@@ -25,12 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<ENTITY, DTO> {
 
-	private static final Logger logger = LoggerFactory.getLogger(DAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(RepositoryImpl.class);
 
 	/**
-	 * DAO que se encargara de las operaciones de persistencia
+	 * Repository que se encargara de las operaciones de persistencia
 	 */
-	private DAO<ENTITY> dao;
+	private Repository<ENTITY> repository;
 
 	/**
 	 * CriteriaBuilder para construir consultas JPA
@@ -45,8 +45,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
 	public ServiceImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
-		this.dao = new DAOImpl<ENTITY>(entityManagerFactory, persistentClass);
-		this.criteriaBuilder = dao.getCriteriaBuilder();
+		this.repository = new RepositoryImpl<ENTITY>(entityManagerFactory, persistentClass);
+		this.criteriaBuilder = repository.getCriteriaBuilder();
 		this.assembler = assembler;
 		this.persistentClass = persistentClass;
 	}
@@ -65,7 +65,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional
 	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
-		dao.add(entity);
+		repository.add(entity);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional
 	public void update(DTO dto) throws JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
-		dao.update(entity);
+		repository.update(entity);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		dao.delete(id);
+		repository.delete(id);
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional
 	public void delete(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
-		List<ENTITY> entities = dao.get(criteriaQuery, null).getItems();
-		dao.delete(entities);
+		List<ENTITY> entities = repository.get(criteriaQuery, null).getItems();
+		repository.delete(entities);
 	}
 
 	/**
@@ -105,8 +105,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional
 	public void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
-		List<ENTITY> entities = dao.get(criteriaQuery, null).getItems();
-		dao.delete(entities);
+		List<ENTITY> entities = repository.get(criteriaQuery, null).getItems();
+		repository.delete(entities);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Override
 	@Transactional(readOnly = true)
 	public DTO get(Long id) {
-		ENTITY entity = dao.get(id);
+		ENTITY entity = repository.get(id);
 		return assembler.assemble(entity);
 	}
 
@@ -125,7 +125,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Override
 	@Transactional(readOnly = true)
 	public PageResult<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) {
-		PageResult<ENTITY> entities = dao.get(criteriaQuery, criteria);
+		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
 		return assembler.assemble(entities);
 	}
 
@@ -136,7 +136,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional(readOnly = true)
 	public PageResult<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
-		PageResult<ENTITY> entities = dao.get(criteriaQuery, criteria);
+		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
 		return assembler.assemble(entities);
 	}
 
@@ -147,7 +147,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional(readOnly = true)
 	public PageResult<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
-		PageResult<ENTITY> entities = dao.get(criteriaQuery, criteria);
+		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
 		return assembler.assemble(entities);
 	}
 
@@ -158,7 +158,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	@Transactional(readOnly = true)
 	public Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria) {
 		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
-		return dao.count(criteriaQuery, criteria);
+		return repository.count(criteriaQuery, criteria);
 	}
 
 	private CriteriaQuery<ENTITY> createGetQuery(Field field) {
