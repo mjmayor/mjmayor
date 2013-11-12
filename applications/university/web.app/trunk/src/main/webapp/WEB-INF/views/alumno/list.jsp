@@ -16,12 +16,12 @@
 			<spring:message code="student.name"/>
 		</c:set>
 		
-		<c:set var="email">
-			<spring:message code="student.email"/>
-		</c:set>
-		
 		<c:set var="dateOfBirth">
 			<spring:message code="student.dateOfBirth"/>
+		</c:set>
+		
+		<c:set var="email">
+			<spring:message code="student.email"/>
 		</c:set>
 		
 		<jmesa:tableModel id="alumnos" items="${model.alumnos.items}" var="alumno">

@@ -17,6 +17,11 @@
 			</tr>
 			
 			<tr>
+				<td><spring:message code="student.dateOfBirth"/></td>
+				<td><c:out value="${model.alumnoForm.fechaNacimiento}"/></td>
+			</tr>
+			
+			<tr>
 				<td><spring:message code="student.email"/></td>
 				<td><c:out value="${model.alumnoForm.email}"/></td>
 			</tr>
