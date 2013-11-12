@@ -7,19 +7,6 @@
 	<name>JPA</name>
 	<packaging>jar</packaging>
 	<description>Modulo para la persistencia de datos de la aplicacion</description>
-
-	<repositories>
-		<repository>
-			<id>JBoss repository</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
-		
-		<repository>
-			<id>mjmayor</id>
-			<url>http://mjmayor.googlecode.com/svn/</url>
-		</repository>
-		
-	</repositories>
 	
 	<properties>
 		<java-version>1.7</java-version>
@@ -35,13 +22,6 @@
 		<dependency>
 			<groupId>org.mjmayor.baseproject</groupId>
 			<artifactId>model</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<!-- Dependencias de modulos -->
-		<dependency>
-			<groupId>org.mjmayor.modules</groupId>
-			<artifactId>jpa</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 

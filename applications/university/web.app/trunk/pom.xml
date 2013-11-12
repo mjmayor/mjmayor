@@ -8,18 +8,11 @@
 	<packaging>war</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 	
-	<repositories>
-		<repository>
-			<id>JBoss repository</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
-		
-		<repository>
-			<id>mjmayor</id>
-			<url>http://mjmayor.googlecode.com/svn/</url>
-		</repository>
-		
-	</repositories>
+	<parent>
+		<groupId>org.mjmayor.common</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<artifactId>web-pom</artifactId>
+	</parent>
 	
 	<properties>
 		<java-version>1.7</java-version>
@@ -30,48 +23,6 @@
 	</properties>
 	
 	<dependencies>
-	
-		<!-- Dependencias de Spring 3 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- Dependencias necesarias para Java Config -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		
-		<!-- Librerias de JSTL -->
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
 		
 		<!-- Dependencias de jMesa -->
 		<dependency>
