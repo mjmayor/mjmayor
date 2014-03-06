@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,13 +20,11 @@ import org.mjmayor.jpa.support.PageResult;
 import org.mjmayor.utils.list.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 public class RepositoryImpl<ENTITY extends Serializable> implements Repository<ENTITY> {
 
 	private static final Logger logger = LoggerFactory.getLogger(RepositoryImpl.class);
 
-	@PersistenceContext
 	private EntityManager entityManager;
 
 	private CriteriaBuilder criteriaBuilder;
@@ -45,8 +42,8 @@ public class RepositoryImpl<ENTITY extends Serializable> implements Repository<E
 	 */
 	private Class<ENTITY> persistentClass;
 
-	public RepositoryImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, Class<ENTITY> persistentClass) {
-		this.entityManager = entityManagerFactory.getObject().createEntityManager();
+	public RepositoryImpl(EntityManager entityManager, Class<ENTITY> persistentClass) {
+		this.entityManager = entityManager;
 		this.persistentClass = persistentClass;
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 	}

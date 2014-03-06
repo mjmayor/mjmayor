@@ -3,6 +3,7 @@ package org.mjmayor.jpa.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -20,7 +21,6 @@ import org.mjmayor.jpa.support.Field;
 import org.mjmayor.jpa.support.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<ENTITY, DTO> {
@@ -44,8 +44,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 
 	private BidirectionalAssembler<ENTITY, DTO> assembler;
 
-	public ServiceImpl(LocalContainerEntityManagerFactoryBean entityManagerFactory, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
-		this.repository = new RepositoryImpl<ENTITY>(entityManagerFactory, persistentClass);
+	public ServiceImpl(EntityManager entityManager, BidirectionalAssembler<ENTITY, DTO> assembler, Class<ENTITY> persistentClass) {
+		this.repository = new RepositoryImpl<ENTITY>(entityManager, persistentClass);
 		this.criteriaBuilder = repository.getCriteriaBuilder();
 		this.assembler = assembler;
 		this.persistentClass = persistentClass;
@@ -62,7 +62,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void add(DTO dto) throws ConstraintViolationException, JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
 		repository.add(entity);
@@ -72,7 +72,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void update(DTO dto) throws JPAPersistenceException {
 		ENTITY entity = assembler.reverseAssemble(dto);
 		repository.update(entity);
@@ -82,7 +82,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void delete(Long id) {
 		repository.delete(id);
 	}
@@ -91,7 +91,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void delete(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
 		List<ENTITY> entities = repository.get(criteriaQuery, null).getItems();
@@ -102,7 +102,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
 		List<ENTITY> entities = repository.get(criteriaQuery, null).getItems();
@@ -113,7 +113,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public DTO get(Long id) {
 		ENTITY entity = repository.get(id);
 		return assembler.assemble(entity);
@@ -123,7 +123,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public PageResult<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) {
 		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
 		return assembler.assemble(entities);
@@ -133,7 +133,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public PageResult<DTO> get(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetQuery(field);
 		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
@@ -144,7 +144,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public PageResult<DTO> getLike(Field field, Criteria criteria) throws FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
 		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
@@ -155,7 +155,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public PageResult<DTO> get(String hql, Criteria criteria) throws JPAPersistenceException {
 		PageResult<ENTITY> entities = repository.get(hql, criteria);
 		return assembler.assemble(entities);
@@ -165,7 +165,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public Long count(CriteriaQuery<Long> criteriaQuery, Criteria criteria) {
 		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(persistentClass)));
 		return repository.count(criteriaQuery, criteria);
@@ -175,7 +175,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public Long count(String hql, Criteria criteria) {
 		return repository.count(hql, criteria);
 	}

@@ -52,6 +52,12 @@
 				</tr>
 				
 				<tr>
+					<td><spring:message code="student.dateOfBirth"/></td>
+					<td><form:input path="fechaNacimiento" /></td>
+					<td class="error"><form:errors path="fechaNacimiento" /></td>
+				</tr>
+				
+				<tr>
 					<spring:message code="student.sendButton" var="sendButton"/>
 					<td colspan="3"><input type="submit" value="${sendButton}" /></td>
 				</tr>

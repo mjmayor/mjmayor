@@ -1,5 +1,8 @@
 package org.mjmayor.baseproject.form;
 
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -25,9 +28,8 @@ public class AlumnoForm {
 	@Email
 	private String email;
 
-	public AlumnoForm() {
-		dni = nombre = apellidos = email = "";
-	}
+	@NotNull
+	private Date fechaNacimiento;
 
 	/**
 	 * @return the id
@@ -102,5 +104,20 @@ public class AlumnoForm {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the fechaNacimiento
+	 */
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	/**
+	 * @param fechaNacimiento
+	 *            the fechaNacimiento to set
+	 */
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 }
