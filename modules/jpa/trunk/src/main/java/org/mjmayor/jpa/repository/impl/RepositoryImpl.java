@@ -95,7 +95,9 @@ public class RepositoryImpl<ENTITY extends Serializable> implements Repository<E
 	public void delete(List<ENTITY> entities) throws JPAPersistenceException {
 		logger.debug("DAOImpl - remove");
 		try {
-			entityManager.remove(entities);
+			for (ENTITY entity : entities) {
+				entityManager.remove(entity);
+			}
 		} catch (Exception e) {
 			throw new JPAPersistenceException(e);
 		}
