@@ -103,7 +103,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional(value = "transactionManager")
-	public void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
+	public void deleteLike(Field field) throws JPAPersistenceException, FieldNotFoundException {
 		CriteriaQuery<ENTITY> criteriaQuery = createGetLikeQuery(field);
 		List<ENTITY> entities = repository.get(criteriaQuery, null).getItems();
 		repository.delete(entities);

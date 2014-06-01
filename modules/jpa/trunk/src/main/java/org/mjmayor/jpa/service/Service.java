@@ -24,7 +24,7 @@ public interface Service<ENTITY extends Serializable, DTO> {
 
 	void delete(Field field) throws JPAPersistenceException, FieldNotFoundException;
 
-	void removeLike(Field field) throws JPAPersistenceException, FieldNotFoundException;
+	void deleteLike(Field field) throws JPAPersistenceException, FieldNotFoundException;
 
 	DTO get(Long id);
 
