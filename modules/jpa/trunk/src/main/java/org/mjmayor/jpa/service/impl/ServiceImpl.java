@@ -124,7 +124,7 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional(value = "transactionManager", readOnly = true)
-	public PageResult<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) {
+	public PageResult<DTO> get(CriteriaQuery<ENTITY> criteriaQuery, Criteria criteria) throws JPAPersistenceException {
 		PageResult<ENTITY> entities = repository.get(criteriaQuery, criteria);
 		return assembler.assemble(entities);
 	}
@@ -156,8 +156,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional(value = "transactionManager", readOnly = true)
-	public PageResult<DTO> get(String hql, Criteria criteria) throws JPAPersistenceException {
-		PageResult<ENTITY> entities = repository.get(hql, criteria);
+	public PageResult<DTO> get(String hqlQuery, Criteria criteria) throws JPAPersistenceException {
+		PageResult<ENTITY> entities = repository.get(hqlQuery, criteria);
 		return assembler.assemble(entities);
 	}
 
@@ -176,8 +176,8 @@ public class ServiceImpl<ENTITY extends Serializable, DTO> implements Service<EN
 	 */
 	@Override
 	@Transactional(value = "transactionManager", readOnly = true)
-	public Long count(String hql, Criteria criteria) {
-		return repository.count(hql, criteria);
+	public Long count(String hqlQuery, Criteria criteria) {
+		return repository.count(hqlQuery, criteria);
 	}
 
 	private CriteriaQuery<ENTITY> createGetQuery(Field field) {
